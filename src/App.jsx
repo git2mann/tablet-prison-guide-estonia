@@ -51,9 +51,9 @@ const App = () => {
   // iOS-style Launch Physics
   const morphTransition = {
     type: "spring",
-    stiffness: 280,
-    damping: 32,
-    mass: 1,
+    stiffness: 260,
+    damping: 30,
+    mass: 0.8,
     restDelta: 0.001
   };
 
@@ -80,11 +80,11 @@ const App = () => {
           {/* DASHBOARD VIEW */}
           <motion.div 
             animate={{ 
-              filter: (selectedCategory || showAdmin) ? 'blur(20px) brightness(0.4)' : 'blur(0px) brightness(1)',
-              scale: (selectedCategory || showAdmin) ? 0.94 : 1,
-              opacity: (selectedCategory || showAdmin) ? 0.2 : 1,
+              filter: (selectedCategory || showAdmin) ? 'blur(10px) brightness(0.7)' : 'blur(0px) brightness(1)',
+              scale: (selectedCategory || showAdmin) ? 0.98 : 1,
+              opacity: (selectedCategory || showAdmin) ? 0.6 : 1,
             }}
-            transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+            transition={morphTransition}
             className="p-4 md:p-6 space-y-8"
           >
             <div className="text-center py-6">
@@ -110,10 +110,20 @@ const App = () => {
                       {cat.icon}
                     </motion.div>
                     <div className="flex flex-col min-w-0">
-                      <motion.h3 layoutId={`title-${cat.id}`} transition={morphTransition} className="text-2xl font-black leading-tight truncate text-[#003B71] origin-left">
+                      <motion.h3 
+                        layoutId={`title-${cat.id}`} 
+                        transition={morphTransition} 
+                        style={{ originX: 0 }}
+                        className="text-2xl font-black leading-tight truncate text-[#003B71]"
+                      >
                         {cat.title[language]}
                       </motion.h3>
-                      <motion.p layoutId={`desc-${cat.id}`} transition={morphTransition} className="text-sm font-bold opacity-50 uppercase tracking-widest truncate origin-left">
+                      <motion.p 
+                        layoutId={`desc-${cat.id}`} 
+                        transition={morphTransition} 
+                        style={{ originX: 0 }}
+                        className="text-sm font-bold opacity-50 uppercase tracking-widest truncate"
+                      >
                         {cat.desc[language]}
                       </motion.p>
                     </div>
@@ -134,14 +144,23 @@ const App = () => {
                 key="category-overlay"
                 layoutId={`card-${selectedCategory.id}`}
                 transition={morphTransition}
-                initial={{ borderRadius: 48 }}
-                animate={{ borderRadius: 0 }}
-                exit={{ borderRadius: 48 }}
+                initial={{ borderRadius: 48, opacity: 1 }}
+                animate={{ borderRadius: 0, opacity: 1 }}
+                exit={{ borderRadius: 48, opacity: 1 }}
                 className={`fixed inset-0 z-[200] flex flex-col items-center overflow-hidden ${selectedCategory.color}`}
                 style={{ backgroundColor: selectedCategory.color.includes('bg-white') ? '#f8fafc' : undefined }}
               >
                 {/* BLUE TOP ACCENT */}
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ delay: 0.2 }} className="absolute top-0 left-0 right-0 h-4 bg-[#003B71] z-20" />
+                <motion.div 
+                  initial={{ opacity: 0 }} 
+                  animate={{ opacity: 1 }} 
+                  exit={{ opacity: 0 }} 
+                  transition={{ 
+                    animate: { delay: 0.2 },
+                    exit: { duration: 0.05 } 
+                  }} 
+                  className="absolute top-0 left-0 right-0 h-4 bg-[#003B71] z-20" 
+                />
 
                 <div className="relative z-10 w-full max-w-5xl h-full p-6 md:p-12 flex flex-col pt-12">
                   <div className="flex justify-between items-center mb-8 shrink-0">
@@ -160,10 +179,20 @@ const App = () => {
                   </div>
                   
                   <div className="space-y-4 mb-12 shrink-0">
-                    <motion.h2 layoutId={`title-${selectedCategory.id}`} transition={morphTransition} className="text-6xl font-black text-[#003B71] tracking-tighter uppercase italic leading-none origin-left">
+                    <motion.h2 
+                      layoutId={`title-${selectedCategory.id}`} 
+                      transition={morphTransition} 
+                      style={{ originX: 0 }}
+                      className="text-6xl font-black text-[#003B71] tracking-tighter uppercase italic leading-none"
+                    >
                       {selectedCategory.title[language]}
                     </motion.h2>
-                    <motion.p layoutId={`desc-${selectedCategory.id}`} transition={morphTransition} className="text-xl font-bold opacity-40 uppercase tracking-[0.2em] origin-left">
+                    <motion.p 
+                      layoutId={`desc-${selectedCategory.id}`} 
+                      transition={morphTransition} 
+                      style={{ originX: 0 }}
+                      className="text-xl font-bold opacity-40 uppercase tracking-[0.2em]"
+                    >
                       {selectedCategory.desc[language]}
                     </motion.p>
                   </div>
@@ -172,8 +201,11 @@ const App = () => {
                   <motion.div 
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, transition: { duration: 0 } }}
-                    transition={{ delay: 0.35, duration: 0.5 }}
+                    exit={{ opacity: 0, y: 0 }}
+                    transition={{ 
+                      animate: { delay: 0.35, duration: 0.5 },
+                      exit: { duration: 0.1 }
+                    }}
                     className="space-y-6 flex-grow overflow-y-auto pr-4 custom-scrollbar pb-32"
                   >
                     {selectedCategory.articles.map((art) => (
