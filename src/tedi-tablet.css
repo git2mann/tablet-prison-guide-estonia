@@ -1,0 +1,65 @@
+
+
+@media (min-width: 600px) and (max-width: 1024px) {
+  html, body {
+    font-size: 18px !important;
+  }
+  button, [role="button"], .tedi-large-btn {
+    min-height: 56px !important;
+    min-width: 56px !important;
+    font-size: 1.15em !important;
+    border-radius: 14px !important;
+    padding: 0 28px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.02em;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+  }
+  input, select, textarea {
+    min-height: 48px !important;
+    font-size: 1.1em !important;
+    border-radius: 12px !important;
+  }
+  .tedi-card, .tedi-section {
+    border-radius: 18px !important;
+    padding: 32px 24px !important;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  }
+  .tedi-table th, .tedi-table td {
+    padding: 18px 22px !important;
+    font-size: 1.05em !important;
+  }
+  .tedi-header {
+    font-size: 2.2em !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.5px;
+  }
+}
+
+.tedi-header, h1, h2, h3 {
+  font-family: 'Nunito', -apple-system, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+.tedi-accent {
+  color: #FFD000 !important;
+}
+.tedi-dim {
+  color: #6b6b78 !important;
+}
+.tedi-icon {
+  font-size: 1.5em !important;
+  vertical-align: middle;
+}
+
+.tedi-touch {
+  min-height: 48px;
+  min-width: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tedi-card, .tedi-section {
+  margin-bottom: 32px !important;
+}
