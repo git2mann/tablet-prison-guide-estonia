@@ -8,4 +8,9 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  server: {
+    // This allows any host (like your Pinggy link) to access the dev server
+    allowedHosts: true,
+    host: true // Bind to all network interfaces for external access
+  }
 })
