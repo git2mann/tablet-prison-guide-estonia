@@ -4,11 +4,12 @@ import Warning from "../../components/ui/Warning";
 import Table from "../../components/ui/Table";
 import Tip from "../../components/ui/Tip";
 import { useCategories } from "../../constants/categories";
+import { slideUp } from "../../constants/animations";
+import { motion } from "framer-motion";
 
 export default function ArticleFallback({ articleId, language = 'ET' }) {
   const categories = useCategories();
   
-  // Find category and article metadata
   let selectedCategory = null;
   let selectedArticle = null;
 
@@ -21,49 +22,50 @@ export default function ArticleFallback({ articleId, language = 'ET' }) {
     }
   }
 
-  if (!selectedArticle) return <div className="p-20 text-center font-black opacity-20">ARTICLE DATA NOT FOUND</div>;
+  if (!selectedArticle) return <div className="p-20 text-center font-black opacity-20 uppercase tracking-widest">Article Data Not Found</div>;
 
   return (
-    <Section 
-      title={selectedArticle.title[language]} 
-      sub={selectedCategory.title[language]}
-    >
-      <div className="prose prose-2xl prose-blue max-w-none font-bold whitespace-pre-wrap text-slate-700 leading-relaxed mb-12">
-        {/* Note: In the final structure, content is usually in the component itself.
-            This fallback is only for metadata-only articles if any remain. */}
-        {selectedArticle.content ? selectedArticle.content[language] : "Content will be added soon."}
-      </div>
-
-      {selectedArticle.table && (
-        <Table 
-          headers={selectedArticle.table.headers[language]}
-          rows={selectedArticle.table.rows[language]}
-        />
-      )}
-
-      {selectedArticle.warnings && (selectedArticle.warnings[language]).map((w, i) => (
-        <Warning key={i}>{w}</Warning>
-      ))}
-
-      {selectedArticle.steps && (
-        <div className="bg-slate-900 rounded-[60px] p-16 text-white space-y-12 my-12">
-          <div className="flex items-center gap-8 text-blue-400">
-            <h3 className="text-4xl font-black uppercase tracking-tight italic">PROCEDURE</h3>
-          </div>
-          <ul className="grid gap-8">
-            {(selectedArticle.steps[language]).map((step, idx) => (
-              <li key={idx} className="flex items-start gap-8 bg-white/5 p-8 rounded-[40px] border border-white/10"> 
-                <span className="flex items-center justify-center w-16 h-16 rounded-[24px] bg-blue-600 text-white text-3xl font-black shrink-0">{idx + 1}</span> 
-                <p className="text-2xl font-bold text-slate-200 leading-relaxed">{step}</p> 
-              </li>
-            ))}
-          </ul>
+    <motion.div {...slideUp}>
+      <Section 
+        title={selectedArticle.title[language]} 
+        sub={selectedCategory.title[language]}
+      >
+        <div className="prose prose-2xl prose-slate max-w-none font-bold whitespace-pre-wrap text-slate-600 leading-relaxed mb-12">
+          {selectedArticle.content ? selectedArticle.content[language] : ""}
         </div>
-      )}
 
-      {selectedArticle.tips && (selectedArticle.tips[language]).map((t, i) => (
-        <Tip key={i}>{t}</Tip>
-      ))}
-    </Section>
+        {selectedArticle.table && (
+          <Table 
+            headers={selectedArticle.table.headers[language]}
+            rows={selectedArticle.table.rows[language]}
+          />
+        )}
+
+        {selectedArticle.warnings && (selectedArticle.warnings[language]).map((w, i) => (
+          <Warning key={i}>{w}</Warning>
+        ))}
+
+        {selectedArticle.steps && (
+          <div className="bg-slate-50 rounded-[32px] p-10 border-2 border-slate-100 space-y-10 my-12">
+            <div className="flex items-center gap-4 text-[#003B71]">
+              <div className="w-1.5 h-8 bg-[#FFD000] rounded-full" />
+              <h3 className="text-2xl font-black uppercase tracking-tight italic">PROTSEDUUR</h3>
+            </div>
+            <ul className="space-y-6">
+              {(selectedArticle.steps[language]).map((step, idx) => (
+                <li key={idx} className="flex items-start gap-6 bg-white p-6 rounded-[24px] border border-slate-100 shadow-sm"> 
+                  <span className="flex items-center justify-center w-12 h-12 rounded-[16px] bg-[#FFD000] text-black text-xl font-black shrink-0 shadow-sm">{idx + 1}</span> 
+                  <p className="text-lg font-bold text-slate-600 leading-relaxed">{step}</p> 
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {selectedArticle.tips && (selectedArticle.tips[language]).map((t, i) => (
+          <Tip key={i}>{t}</Tip>
+        ))}
+      </Section>
+    </motion.div>
   );
 }

@@ -4,6 +4,8 @@
 @theme {
   --radius-50px: 50px;
   --color-primary: #003B71;
+  --color-tedi-yellow: #FFD000;
+  --color-tedi-blue: #003B71;
 }
 
 @layer utilities {
@@ -24,10 +26,10 @@
     background: transparent;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
+    background: #e2e8f0;
     border-radius: 10px;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #003B71;
+    background: #FFD000;
   }
 }

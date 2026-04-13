@@ -1,16 +1,29 @@
-import { useState } from "react";
-import { useT } from "../../context/ThemeContext";
+import React, { useState } from 'react';
+import { ChevronRight } from 'lucide-react';
 
-export default function Acc({ title, children, open: d = false }) {
-  const [o, setO] = useState(d);
-  const t = useT();
+export default function Accordion({ title, children, open = false }) {
+  const [isOpen, setIsOpen] = useState(open);
+
   return (
-    <div style={{ background:t.card, border:`1px solid ${o ? t.accentBorder : t.border}`, borderRadius:12, marginBottom:8, overflow:"hidden", transition:"border-color 0.2s" }}>
-      <button onClick={() => setO(!o)} style={{ width:"100%", display:"flex", alignItems:"center", gap:12, padding:"18px 20px", background:"none", border:"none", cursor:"pointer", fontSize:16, fontWeight:600, color:t.text, textAlign:"left", fontFamily:"inherit" }}>
-        <span style={{ flex:1 }}>{title}</span>
-        <span style={{ transform: o ? "rotate(180deg)" : "", transition:"0.2s", color:t.dim, fontSize:14 }}>▾</span>
+    <div className={`bg-white rounded-[24px] overflow-hidden border-2 transition-all duration-300 mb-4 ${isOpen ? 'border-[#FFD000] shadow-md' : 'border-[#e9ecef] shadow-sm'}`}>
+      <button 
+        onClick={() => setIsOpen(!isOpen)} 
+        className="w-full p-6 flex items-center justify-between text-left active:scale-[0.99] transition-all"
+      >
+        <span className={`text-xl font-bold transition-colors duration-300 ${isOpen ? 'text-[#003B71]' : 'text-slate-700'}`}>
+          {title}
+        </span>
+        <div className={`p-2 rounded-full transition-all duration-300 ${isOpen ? 'bg-[#FFD000] text-black rotate-90' : 'bg-slate-50 text-slate-400'}`}>
+          <ChevronRight size={24} />
+        </div>
       </button>
-      {o && <div style={{ padding:"0 20px 20px", lineHeight:1.75, color:t.dim, fontSize:15 }}>{children}</div>}
+      {isOpen && (
+        <div className="px-6 pb-6 pt-0 border-t border-slate-50">
+          <div className="prose prose-xl prose-slate max-w-none text-slate-600 leading-relaxed pt-4">
+            {children}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

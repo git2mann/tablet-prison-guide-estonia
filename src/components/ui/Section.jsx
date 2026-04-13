@@ -1,35 +1,24 @@
-import { useT } from "../../context/ThemeContext";
+import React from 'react';
 
-export default function Sec({ title, sub, children }) {
-  const t = useT();
-  const isTablet = window.innerWidth < 1024;
-  
+export default function Section({ title, sub, children, style = {}, className = "" }) {
   return (
-    <div style={{ marginBottom: isTablet ? 56 : 48 }}>
-      <h2 style={{ 
-        fontSize: isTablet ? 36 : 28, 
-        fontWeight:800, 
-        color:t.text, 
-        marginBottom:8, 
-        letterSpacing:-0.8,
-        display: "flex",
-        alignItems: "center",
-        gap: 12
-      }}>
-        <span style={{ width: 6, height: 32, background: t.accent, borderRadius: 4 }} />
-        {title}
-      </h2>
-      {sub && (
-        <p style={{ 
-          fontSize: isTablet ? 17 : 16, 
-          color:t.dim, 
-          marginBottom:24, 
-          lineHeight:1.6,
-          maxWidth: 700 
-        }}>{sub}</p>
-      )}
-      {!sub && <div style={{ height: 16 }} />}
-      {children}
+    <div className={`space-y-10 mb-16 ${className}`} style={style}>
+      <div className="space-y-3">
+        <div className="flex items-center gap-4">
+          <div className="w-2 h-12 bg-[#FFD000] rounded-full" />
+          <h2 className="text-4xl md:text-5xl font-black text-[#003B71] tracking-tight leading-tight uppercase italic">
+            {title}
+          </h2>
+        </div>
+        {sub && (
+          <p className="text-lg font-bold opacity-50 uppercase tracking-[0.15em] ml-6">
+            {sub}
+          </p>
+        )}
+      </div>
+      <div className="space-y-6">
+        {children}
+      </div>
     </div>
   );
 }
