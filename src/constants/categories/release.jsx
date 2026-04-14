@@ -9,8 +9,8 @@ export default {
   imageUrl: 'https://images.unsplash.com/photo-1506784365847-bbad939e9335?auto=format&fit=crop&w=800&q=80',
   color: 'bg-emerald-50 border-emerald-100 text-emerald-900',
   articles: [
-    { id: 'rel.open', title: { ET: 'Avavangla', EN: 'Open Prison' } },
-    { id: 'rel.etev', title: { ET: 'Elektrooniline valve', EN: 'Electronic Monitoring' } },
-    { id: 'rel.tev', title: { ET: 'Kriminaalhooldus', EN: 'Probation (TEV)' } }
+    { id: 'release.open', title: { ET: 'Avavangla', EN: 'Open Prison' } },
+    { id: 'release.etev', title: { ET: 'Elektrooniline valve', EN: 'Electronic Monitoring' } },
+    { id: 'release.tev', title: { ET: 'Kriminaalhooldus', EN: 'Probation (TEV)' } }
   ]
 };
