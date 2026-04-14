@@ -154,25 +154,29 @@ export default function RelOpen({ language = 'ET' }) {
   const copy = content[language] || content.ET;
 
   return (
-    <Section title={copy.title} sub={copy.sub}>
+    <Section title={copy.title}  sub={
+    <p style={{ fontSize: "1.5rem", lineHeight: 1.6, color: "#555" }}>
+      {copy.sub}
+    </p>
+  } >
       <Tip>
         {copy.introLead} (<Keyword word="ETEV" /> {copy.andWord} <Keyword word="TEV" />) {copy.introRest}
       </Tip>
 
       <Accordion title={copy.conditionsTitle} open>
-        <ul style={{ marginTop: 8, paddingLeft: 50 }}>
+        <ul style={{ marginTop: 8, paddingLeft: 50,listStyleType: "disc",fontSize: "1.9rem" }}>
           {copy.conditions.map((item) => <li key={item}>{item}</li>)}
         </ul>
 
         <Tip>{copy.conditionsTip}</Tip>
 
         <p>{copy.considerationTitle}</p>
-        <ul style={{ marginTop: 8, listStyleType: "none", paddingLeft: 20 }}>
+        <ul style={{ marginTop: 8, listStyleType: "none", paddingLeft: 20, fontSize: "1.9rem" }}>
           {copy.considerations.map((item) => (
             <li key={item}>➤ {item}</li>
           ))}
         </ul>
-        <p style={{ marginTop:8 }}>{copy.processNote}</p>
+        <p style={{ marginTop:8, fontSize: "1.9rem"}}>{copy.processNote}</p>
       </Accordion>
 
       <Accordion title={copy.lifeTitle}>
@@ -182,34 +186,34 @@ export default function RelOpen({ language = 'ET' }) {
       </Accordion>
 
       <Accordion title={copy.workTitle}>
-        {copy.workParas.map((text) => <p key={text}>{text}</p>)}
+        {copy.workParas.map((text) => <p style={{ fontSize: "1.9rem" }}key={text}>{text}</p>)}
         <Tip>{copy.workTip}</Tip>
-        {copy.studyParas.map((text) => <p key={text}>{text}</p>)}
+        {copy.studyParas.map((text) => <p style={{ fontSize: "1.9rem" }} key={text}>{text}</p>)}
       </Accordion>
-
+          
       <Accordion title={copy.familyTitle}>
-        <p><strong>{copy.familyLead}</strong></p>
-        <p>
+        <p style={{ fontSize: "1.9rem" }}><strong>{copy.familyLead}</strong></p>
+        <p style={{ fontSize: "1.9rem" }}>
           {copy.familyTextStart}
           <Keyword word="short-term outings">{copy.familyKeywordLabel}</Keyword>
           {copy.familyTextEnd}
         </p>
-        <ul>
+        <ul style={{ marginTop: 8,fontSize: "1.9rem", paddingLeft: 50, listStyleType: "disc" }}>
           {copy.familyList.map((item) => <li key={item}>{item}</li>)}
         </ul>
         <Tip>{copy.familyTip}</Tip>
       </Accordion>
 
       <Accordion title={copy.otherTitle}>
-        <p>{copy.otherLead}</p>
-        <ul style={{ marginTop: 8, paddingLeft: 50 }}>
+        <p style={{ fontSize: "1.9rem" }}>{copy.otherLead}</p>
+        <ul style={{ marginTop: 8, paddingLeft: 50, fontSize: "1.9rem",listStyleType: "disc" }}>
           {copy.other.map((item) => <li key={item}>{item}</li>)}
         </ul>
       </Accordion>
 
       <Warning>
-        <strong>{copy.warningTitle}</strong>
-        <ul style={{ marginTop: 8, paddingLeft: 24 }}>
+        <strong style={{fontSize: "1.9rem"}}>{copy.warningTitle}</strong>
+        <ul style={{ marginTop: 8, paddingLeft: 24, fontSize: "1.9rem" }}>
           {copy.warning.map((item) => <li key={item}>{item}</li>)}
         </ul>
       </Warning>

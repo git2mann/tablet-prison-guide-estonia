@@ -9,8 +9,9 @@ export default function Warning({ children }) {
       </div>
       <div>
         <h4 className="text-sm font-black text-[#fa5252] uppercase tracking-widest mb-1 italic">HOIATUS</h4>
-        <p className="text-xl font-bold text-slate-700 leading-relaxed">{children}</p>
+        <p className="text-[1.9rem] font-bold text-slate-700 leading-relaxed">{children}</p>
       </div>
     </div>
   );
 }
+
