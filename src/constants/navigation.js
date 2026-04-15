@@ -33,6 +33,7 @@ const NAV = [
     {id:"health.chaplain",label:"Chaplain"},
   ]},
   { id:"activities", icon:"△", label:"Activities", sub:[
+    {id:"activities.reintegration",label:"Reintegration"},
     {id:"activities.risk",label:"Risk Assessment & ITK"},
     {id:"activities.programs",label:"Social Programs"},
     {id:"activities.learn",label:"Education"},

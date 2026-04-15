@@ -9,6 +9,7 @@ export default {
   imageUrl: 'https://images.unsplash.com/photo-1454165833767-02302306d649?auto=format&fit=crop&w=800&q=80',
   color: 'bg-purple-50 border-purple-100 text-purple-900',
   articles: [
+    { id:'activities.reintegration', title: { ET: 'Taasühiskonnastamine', EN: 'Reintegration' } },
     { id: 'activities.risk', title: { ET: 'Riskihindamine ja ITK', EN: 'Risk Assessment & ITK' } },
     { id: 'activities.programs', title: { ET: 'Sotsiaalprogrammid', EN: 'Social Programs' } },
     { id: 'activities.learn', title: { ET: 'Haridus', EN: 'Education' } },
