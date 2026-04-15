@@ -3,6 +3,8 @@ import Section from "../../components/ui/Section";
 import Warning from "../../components/ui/Warning";
 import Tip from "../../components/ui/Tip";
 import Keyword from "../../components/ui/keyword";
+import { staggerContainer, staggerItem } from "../../constants/animations";
+import { motion } from "framer-motion";
 
 export default function ArrivalHealth({ language = 'ET' }) {
   const content = {
@@ -23,23 +25,27 @@ export default function ArrivalHealth({ language = 'ET' }) {
   const title = { ET: 'Tervisekontroll', EN: 'Health Check' };
 
   return (
-    <Section title={title[language]} sub={language === 'ET' ? 'Saabumine' : 'Arrival'}>
-      <div className="prose prose-2xl prose-blue max-w-none font-bold whitespace-pre-wrap text-slate-700 leading-relaxed mb-12">
-        {content[language].split('kontaktisikut').map((part, i, arr) => (
-            <React.Fragment key={i}>
-                {part}
-                {i < arr.length - 1 && <Keyword word="contact person">{language === 'ET' ? 'kontaktisikut' : 'contact person'}</Keyword>}
-            </React.Fragment>
-        ))}
-      </div>
+    <motion.div initial="initial" animate="animate" variants={staggerContainer} className="w-full max-w-full overflow-x-hidden">
+      <motion.div variants={staggerItem}>
+        <Section title={title[language]} sub={language === 'ET' ? 'Saabumine' : 'Arrival'}>
+          <div className="prose prose-lg md:prose-2xl prose-slate max-w-full font-bold whitespace-pre-wrap text-slate-600 leading-relaxed mb-12">
+            {content[language].split('kontaktisikut').map((part, i, arr) => (
+                <React.Fragment key={i}>
+                    {part}
+                    {i < arr.length - 1 && <Keyword word="contact person">{language === 'ET' ? 'kontaktisikut' : 'contact person'}</Keyword>}
+                </React.Fragment>
+            ))}
+          </div>
 
-      {(warnings[language] || warnings.EN).map((w, i) => (
-        <Warning key={i}>{w}</Warning>
-      ))}
+          {(warnings[language] || warnings.EN).map((w, i) => (
+            <Warning key={i}>{w}</Warning>
+          ))}
 
-      {(tips[language] || tips.EN).map((t, i) => (
-        <Tip key={i}>{t}</Tip>
-      ))}
-    </Section>
+          {(tips[language] || tips.EN).map((t, i) => (
+            <Tip key={i}>{t}</Tip>
+          ))}
+        </Section>
+      </motion.div>
+    </motion.div>
   );
 }
