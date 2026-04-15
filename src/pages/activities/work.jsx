@@ -4,7 +4,7 @@ import Table from "../../components/ui/Table";
 import Warning from "../../components/ui/Warning";
 
 export default function ActWork({ language = 'ET' }) {
-  const content = {
+    const content = {
     ET: 'Töötamine on vanglas kohustuslik (erandiks pensionärid, haiged ja õppurid). Miinimumpalk on 0.74€/tund. Palk kantakse isikuarvele ja jagatakse standardse valemi järgi.\n\nOhutus: Vangla annab kõik tööriistad ja kaitsevahendid (kindad, prillid). Enne algust toimub ohutuskoolitus.',
     EN: 'Working is mandatory (except retirement age, medical, or students). Minimum salary: €0.74/hour. Pay is credited to personal account and split per standard formula.\n\nSafety: Prison provides tools and protective equipment. Safety training occurs before starting.'
   };

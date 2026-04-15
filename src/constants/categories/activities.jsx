@@ -10,7 +10,7 @@ export default {
   color: 'bg-purple-50 border-purple-100 text-purple-900',
   articles: [
     { id:'activities.reintegration', title: { ET: 'Taasühiskonnastamine', EN: 'Reintegration' } },
-    { id: 'activities.risk', title: { ET: 'Riskihindamine ja ITK', EN: 'Risk Assessment & ITK' } },
+    { id: 'activities.risk', title: { ET: 'Riskihindamine ', EN: 'Risk Assessment' } },
     { id: 'activities.programs', title: { ET: 'Sotsiaalprogrammid', EN: 'Social Programs' } },
     { id: 'activities.learn', title: { ET: 'Haridus', EN: 'Education' } },
     { id: 'activities.work', title: { ET: 'Töötamine', EN: 'Working' } }

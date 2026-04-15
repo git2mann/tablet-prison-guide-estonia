@@ -5,11 +5,11 @@ export default function Accordion({
   title, 
   children, 
   open = false,
-  color // 👈 NEW
+  color
 }) {
   const [isOpen, setIsOpen] = useState(open);
 
-  // Default colors (fallback)
+ 
   const borderColor = color || '#e9ecef';
   const activeBorderColor = color || '#FFD000';
 
