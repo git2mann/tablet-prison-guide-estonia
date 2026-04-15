@@ -11,6 +11,7 @@ export default {
   articles: [
     { id:'activities.reintegration', title: { ET: 'Taasühiskonnastamine', EN: 'Reintegration' } },
     { id: 'activities.risk', title: { ET: 'Riskihindamine ', EN: 'Risk Assessment' } },
+    {id: 'activities.itk', title: { ET: 'Individuaalne Täidesaatmiskava', EN: 'Individual Execution Plan' } },
     { id: 'activities.programs', title: { ET: 'Sotsiaalprogrammid', EN: 'Social Programs' } },
     { id: 'activities.learn', title: { ET: 'Haridus', EN: 'Education' } },
     { id: 'activities.work', title: { ET: 'Töötamine', EN: 'Working' } }
