@@ -23,32 +23,32 @@ export default function AdminPage({ onNav, language = 'ET' }) {
               <BrainCircuit size={64} />
             </div>
             <div>
-              <h2 className="text-5xl font-black tracking-tighter text-[#003B71] uppercase italic">Stabiilsuse Monitor</h2>
-              <p className="text-lg font-bold text-slate-400 uppercase tracking-widest mt-2">{uiStrings.subtitle[language]}</p>
+              <h2 className="text-2xl sm:text-3xl md:text-5xl font-black tracking-tighter text-[#003B71] uppercase italic">Stabiilsuse Monitor</h2>
+              <p className="text-sm sm:text-lg font-bold text-slate-400 uppercase tracking-widest mt-1 md:mt-2">{uiStrings.subtitle[language]}</p>
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="bg-slate-50 rounded-[32px] p-8 space-y-8 shadow-inner">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+              <div className="bg-slate-50 rounded-[32px] p-6 md:p-8 space-y-8 shadow-inner">
                 <div className="flex justify-between items-center">
                   <Clock size={24} className="text-slate-400"/>
                   <h3 className="font-black uppercase text-xs tracking-widest text-slate-400">Aktiivsus</h3>
                 </div>
                 <MiniAreaChart data={[12, 45, 67, 23, 89, 34]} color="#003B71" />
               </div>
-              <div className="bg-slate-50 rounded-[32px] p-8 flex flex-col items-center justify-center shadow-inner text-center">
+              <div className="bg-slate-50 rounded-[32px] p-6 md:p-8 flex flex-col items-center justify-center shadow-inner text-center">
                 <RadialGauge value={88} color="#FFD000"/>
                 <p className="mt-4 font-black uppercase text-xs text-slate-400 tracking-widest">Sümmeetria</p>
               </div>
-              <div className="bg-[#003B71] rounded-[32px] p-8 text-white flex flex-col items-center justify-center shadow-lg">
+              <div className="bg-[#003B71] rounded-[32px] p-6 md:p-8 text-white flex flex-col items-center justify-center shadow-lg">
                 <Flame size={48} className="animate-pulse text-[#FFD000]" />
-                <p className="mt-4 font-black text-5xl tracking-tighter">82%</p>
+                <p className="mt-4 font-black text-3xl md:text-5xl tracking-tighter">82%</p>
                 <p className="font-black uppercase text-[10px] opacity-50 tracking-[0.2em] mt-2">Sotsiaalne soojus</p>
               </div>
           </div>
         </div>
         <button 
           onClick={() => onNav('home')} 
-          className="w-full py-8 bg-[#003B71] text-white rounded-[32px] text-2xl font-black uppercase shadow-lg active:scale-[0.98] transition-all hover:bg-[#002b51] border-b-[8px] border-black/20"
+          className="w-full py-6 md:py-8 bg-[#003B71] text-white rounded-[24px] md:rounded-[32px] text-xl md:text-2xl font-black uppercase shadow-lg active:scale-[0.98] transition-all hover:bg-[#002b51] border-b-[8px] border-black/20"
         >
           SULGE MONITOR
         </button>

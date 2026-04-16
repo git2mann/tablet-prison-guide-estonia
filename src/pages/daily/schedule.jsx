@@ -3,6 +3,8 @@ import Section from "../../components/ui/Section";
 import Table from "../../components/ui/Table";
 import Warning from "../../components/ui/Warning";
 import Tip from "../../components/ui/Tip";
+import { staggerContainer, staggerItem } from "../../constants/animations";
+import { motion } from "framer-motion";
 
 export default function DailySchedule({ language = 'ET' }) {
   const content = {
@@ -64,37 +66,53 @@ export default function DailySchedule({ language = 'ET' }) {
   const title = { ET: 'Päevakava ja loendus', EN: 'Schedule & Count' };
 
   return (
-    <Section title={title[language]} sub={language === 'ET' ? 'Igapäevaelu' : 'Daily Life'}>
-      <div className="prose prose-2xl prose-blue max-w-none font-bold whitespace-pre-wrap text-slate-700 leading-relaxed mb-12">
-        {content[language]}
-      </div>
+    <motion.div initial="initial" animate="animate" variants={staggerContainer} className="w-full max-w-full overflow-x-hidden">
+      <motion.div variants={staggerItem}>
+        <Section title={title[language]} sub={language === 'ET' ? 'Igapäevaelu' : 'Daily Life'}>
+          <div className="prose prose-lg md:prose-2xl prose-slate max-w-full font-bold whitespace-pre-wrap text-slate-600 leading-relaxed mb-12">
+            {content[language]}
+          </div>
 
-      <Table 
-        headers={table.headers[language] || table.headers.EN}
-        rows={table.rows[language] || table.rows.EN}
-      />
+          <Table 
+            headers={table.headers[language] || table.headers.EN}
+            rows={table.rows[language] || table.rows.EN}
+          />
 
-      {(warnings[language] || warnings.EN).map((w, i) => (
-        <Warning key={i}>{w}</Warning>
-      ))}
-
-      <div className="bg-slate-900 rounded-[60px] p-16 text-white space-y-12 my-12">
-        <div className="flex items-center gap-8 text-blue-400">
-          <h3 className="text-4xl font-black uppercase tracking-tight italic">PROCEDURE</h3>
-        </div>
-        <ul className="grid gap-8">
-          {(steps[language] || steps.EN).map((step, idx) => (
-            <li key={idx} className="flex items-start gap-8 bg-white/5 p-8 rounded-[40px] border border-white/10"> 
-              <span className="flex items-center justify-center w-16 h-16 rounded-[24px] bg-blue-600 text-white text-3xl font-black shrink-0">{idx + 1}</span> 
-              <p className="text-2xl font-bold text-slate-200 leading-relaxed">{step}</p> 
-            </li>
+          {(warnings[language] || warnings.EN).map((w, i) => (
+            <Warning key={i}>{w}</Warning>
           ))}
-        </ul>
-      </div>
 
-      {(tips[language] || tips.EN).map((t, i) => (
-        <Tip key={i}>{t}</Tip>
-      ))}
-    </Section>
+          <div className="relative my-16">
+            <div className="flex items-center gap-4 mb-10">
+              <div className="w-1.5 h-10 bg-[#FFD000] rounded-full shrink-0" />
+              <h3 className="text-3xl md:text-4xl font-black text-[#003B71] uppercase tracking-tighter italic">PROTSEDUUR</h3>
+            </div>
+            
+            <div className="space-y-6 relative">
+              <div className="absolute left-6 md:left-8 top-0 bottom-0 w-1 bg-[#003B71]/5 rounded-full" />
+              {(steps[language] || steps.EN).map((step, idx) => (
+                <div key={idx} className="relative pl-16 md:pl-20 group">
+                  <div className="absolute left-4 md:left-6 top-6 w-5 h-5 md:w-6 md:h-6 rounded-full bg-white border-4 border-[#FFD000] z-10" />
+                  <div className="bg-white p-6 md:p-8 rounded-[32px] border-2 border-[#e9ecef] shadow-sm">
+                    <div className="flex items-start gap-6">
+                      <span className="text-4xl md:text-5xl font-black text-slate-100 italic leading-none select-none">
+                        {String(idx + 1).padStart(2, '0')}
+                      </span>
+                      <p className="text-lg md:text-2xl font-bold text-slate-600 leading-relaxed pt-1">
+                        {step}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {(tips[language] || tips.EN).map((t, i) => (
+            <Tip key={i}>{t}</Tip>
+          ))}
+        </Section>
+      </motion.div>
+    </motion.div>
   );
 }
