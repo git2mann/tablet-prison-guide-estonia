@@ -205,7 +205,7 @@ const App = () => {
         <motion.div className="absolute bottom-0 left-0 h-1 w-full bg-[#FFD000]" initial={{ scaleX: 0 }} animate={{ scaleX: (selectedArticleId || isTool) ? 1 : selectedCategoryId ? 0.6 : (isLanding ? 0 : 0.05) }} transition={{ duration: 0.8 }} style={{ originX: 0 }} />
       </header>
       
-      <main className="flex-grow w-full mx-auto relative min-h-[85vh] overflow-x-hidden">
+      <main className="page-content-typography flex-grow w-full mx-auto relative min-h-[85vh] overflow-x-hidden">
         {/* LANDING PAGE */}
         <AnimatePresence>
           {isLanding && (
