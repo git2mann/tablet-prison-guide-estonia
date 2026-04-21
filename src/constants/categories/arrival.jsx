@@ -3,11 +3,18 @@ import { Zap } from 'lucide-react';
 
 export default {
   id: 'arrival',
-  title: { ET: 'Saabumine', EN: 'Arrival' },
-  desc: { ET: 'Sissevõtt ja kord', EN: 'First steps' },
+  title: { ET: '1. Saabumine ja vastuvõtt', EN: '1. Arrival and Reception' },
+  desc: { 
+    ET: 'Ülevaade esimestest protseduuridest vanglasse saabumisel.',
+    EN: 'Overview of initial procedures upon arrival.'
+  },
+  introProse: {
+    ET: 'Tere! Oled saabunud vanglasse. On mõistetav, kui tunned end praegu ebakindlalt, segaduses või ärevana. Meie eesmärk on tagada Sinu turvalisus ning pakkuda saabumisel vajalikku tuge. Esimestel päevadel viiakse Sinuga läbi mõned toimingud ning jagatakse infot esmaste vajaduste kohta vanglas. Võimalik, et kõik ei toimu kohe – palume varuda kannatlikkust, erinevad tegevused võivad aega võtta.',
+    EN: 'Welcome! You have arrived at the prison. It is understandable if you feel uncertain, confused, or anxious right now. Our goal is to ensure your safety and provide necessary support upon arrival. In the first few days, some procedures will be carried out with you, and information about primary needs in prison will be shared. It is possible that everything will not happen immediately – we ask for your patience, as various activities may take time.'
+  },
   icon: <Zap className="w-10 h-10" />,
-  imageUrl: 'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=800&q=80',
-  color: 'bg-orange-50 border-orange-100 text-orange-900',
+  imageUrl: 'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=1200&q=80',
+  color: 'orange',
   articles: [
     { id: 'arrival.search', title: { ET: 'Otsing ja dokumendid', EN: 'Search & Documents' } },
     { id: 'arrival.health', title: { ET: 'Tervisekontroll', EN: 'Health Check' } },

@@ -11,8 +11,9 @@ export default function RelTEV({ language = "ET" }) {
       title: "Probation (TEV)",
       sub: "Many prisoners get the opportunity to be released from prison early and continue serving their sentence in freedom under probation supervision.",
 
-      intro:
-        "Serving a sentence on probation means that you do not have to serve your sentence in prison, but can be in freedom. You are subject to certain rules (control requirements) and obligations, you will be in regular contact, and a care plan or sentence plan will be developed for you in cooperation with your probation officer during the probation period.",
+      introStart: "Serving a sentence on probation means that you do not have to serve your sentence in prison, but can be in freedom. You are subject to certain rules (control requirements) and obligations, you will be in regular contact, and a care plan or sentence plan will be developed for you in cooperation with your ",
+      introEnd: " during the probation period.",
+      keywordLabel: "probation officer",
 
       eligibilityTitle: "When conditional early release is possible",
       tableHeaders: ["Sentence", "TEV Eligible After"],
@@ -49,11 +50,12 @@ export default function RelTEV({ language = "ET" }) {
     },
 
     ET: {
-      title: "Karistuse kandmine kriminaalhooldusel (TEV)",
+      title: "Kriminaalhooldus (TEV)",
       sub: "Paljudel kinnipeetavatel tekib võimalus vabaneda vanglast ennetähtaegselt ning jätkata karistuse kandmist vabaduses kriminaalhooldusel.",
 
-      intro:
-        "Kriminaalhooldusel karistuse kandmine tähendab, et Sa ei pea viibima vanglas, vaid saad olla vabaduses. Sulle kehtivad reeglid ja kohustused ning Sinuga suheldakse regulaarselt.",
+      introStart: "Kriminaalhooldusel karistuse kandmine tähendab, et Sa ei pea viibima vanglas, vaid saad olla vabaduses. Sulle kehtivad reeglid ja kohustused ning Sinuga suheldakse regulaarselt. Sinu peamine kontaktisik vabaduses on ",
+      introEnd: ".",
+      keywordLabel: "kriminaalhooldusametnik",
 
       eligibilityTitle: "Millal on tingimuslik ennetähtaegne vabastamine võimalik",
       tableHeaders: ["Karistus", "TEV võimalik pärast"],
@@ -93,27 +95,25 @@ export default function RelTEV({ language = "ET" }) {
   const copy = content[language] || content.EN;
 
   return (
-    <Section title={copy.title}  sub={
-    <p style={{ fontSize: "1.5rem", lineHeight: 1.6, color: "#555" }}>
-      {copy.sub}
-    </p>
-  }>
+    <Section title={copy.title} sub={language === 'ET' ? 'Vabanemine' : 'Release'}>
+      <p className="text-lg md:text-xl text-slate-600 leading-relaxed mb-8">
+        {copy.sub}
+      </p>
+
       <Tip>
-        {copy.intro.replace(
-          "probation officer",
-          ""
-        )}{" "}
-        <Keyword word="probation officer" />
+        {copy.introStart}
+        <Keyword word="probation officer" language={language}>{copy.keywordLabel}</Keyword>
+        {copy.introEnd}
       </Tip>
 
-      <p style={{ fontSize: "1.9rem", fontWeight: 600 }}>
+      <h3 className="text-xl md:text-2xl font-bold text-[#003B71] mt-12 mb-6">
         {copy.eligibilityTitle}
-      </p>
+      </h3>
 
       <Table headers={copy.tableHeaders} rows={copy.tableRows} />
 
       <Accordion title={copy.requirementsTitle} open>
-        <ul style={{ paddingLeft: 50, fontSize: "1.9rem", listStyleType: "disc" }}>
+        <ul className="list-disc pl-8 md:pl-12 space-y-4 text-lg md:text-xl text-slate-700">
           {copy.requirements.map((item) => (
             <li key={item}>{item}</li>
           ))}
@@ -121,19 +121,21 @@ export default function RelTEV({ language = "ET" }) {
       </Accordion>
 
       <Accordion title={copy.violationsTitle}>
-        <ul style={{ paddingLeft: 50, fontSize: "1.9rem", listStyleType: "disc" }}>
-          {copy.violationsSteps.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
+        <div className="space-y-6">
+          <ul className="list-disc pl-8 md:pl-12 space-y-4 text-lg md:text-xl text-slate-700">
+            {copy.violationsSteps.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
 
-        <p style={{ fontSize: "1.9rem" }}>{copy.violationsLead}</p>
+          <p className="text-lg md:text-xl font-bold text-slate-800">{copy.violationsLead}</p>
 
-        <ul style={{ paddingLeft: 50, fontSize: "1.9rem", listStyleType: "disc" }}>
-          {copy.violationsResults.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
+          <ul className="list-disc pl-8 md:pl-12 space-y-4 text-lg md:text-xl text-slate-700">
+            {copy.violationsResults.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </div>
       </Accordion>
 
       <Tip>{copy.tip}</Tip>

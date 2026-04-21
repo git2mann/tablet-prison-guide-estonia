@@ -5,9 +5,14 @@ export default function Accordion({
   title, 
   children, 
   open = false,
-  color // Added from main
+  color, // Added from main
+  onClick // Added to support external control
 }) {
-  const [isOpen, setIsOpen] = useState(open);
+  const [internalOpen, setInternalOpen] = useState(open);
+  
+  // Use either internal or external state
+  const isOpen = onClick ? open : internalOpen;
+  const toggle = onClick || (() => setInternalOpen(!internalOpen));
 
   // Default colors (fallback) from main
   const borderColor = color || '#e9ecef';
@@ -24,7 +29,7 @@ export default function Accordion({
       }}
     >
       <button 
-        onClick={() => setIsOpen(!isOpen)} 
+        onClick={toggle} 
         className="w-full p-5 md:p-6 flex items-start md:items-center justify-between text-left active:scale-[0.99] transition-all gap-4"
       >
         <span 

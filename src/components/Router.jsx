@@ -14,6 +14,9 @@ Object.entries(PAGE_MODULES).forEach(([path, module]) => {
   PAGES[id] = module.default;
 });
 
+// Explicitly register specific special pages if naming doesn't match
+if (PAGES['landingpage']) PAGES['landing'] = PAGES['landingpage'];
+
 export default function Router({ page, onNav, language = 'ET', handleBack }) {
   // 1. Get component from the dynamic mapping
   const Pg = PAGES[page];

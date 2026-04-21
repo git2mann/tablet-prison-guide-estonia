@@ -10,7 +10,7 @@ export default function Section({ title, sub, children, style = {}, className = 
         <div className="space-y-2">
           <div className="flex items-baseline gap-3">
             <span className="text-[#FFD000] font-black text-xl italic select-none">/</span>
-            <h2 className="text-3xl md:text-6xl font-black text-[#003B71] tracking-tighter uppercase italic leading-[0.9] py-1">
+            <h2 className="text-[clamp(1.5rem,8vw,4rem)] font-black text-[#003B71] tracking-tighter uppercase italic leading-tight py-1 px-1">
               {title}
             </h2>
           </div>

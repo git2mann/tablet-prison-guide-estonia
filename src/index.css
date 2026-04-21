@@ -1,35 +1,108 @@
 @import "tailwindcss";
-@plugin "tailwindcss-animate";
 
 @theme {
-  --radius-50px: 50px;
-  --color-primary: #003B71;
-  --color-tedi-yellow: #FFD000;
-  --color-tedi-blue: #003B71;
+  --font-sans: "Inter", "system-ui", -apple-system, sans-serif;
+  
+  /* Standard Light Tokens */
+  --color-brand-blue: #003B71;
+  --color-brand-gold: #FFD000;
+  --color-bg-page: #f8f9fa;
+  --color-bg-header: rgba(255, 255, 255, 0.9);
+  --color-bg-card: #ffffff;
+  --color-bg-overlay: #f8f9fa;
+  --color-bg-button-alt: #f1f5f9;
+  --color-text-primary: #003B71;
+  --color-text-secondary: #64748b;
+  --color-border-subtle: #e2e8f0;
 }
 
-@layer utilities {
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-  .no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  .preserve-3d {
-    transform-style: preserve-3d;
-  }
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #e2e8f0;
-    border-radius: 10px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #FFD000;
-  }
+/* DARK MODE OVERRIDES */
+.dark-mode {
+  --color-bg-page: #0f172a;
+  --color-bg-header: rgba(15, 23, 42, 0.9);
+  --color-bg-card: #1e293b;
+  --color-bg-overlay: #0f172a;
+  --color-bg-button-alt: #334155;
+  --color-text-primary: #f1f5f9;
+  --color-text-secondary: #94a3b8;
+  --color-border-subtle: #334155;
+  --color-brand-blue: #38bdf8; /* Lighter blue for dark mode visibility */
+}
+
+:root {
+  background: var(--color-bg-page);
+  --line-height-standard: 1.5;
+  --letter-spacing-standard: normal;
+}
+
+/* ACCESSIBILITY MODE - Guidelines Aligned */
+.accessibility-mode {
+  --color-brand-blue: #00264d;
+  --color-brand-gold: #e6b800;
+  --font-sans: "Lexend", "Atkinson Hyperlegible", "OpenDyslexic", sans-serif;
+  --line-height-standard: 1.8;
+  --letter-spacing-standard: 0.05em;
+}
+
+.accessibility-mode.dark-mode {
+  --color-brand-blue: #7dd3fc;
+  --color-text-primary: #ffffff;
+}
+
+body {
+  background-color: var(--color-bg-page);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-standard);
+  letter-spacing: var(--letter-spacing-standard);
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* CONTAINER & BUTTON OVERFLOW PROTECTION */
+button, a, .card {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  min-width: 0; /* Enable shrinking in flex containers */
+}
+
+/* Prevent text from escaping buttons */
+button span, button div {
+  max-width: 100%;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* High visible focus states */
+:focus-visible {
+  outline: 4px solid var(--color-brand-gold);
+  outline-offset: 4px;
+}
+
+/* Transition smoothness */
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* ACCESSIBILITY OVERRIDES */
+.accessibility-mode * {
+  transition: none !important;
+  animation: none !important;
+}
+
+.accessibility-mode .overflow-hidden {
+  overflow: visible !important;
+}
+
+.accessibility-mode .truncate,
+.accessibility-mode .line-clamp-1,
+.accessibility-mode .line-clamp-2 {
+  white-space: normal !important;
+  overflow: visible !important;
+  display: block !important;
+  -webkit-line-clamp: none !important;
 }

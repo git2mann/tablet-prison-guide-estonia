@@ -37,13 +37,24 @@ export default function DailyAccount({ language = 'ET' }) {
     <motion.div initial="initial" animate="animate" variants={staggerContainer} className="w-full max-w-full overflow-x-hidden">
       <motion.div variants={staggerItem}>
         <Section title={title[language]} sub={language === 'ET' ? 'Igapäevaelu' : 'Daily Life'}>
-          <div className="prose prose-lg md:prose-2xl prose-slate max-w-full font-bold whitespace-pre-wrap text-slate-600 leading-relaxed mb-12">
-            {content[language].split('isikuarve').map((part, i, arr) => (
-                <React.Fragment key={i}>
-                    {part}
-                    {i < arr.length - 1 && <Keyword word="personal account">{language === 'ET' ? 'isikuarve' : 'personal account'}</Keyword>}
-                </React.Fragment>
-            ))}
+          <div className="prose prose-lg md:prose-2xl text-balance  prose-slate max-w-full font-bold whitespace-pre-wrap text-slate-600 leading-relaxed mb-12">
+            {language === 'ET' ? (
+              <>
+                Teile avatakse <Keyword word="personal account" language={language}>isikuarve</Keyword>. Teie palk, perelt saadud raha ja kõik muud vahendid laekuvad siia. Jääki saate kontrollida tahvlist.
+                {"\n\n"}
+                <Keyword word="release fund" language={language}>Vabanemisfondi</Keyword> maksimumsumma on 3-kordne Eesti miinimumpalk. Kui fond on täis, saate raha edasi säästa või kasutada. Perelt saadud raha jagatakse samamoodi — nt kui saadetakse 12€, saate kasutada 3.60€.
+                {"\n\n"}
+                Saate teha pangaülekandeid (nt riigilõivud) ja maksta teenuste (pesu, koopiad) ning kambri seadmete elektri eest.
+              </>
+            ) : (
+              <>
+                A <Keyword word="personal account" language={language}>personal account</Keyword> will be opened for you. Your salary, money from family, and all other funds go here. You can check your balance on the tablet.
+                {"\n\n"}
+                The <Keyword word="release fund" language={language}>release fund</Keyword> maximum is 3x Estonian minimum wage. Once full, you can use or keep saving. Money from family is split the same way — e.g. if someone sends €12, you can use €3.60.
+                {"\n\n"}
+                You can make bank transfers from your account (e.g. state fees) and pay for services (laundry, copies). You must also pay for electricity for devices in your cell.
+              </>
+            )}
           </div>
 
           <Table 
@@ -52,7 +63,13 @@ export default function DailyAccount({ language = 'ET' }) {
           />
 
           {(warnings[language] || warnings.EN).map((w, i) => (
-            <Warning key={i}>{w}</Warning>
+            <Warning key={i}>
+              {language === 'ET' ? (
+                <>Planeerige <Keyword word="e-shop" language={language}>e-poe</Keyword> oste hoolikalt — veenduge, et teil jätkub raha kohustuslike kulude (nt elekter) jaoks.</>
+              ) : (
+                <>Plan <Keyword word="e-shop" language={language}>e-shop</Keyword> purchases carefully — ensure you have enough for mandatory expenses like electricity.</>
+              )}
+            </Warning>
           ))}
         </Section>
       </motion.div>
