@@ -129,6 +129,11 @@ const KW = {
     EN: "Short-term release for a few days to visit family or handle urgent matters, subject to approval.",
     ET: "Lühiajaline väljasõit — loa alusel toimuv mõnepäevane vabanemine pere külastamiseks või asjaajamisteks."
   },
+  "Vangla Enterpreneurship center (VEK)":{
+    label:{EN:"Prison Entrepreneurship Center (VEK)", ET:"Vangla Ettevõtluskeskus (VEK)"},
+    EN: "prison work program focused on vocational training and production, offering opportunities to learn skills and earn money while incarcerated.",
+    ET: "vangla ettevõtluskeskus (VEK) — vangla tööprogramm, mis keskendub kutseharidusele ja tootmisele, pakkudes võimalusi õppida oskusi ja teenida raha kahjuks. "
+  }
 };
 
 export default KW;
