@@ -84,7 +84,7 @@ export default function CategoryPage({ categoryId, onNav, language = 'ET', handl
                 <h3 className="text-2xl md:text-3xl font-black text-[var(--color-text-primary)] uppercase tracking-tighter italic">{labels.intro[language]}</h3>
               </div>
               
-              <p className="text-xl md:text-2xl font-bold text-[var(--color-text-primary)] leading-tight text-balance mb-12 italic opacity-80">
+              <p className="text-[1.8rem] font-bold text-[var(--color-text-primary)] leading-tight text-balance mb-12 italic opacity-80">
                 {selectedCategory.desc[language]}
               </p>
 
@@ -103,7 +103,7 @@ export default function CategoryPage({ categoryId, onNav, language = 'ET', handl
                  </div>
               </div>
 
-              <div className="prose prose-xl max-w-none text-[var(--color-text-secondary)] font-bold leading-relaxed text-balance">
+              <div className="prose max-w-none text-[1.8rem] text-[var(--color-text-secondary)] font-bold leading-relaxed text-balance">
                  {selectedCategory.introProse ? selectedCategory.introProse[language] : ""}
               </div>
             </div>
@@ -141,7 +141,7 @@ export default function CategoryPage({ categoryId, onNav, language = 'ET', handl
                       </span>
 
                       <div className="min-w-0 flex-1">
-                        <span className="text-[11px] md:text-sm font-black text-[var(--color-text-primary)] leading-tight uppercase italic block whitespace-nowrap truncate pr-2">
+                        <span className="text-[1.9rem] font-black text-[var(--color-text-primary)] leading-tight uppercase italic block whitespace-nowrap truncate pr-2">
                           {art.title[language]}
                         </span>
                       </div>

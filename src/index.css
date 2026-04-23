@@ -75,6 +75,11 @@ button span, button div {
   text-wrap: balance;
 }
 
+/* Global content size for all page components rendered inside <main> */
+.page-content-typography :is(p, li):not(.section-subtitle) {
+  font-size: 1.9rem !important;
+}
+
 /* High visible focus states */
 :focus-visible {
   outline: 4px solid var(--color-brand-gold);

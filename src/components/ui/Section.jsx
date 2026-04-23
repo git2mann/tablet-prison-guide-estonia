@@ -15,9 +15,9 @@ export default function Section({ title, sub, children, style = {}, className = 
             </h2>
           </div>
           {sub && (
-            <div className="flex items-center gap-4 ml-6 md:ml-8">
-              <div className="h-px flex-grow bg-slate-200" />
-              <p className="text-xs md:text-sm font-bold text-slate-400 uppercase tracking-[0.3em] whitespace-nowrap">
+            <div className="flex flex-wrap items-center gap-3 md:gap-4 ml-4 md:ml-8">
+              <div className="h-px flex-1 min-w-[80px] bg-slate-200" />
+              <p className="section-subtitle text-[1.5rem] font-bold text-slate-400 uppercase tracking-[0.08em] leading-tight max-w-full break-words [overflow-wrap:anywhere]">
                 {sub}
               </p>
             </div>
