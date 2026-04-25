@@ -2,45 +2,94 @@ import React from 'react';
 import Section from "../../components/ui/Section";
 import Table from "../../components/ui/Table";
 import Keyword from "../../components/ui/keyword";
-
+import Accordion from "../../components/ui/Accordion"
 export default function RulesPunishments({ language = 'ET' }) {
-  const content = {
-    ET: <>Karistusi saab määrata ka katseajaga (1–6 kuud). Kui te selle aja jooksul uut rikkumist ei tee, siis karistust ei täideta. Mitme <Keyword word="solitary confinement" language={language}>kartsa</Keyword>-karistuse vahel peab olema vähemalt 48 tundi.</>,
-    EN: <>Punishments can be assigned with a probation period (1–6 months). If you don't violate rules during that time, the punishment won't be enforced. Multiple <Keyword word="solitary confinement" language={language}>solitary</Keyword> sentences must have at least 48 hours between them.</>
-  };
-
-  const table = {
-    headers: { ET: ['Karistus', 'Detailid'], EN: ['Punishment', 'Details'] },
-    rows: {
-      ET: [
-        ["Kirjalik noomitus","Ametlik hoiatus isikutoimikus"],
-        ["Seadme äravõtmine","TV, keetja jne — kuni 45 päevaks"],
-        ["Kohtumiste keelamine","Lühi- või pikaajalised kohtumised"],
-        ["Töölt eemaldamine","Kuni 1 kuuks"],
-        [<Keyword word="solitary confinement" language={language}>Distsiplinaarkamber</Keyword>,"Kuni 14 päevaks (3 päeva alla 21a)"],
+  const content={
+    ET:{
+      title:"Karistused vanglas.",
+      notes:[
+        "Karistuse kandmine algab tavaliselt sellest hetkest, kui seda on Sulle tutvustatud.",
+        "Karistus kustub tavaliselt 1 aasta peale määramist.",
+        "Karistusi võib aga määrata katseajaga — kui Sa selle ajal reegleid ei riku, ei viida karistust ellu. Katseaja pikkus võib olla 1-6 kuud.",
+        "Kui Sulle on määratud mitu kartserikaristust, siis nende vahe peab olema vähemalt 48 tundi.",
       ],
-      EN: [
-        ["Written reprimand","Formal warning on record"],
-        ["Device confiscation","TV, kettle, etc. — up to 45 days"],
-        ["Visit deprivation","Short or long-term visits removed"],
-        ["Removed from work","Up to 1 month"],
-        [<Keyword word="solitary confinement" language={language}>Solitary confinement</Keyword>,"Up to 14 days (3 if under 21)"],
-      ]
-    }
-  };
+      punishmenttitle:"Erinevad karistused vanglas",
+      convictTitle:"Kui oled süüdimõistetud:",
+      convictNotes:[
+        "Sulle võidakse määrata kirjalik noomitus.",
+        "Sinult võidakse ära võtta Sinu isiklik televiisor, veekeetja või muu isiklik elektriseade kuni 45 päevaks.",
+        "Sa võid ilma jääda lühi- või pikaajalisest kokkusaamisest lähedastega.",
+        "Sind võidakse hoida töölt eemal kuni 1 kuu.",
+        "Sulle võidakse määrata kartserikaristus kuni 14 ööpäeva; (kuni 21-aastastel maksimaalselt 3 ööpäeva)."
+      ],
+      arrestTitle:"Kui oled vahistatud:",
+      arrestNotes:[
+        "Sulle võidakse määrata kirjalik noomitus.",
+        "Sul võidakse keelata osta e-poest lisatoitu kuni 2 kuud.",
+        "Sulle võidakse määrata kartserikaristus kuni 14 ööpäeva (kuni 21-aastastel maksimaalselt 3 ööpäeva)."
+      ],
+    },
+    EN:{
+      title:"Punishments in prison.",
+      notes:[
+        "The serving of the punishment usually begins from the moment it is presented to you.",
+        "The punishment typically expires one year after it is imposed.",
+        "However, punishments can be assigned with a probation period—if you do not violate the rules during this time, the punishment will not be enforced. The length of the probation period can be 1-6 months.",
+        "If you have been assigned multiple solitary confinement punishments, there must be at least 48 hours between them.",
+      ],
+      punishmentTitle:"Different punishments in prison",
+      convictTitle:"If you are convicted:",
+      convictNotes:[
+        "You may receive a written reprimand",
+        "Your personal television, kettle, or other personal electrical device may be confiscated for up to 45 days.",
+        "You may be deprived of short- or long-term visits with relatives.",
+        "You may be kept away from work for up to 1 month.",
+        " You may be sentenced to solitary confinement for up to 14 days; (for those under 21, a maximum of 3 days)"
+      ],
+      arrestTitle:"If you are arrested:",
+      arrestNotes:[
+        "You may receive a written reprimand.",
+        "You may be prohibited from purchasing additional food from the online store for up to 2 months.",
+        "You may be sentenced to solitary confinement for up to 14 days (for those under 21, a maximum of 3 days)."
+      ],
 
-  const title = { ET: 'Karistused', EN: 'Punishments' };
+    }
+  }
+  const copy = content[language] || content.ET;
 
   return (
-    <Section title={title[language]} sub={language === 'ET' ? 'Reeglid ja kord' : 'Rules & Discipline'}>
-      <div className="prose prose-lg md:prose-2xl text-balance  prose-blue max-w-none font-bold whitespace-pre-wrap text-slate-700 leading-relaxed mb-12">
-        {content[language]}
-      </div>
+    <Section title={copy.title}>
+       <ul style={{listStyleType:"disc", marginLeft:"2rem"}}>{copy.notes.map((item, index) => (
+            <li key={index} style={{ marginBottom: "0.5rem" }}>
+              {item}
+            </li>
+          ))}
+        </ul>
+        <h3 style={{
+        fontSize: "2rem",
+        fontWeight: 900,
+        color: "#003B71",
+        letterSpacing: "-0.025em",
+        lineHeight: 1.2,
+        fontStyle: "italic",
+      }}>{copy.punishmentTitle}</h3>
+      <Accordion title={copy.arrestTitle}>
+         <ul style={{listStyleType:"disc", marginLeft:"2rem"}}>{copy.arrestNotes.map((item, index) => (
+            <li key={index} style={{ marginBottom: "0.5rem" }}>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </Accordion>
+       <Accordion title={copy.convictTitle}>
+         <ul style={{listStyleType:"disc", marginLeft:"2rem"}}>{copy.convictNotes.map((item, index) => (
+            <li key={index} style={{ marginBottom: "0.5rem" }}>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </Accordion>
 
-      <Table 
-        headers={table.headers[language]}
-        rows={table.rows[language]}
-      />
     </Section>
   );
 }
