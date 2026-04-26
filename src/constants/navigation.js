@@ -18,6 +18,7 @@ const NAV = [
     {id:"daily.letters",label:"Correspondence"},
     {id:"daily.movement",label:"Movement & Walks"},
     {id:"daily.leisure",label:"Leisure & Sports"},
+    {id:"daily.tablet",label:"Use of tablets"}
   ]},
   { id:"calc", icon:"÷", label:"Money Calculator" },
   { id:"rules", icon:"§", label:"Rules & Discipline", sub:[
