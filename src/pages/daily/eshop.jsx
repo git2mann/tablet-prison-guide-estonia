@@ -13,7 +13,7 @@ export default function DailyEshop({ language = 'ET' }) {
     <motion.div initial="initial" animate="animate" variants={staggerContainer} className="w-full max-w-full overflow-x-hidden">
       <motion.div variants={staggerItem}>
         <Section title={title[language]} sub={language === 'ET' ? 'Igapäevaelu' : 'Daily Life'}>
-          <div className="prose prose-lg md:prose-2xl text-balance  prose-slate max-w-full font-bold whitespace-pre-wrap text-slate-600 leading-relaxed mb-12">
+          <div className="prose prose-lg md:prose-2xl text-balance max-w-full font-bold whitespace-pre-wrap leading-relaxed mb-12">
             {language === 'ET' ? (
               <>
                 Tooteid saab vaadata ja tellimusi esitada vangla tahvlis. Tellimusi saab esitada teatud päevadel (tavaliselt kaks korda kuus). Kaup saabub järgmisel nädalal. Hinnale lisandub teenustasu. Logimisel kontrollitakse teie isikut.

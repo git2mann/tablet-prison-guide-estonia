@@ -21,9 +21,9 @@ export default function FundCalculator({ language = 'ET', onNav }) {
   const monthsToCap = monthlySavings > 0 ? Math.ceil(remainingToCap / monthlySavings) : Infinity;
 
   return (
-    <motion.div initial="initial" animate="animate" variants={staggerContainer} className="w-full max-w-7xl mx-auto px-6 md:px-12 py-12 md:py-20 space-y-16 md:space-y-24 overflow-hidden">
+    <motion.div initial="initial" animate="animate" variants={staggerContainer} className="w-full max-w-7xl mx-auto px-6 md:px-12 py-12 md:py-20 space-y-16 md:space-y-24 ">
       {/* Design-Consistent Header */}
-      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 overflow-hidden">
+      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 ">
         <div className="space-y-4">
           <div className="flex items-center gap-3 text-[var(--color-brand-gold)]">
             <div className="p-2 bg-[var(--color-brand-gold)]/10 rounded-lg flex-shrink-0">
@@ -48,9 +48,9 @@ export default function FundCalculator({ language = 'ET', onNav }) {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 overflow-hidden">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 ">
         {/* Input Section (5 columns) */}
-        <div className="lg:col-span-5 bg-[var(--color-bg-card)] rounded-[48px] p-8 md:p-12 border-2 border-[var(--color-border-subtle)] shadow-xl space-y-10 overflow-hidden">
+        <div className="lg:col-span-5 bg-[var(--color-bg-card)] rounded-[48px] p-8 md:p-12 border-2 border-[var(--color-border-subtle)] shadow-xl space-y-10 ">
           <div className="space-y-6">
             <div className="flex items-center gap-3 text-[var(--color-text-secondary)] opacity-50">
                <RefreshCw size={16} className="flex-shrink-0" />
@@ -80,7 +80,7 @@ export default function FundCalculator({ language = 'ET', onNav }) {
 
           <button 
             onClick={() => setHasDebt(!hasDebt)}
-            className={`w-full p-8 rounded-[32px] border-2 flex items-center justify-between transition-all group overflow-hidden ${hasDebt ? 'bg-red-50 dark:bg-red-900/10 border-red-100 dark:border-red-900/30 shadow-lg translate-y-[-2px]' : 'bg-[var(--color-bg-button-alt)] border-transparent hover:border-[var(--color-border-subtle)]'}`}
+            className={`w-full p-8 rounded-[32px] border-2 flex items-center justify-between transition-all group  ${hasDebt ? 'bg-red-50 dark:bg-red-900/10 border-red-100 dark:border-red-900/30 shadow-lg translate-y-[-2px]' : 'bg-[var(--color-bg-button-alt)] border-transparent hover:border-[var(--color-border-subtle)]'}`}
           >
             <div className="flex items-center gap-5">
               <div className={`p-4 rounded-2xl transition-colors flex-shrink-0 ${hasDebt ? 'bg-red-500 text-white' : 'bg-[var(--color-bg-card)] text-[var(--color-text-secondary)]'}`}>
@@ -98,12 +98,12 @@ export default function FundCalculator({ language = 'ET', onNav }) {
         </div>
 
         {/* Results Section (7 columns) */}
-        <div className="lg:col-span-7 bg-[var(--color-brand-blue)] rounded-[60px] p-10 md:p-16 text-white shadow-2xl relative overflow-hidden flex flex-col justify-between min-h-[500px]">
+        <div className="lg:col-span-7 bg-[var(--color-brand-blue)] rounded-[60px] p-10 md:p-16 text-white shadow-2xl relative  flex flex-col justify-between min-h-[500px]">
           {/* Animated Background Gradients */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--color-brand-gold)]/10 rounded-full blur-[100px] -mr-48 -mt-48" />
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-400/10 rounded-full blur-[80px] -ml-32 -mb-32" />
 
-          <div className="space-y-12 relative z-10 overflow-hidden">
+          <div className="space-y-12 relative z-10 ">
             <div className="flex items-center gap-4">
               <div className="w-1.5 h-10 bg-[var(--color-brand-gold)] rounded-full flex-shrink-0" />
               <div className="space-y-1">
@@ -112,7 +112,7 @@ export default function FundCalculator({ language = 'ET', onNav }) {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 overflow-hidden">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 ">
               <div className="space-y-2">
                 <span className="text-white/30 text-xs font-black uppercase tracking-[0.2em] italic  text-balance">Kogumine kuus</span>
                 <p className="text-5xl font-black text-[var(--color-brand-gold)] tracking-tighter italic ">{monthlySavings.toFixed(2)}€</p>
@@ -125,8 +125,8 @@ export default function FundCalculator({ language = 'ET', onNav }) {
               </div>
             </div>
 
-            <div className="p-8 bg-[var(--color-bg-card)] rounded-[40px] border-2 border-white/10 shadow-2xl overflow-hidden">
-               <div className="flex items-center justify-between mb-6 overflow-hidden">
+            <div className="p-8 bg-[var(--color-bg-card)] rounded-[40px] border-2 border-white/10 shadow-2xl ">
+               <div className="flex items-center justify-between mb-6 ">
                  <div>
                     <span className="block font-black text-[var(--color-brand-gold)] text-2xl tracking-tighter italic uppercase ">{remainingToCap.toFixed(2)}€</span>
                     <span className="text-[10px] font-black uppercase tracking-widest text-[var(--color-text-secondary)] italic  text-balance">Limiidini jäänud</span>
@@ -136,7 +136,7 @@ export default function FundCalculator({ language = 'ET', onNav }) {
                     <span className="text-[10px] font-black uppercase tracking-widest text-[var(--color-text-secondary)] italic  text-balance">Valmidus</span>
                  </div>
                </div>
-               <div className="w-full h-4 bg-[var(--color-bg-button-alt)] rounded-full overflow-hidden p-1">
+               <div className="w-full h-4 bg-[var(--color-bg-button-alt)] rounded-full  p-1">
                  <motion.div 
                    className="h-full bg-[var(--color-brand-gold)] rounded-full shadow-[0_0_20px_rgba(255,208,0,0.5)]"
                    initial={{ width: 0 }}
@@ -147,9 +147,9 @@ export default function FundCalculator({ language = 'ET', onNav }) {
             </div>
           </div>
 
-          <div className="pt-12 relative z-10 overflow-hidden">
+          <div className="pt-12 relative z-10 ">
             {monthsToCap !== Infinity && monthsToCap > 0 ? (
-              <div className="flex items-center gap-6 p-6 bg-[var(--color-brand-gold)] rounded-3xl text-[var(--color-text-primary)] shadow-xl rotate-[-1deg] overflow-hidden">
+              <div className="flex items-center gap-6 p-6 bg-[var(--color-brand-gold)] rounded-3xl text-[var(--color-text-primary)] shadow-xl rotate-[-1deg] ">
                 <div className="p-3 bg-white/20 rounded-2xl flex-shrink-0">
                    <Clock size={32} />
                 </div>
@@ -165,8 +165,8 @@ export default function FundCalculator({ language = 'ET', onNav }) {
       </div>
 
       {/* Info Notice & Global Exit */}
-      <div className="space-y-12 overflow-hidden">
-        <div className="p-8 bg-[var(--color-bg-button-alt)] rounded-[40px] border-2 border-[var(--color-border-subtle)] flex items-start gap-6 overflow-hidden">
+      <div className="space-y-12 ">
+        <div className="p-8 bg-[var(--color-bg-button-alt)] rounded-[40px] border-2 border-[var(--color-border-subtle)] flex items-start gap-6 ">
           <div className="p-4 bg-[var(--color-bg-card)] rounded-2xl shadow-sm text-[var(--color-brand-gold)] flex-shrink-0">
             <Info size={28} />
           </div>
@@ -177,10 +177,10 @@ export default function FundCalculator({ language = 'ET', onNav }) {
           </p>
         </div>
 
-        <div className="flex justify-center pb-20 overflow-hidden">
+        <div className="flex justify-center pb-20 ">
            <button 
              onClick={() => onNav('home')}
-             className="px-16 py-6 bg-[var(--color-brand-blue)] text-white rounded-full font-black uppercase tracking-[0.2em] italic hover:opacity-90 hover:shadow-2xl active:scale-[0.98] transition-all overflow-hidden flex items-center justify-center gap-3"
+             className="px-16 py-6 bg-[var(--color-brand-blue)] text-white rounded-full font-black uppercase tracking-[0.2em] italic hover:opacity-90 hover:shadow-2xl active:scale-[0.98] transition-all  flex items-center justify-center gap-3"
            >
              <span className=" text-balance">Tagasi pealehele</span>
            </button>

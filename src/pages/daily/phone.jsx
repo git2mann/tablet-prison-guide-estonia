@@ -14,7 +14,7 @@ export default function DailyPhone({ language = 'ET' }) {
     <motion.div initial="initial" animate="animate" variants={staggerContainer} className="w-full max-w-full overflow-x-hidden">
       <motion.div variants={staggerItem}>
         <Section title={title[language]} sub={language === 'ET' ? 'Igapäevaelu' : 'Daily Life'}>
-          <div className="prose prose-lg md:prose-2xl text-balance  prose-slate max-w-full font-bold whitespace-pre-wrap text-slate-600 leading-relaxed mb-12">
+          <div className="prose prose-lg md:prose-2xl text-balance max-w-full font-bold whitespace-pre-wrap leading-relaxed mb-12">
             {language === 'ET' ? (
               <>
                 Esimesel nädalal märkige üles kõik inimesed ja numbrid, kellele soovite helistada. Helistamine on tasuline — kandke raha oma <Keyword word="personal account" language={language}>isikuarvelt</Keyword> <Keyword word="phone card" language={language}>telefonikaardile</Keyword>. Ühe sessiooni ajal saate helistada mitmele inimesele.

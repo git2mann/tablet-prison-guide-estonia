@@ -92,9 +92,9 @@ export default function ApplicationAssistant({ language = 'ET', onNav }) {
   const node = ASSISTANT_FLOW[currentNode];
 
   return (
-    <motion.div initial="initial" animate="animate" variants={staggerContainer} className="w-full max-w-7xl mx-auto px-6 md:px-12 py-12 md:py-20 space-y-16 md:space-y-24 overflow-hidden">
+    <motion.div initial="initial" animate="animate" variants={staggerContainer} className="w-full max-w-7xl mx-auto px-6 md:px-12 py-12 md:py-20 space-y-16 md:space-y-24 ">
       {/* Design-Consistent Header */}
-      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 overflow-hidden">
+      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 ">
         <div className="space-y-4">
           <div className="flex items-center gap-3 text-[var(--color-brand-gold)]">
             <div className="p-2 bg-[var(--color-brand-gold)]/10 rounded-lg flex-shrink-0">
@@ -121,13 +121,13 @@ export default function ApplicationAssistant({ language = 'ET', onNav }) {
         </div>
       </div>
 
-      <div className="bg-[var(--color-bg-card)] rounded-[60px] border-2 border-[var(--color-border-subtle)] shadow-2xl overflow-hidden min-h-[600px] flex flex-col">
-        <div className="p-8 md:p-14 bg-[var(--color-bg-button-alt)]/50 border-b-2 border-[var(--color-border-subtle)] flex items-center justify-between overflow-hidden">
+      <div className="bg-[var(--color-bg-card)] rounded-[60px] border-2 border-[var(--color-border-subtle)] shadow-2xl  min-h-[600px] flex flex-col">
+        <div className="p-8 md:p-14 bg-[var(--color-bg-button-alt)]/50 border-b-2 border-[var(--color-border-subtle)] flex items-center justify-between ">
            <div className="flex items-center gap-6">
              <div className="p-5 bg-[var(--color-brand-blue)] text-[var(--color-brand-gold)] rounded-[24px] shadow-xl rotate-3 flex-shrink-0">
                <FileText size={32} strokeWidth={2.5} />
              </div>
-             <div className="overflow-hidden">
+             <div className="">
                <h3 className="text-2xl md:text-4xl font-black text-[var(--color-text-primary)] uppercase italic tracking-tighter leading-none  text-balance">Vali teema</h3>
                <p className="text-xs font-bold text-[var(--color-text-secondary)] opacity-50 uppercase tracking-widest mt-2 italic  text-balance">Samm-sammuline juhend</p>
              </div>
@@ -142,14 +142,14 @@ export default function ApplicationAssistant({ language = 'ET', onNav }) {
            )}
         </div>
 
-        <div className="flex-1 p-8 md:p-20 overflow-hidden">
+        <div className="flex-1 p-8 md:p-20 ">
           <AnimatePresence mode="wait">
             {node.result ? (
               <motion.div 
                 key={currentNode}
                 initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="space-y-12 overflow-hidden"
+                className="space-y-12 "
               >
                 <div className="space-y-6">
                   <h3 className="text-4xl md:text-7xl font-black text-[var(--color-text-primary)] tracking-tighter uppercase italic leading-none  text-balance">
@@ -158,9 +158,9 @@ export default function ApplicationAssistant({ language = 'ET', onNav }) {
                   <div className="h-2 w-32 bg-[var(--color-brand-gold)] rounded-full" />
                 </div>
 
-                <div className="grid grid-cols-1 gap-6 overflow-hidden">
+                <div className="grid grid-cols-1 gap-6 ">
                    {node.steps[language].map((step, i) => (
-                     <div key={i} className="flex items-start gap-8 p-8 bg-[var(--color-bg-button-alt)]/50 rounded-[40px] border-2 border-transparent hover:border-[var(--color-brand-gold)] transition-all duration-500 group overflow-hidden">
+                     <div key={i} className="flex items-start gap-8 p-8 bg-[var(--color-bg-button-alt)]/50 rounded-[40px] border-2 border-transparent hover:border-[var(--color-brand-gold)] transition-all duration-500 group ">
                         <div className="w-12 h-12 rounded-2xl bg-[var(--color-bg-card)] border-2 border-[var(--color-text-primary)]/10 text-[var(--color-text-primary)] flex items-center justify-center font-black text-xl shrink-0 shadow-sm group-hover:bg-[var(--color-brand-blue)] group-hover:text-white transition-all">
                           {i + 1}
                         </div>
@@ -169,12 +169,12 @@ export default function ApplicationAssistant({ language = 'ET', onNav }) {
                    ))}
                 </div>
 
-                <div className="p-10 bg-[var(--color-brand-blue)] rounded-[48px] shadow-2xl flex flex-col md:flex-row items-center gap-10 relative overflow-hidden">
+                <div className="p-10 bg-[var(--color-brand-blue)] rounded-[48px] shadow-2xl flex flex-col md:flex-row items-center gap-10 relative ">
                    <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32 blur-3xl" />
                    <div className="w-20 h-20 rounded-3xl bg-[var(--color-brand-gold)] text-[var(--color-text-primary)] flex items-center justify-center shrink-0 shadow-xl rotate-12">
                       <Send size={40} strokeWidth={2.5} />
                    </div>
-                   <div className="space-y-2 overflow-hidden">
+                   <div className="space-y-2 ">
                      <p className="text-2xl md:text-3xl font-black text-white uppercase italic tracking-tight  text-balance">Oluline meelespea</p>
                      <p className="text-lg md:text-xl font-bold text-white/60 leading-relaxed text-balance ">
                        {language === 'ET' 
@@ -189,23 +189,23 @@ export default function ApplicationAssistant({ language = 'ET', onNav }) {
                 key="start"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="space-y-12 overflow-hidden"
+                className="space-y-12 "
               >
                 <h3 className="text-4xl md:text-6xl font-black text-[var(--color-text-primary)] tracking-tighter uppercase italic leading-[0.9] text-balance ">
                   {node.question[language]}
                 </h3>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 overflow-hidden">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 ">
                   {node.options.map(opt => (
                     <button
                       key={opt.next}
                       onClick={() => setCurrentNode(opt.next)}
-                      className="p-10 bg-[var(--color-bg-card)] border-2 border-[var(--color-border-subtle)] rounded-[48px] hover:border-[var(--color-brand-gold)] hover:shadow-2xl transition-all duration-500 group text-left flex flex-col justify-between h-[280px] overflow-hidden"
+                      className="p-10 bg-[var(--color-bg-card)] border-2 border-[var(--color-border-subtle)] rounded-[48px] hover:border-[var(--color-brand-gold)] hover:shadow-2xl transition-all duration-500 group text-left flex flex-col justify-between h-[280px] "
                     >
                       <span className="text-3xl font-black text-[var(--color-text-primary)] uppercase italic tracking-tighter leading-none group-hover:text-[var(--color-brand-blue)] transition-colors  text-balance">
                         {opt.label[language]}
                       </span>
-                      <div className="flex items-center justify-between overflow-hidden">
+                      <div className="flex items-center justify-between ">
                          <div className="w-12 h-12 rounded-2xl bg-[var(--color-bg-button-alt)] flex items-center justify-center text-[var(--color-text-secondary)] opacity-50 group-hover:bg-[var(--color-brand-gold)]/10 group-hover:text-[var(--color-brand-gold)] group-hover:opacity-100 transition-all flex-shrink-0">
                             <ChevronRight size={28} strokeWidth={3} />
                          </div>
@@ -220,10 +220,10 @@ export default function ApplicationAssistant({ language = 'ET', onNav }) {
         </div>
       </div>
 
-      <div className="flex justify-center pb-20 overflow-hidden">
+      <div className="flex justify-center pb-20 ">
          <button 
            onClick={() => onNav('home')}
-           className="px-16 py-6 bg-[var(--color-brand-blue)] text-white rounded-full font-black uppercase tracking-[0.2em] italic hover:opacity-90 hover:shadow-2xl active:scale-[0.98] transition-all flex items-center justify-center gap-3 overflow-hidden"
+           className="px-16 py-6 bg-[var(--color-brand-blue)] text-white rounded-full font-black uppercase tracking-[0.2em] italic hover:opacity-90 hover:shadow-2xl active:scale-[0.98] transition-all flex items-center justify-center gap-3 "
          >
            <span className=" text-balance">Tagasi pealehele</span>
          </button>

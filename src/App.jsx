@@ -83,8 +83,10 @@ const App = () => {
     <div className={`min-h-screen bg-[var(--color-bg-page)] font-sans text-[var(--color-text-primary)] flex flex-col select-none touch-manipulation transition-colors duration-500 ${isLanding ? 'pt-0' : 'pt-16 md:pt-24 pb-8'}`}>
       
       {/* HEADER: Now always visible for toggles, but navigation parts are conditional */}
-      <header className="fixed top-0 left-0 right-0 z-[1000] h-16 md:h-24 bg-[var(--color-bg-header)] backdrop-blur-2xl border-b border-[var(--color-border-subtle)] transition-colors duration-500">
+      <header className="fixed top-0 left-0 right-0 z-[1000] h-16 md:h-24 bg-[var(--color-bg-header)] backdrop-blur-3xl border-b border-[var(--color-border-subtle)] transition-colors duration-500 shadow-[0_10px_40px_rgba(0,0,0,0.03)]">
         <div className="max-w-7xl mx-auto h-full flex items-center px-2 md:px-12 relative z-10 overflow-hidden">
+          {/* Liquid glass light leak for header */}
+          <div className="absolute top-0 left-1/4 w-64 h-full bg-[var(--color-brand-gold)] opacity-[0.03] blur-[60px] pointer-events-none" />
           
           {/* LEFT: BACK / EXIT (Hidden on Landing) */}
           <div className="flex items-center gap-2 md:gap-6 flex-shrink-0 min-w-[40px] md:min-w-[80px]">
@@ -195,7 +197,7 @@ const App = () => {
 
             <button 
               onClick={() => setLanguage(l => l === 'ET' ? 'EN' : 'ET')} 
-              className="active:scale-95 h-8 md:h-14 px-2 md:px-4 rounded-full font-black border-2 flex items-center gap-1 transition-all shadow-sm bg-white border-slate-100 text-[#003B71]"
+              className="active:scale-95 h-8 md:h-14 px-2 md:px-4 rounded-full font-black border-2 flex items-center gap-1 transition-all shadow-sm bg-white border-slate-100 text-[var(--color-brand-blue)]"
             >
               <Languages className="w-4 h-4 md:w-5 md:h-5" />
               <span className="text-[10px] md:text-xs uppercase tracking-widest">{language}</span>
@@ -209,7 +211,7 @@ const App = () => {
         {/* LANDING PAGE */}
         <AnimatePresence>
           {isLanding && (
-            <Router page="landing" onNav={setPage} language={language} />
+            <Router page="landing" onNav={setPage} language={language} isDarkMode={isDarkMode} />
           )}
         </AnimatePresence>
 
@@ -224,14 +226,14 @@ const App = () => {
             transition={isAccessible ? { duration: 0 } : uiTransition}
             className="w-full h-full overflow-x-hidden will-change-[filter,transform,opacity]"
           >
-            <Router page="home" onNav={setPage} language={language} />
+            <Router page="home" onNav={setPage} language={language} isDarkMode={isDarkMode} />
           </motion.div>
         )}
 
         {/* CATEGORY OVERLAY */}
         <AnimatePresence>
           {selectedCategoryId && (
-            <Router page={`category.${selectedCategoryId}`} onNav={setPage} language={language} handleBack={handleBack} />
+            <Router page={`category.${selectedCategoryId}`} onNav={setPage} language={language} handleBack={handleBack} isDarkMode={isDarkMode} />
           )}
         </AnimatePresence>
 
@@ -244,9 +246,11 @@ const App = () => {
                 animate={{ opacity: 1, y: 0 }} 
                 exit={isAccessible ? { opacity: 1 } : { opacity: 0, y: '20%' }} 
                 transition={isAccessible ? { duration: 0 } : uiTransition} 
-                className="fixed inset-0 z-[400] bg-[var(--color-bg-overlay)] flex flex-col border-t-[16px] border-[#FFD000] overflow-y-auto overflow-x-hidden custom-scrollbar pb-12 pt-20 md:pt-32 transition-colors duration-500 will-change-transform"
+                className="fixed inset-0 z-[400] bg-[var(--color-bg-overlay)] flex flex-col border-t-[16px] border-[#FFD000] overflow-y-auto overflow-x-hidden custom-scrollbar pt-20 md:pt-32 transition-colors duration-500 will-change-transform"
              >
-                <Router page={page} onNav={setPage} language={language} handleBack={handleBack} />
+                <div className="w-full flex-grow flex flex-col">
+                   <Router page={page} onNav={setPage} language={language} handleBack={handleBack} isDarkMode={isDarkMode} />
+                </div>
              </motion.div>
           )}
         </AnimatePresence>
@@ -260,12 +264,16 @@ const App = () => {
                 animate={{ opacity: 1, y: 0 }} 
                 exit={isAccessible ? { opacity: 1 } : { opacity: 0, y: '20%' }} 
                 transition={isAccessible ? { duration: 0 } : uiTransition} 
-                className="fixed inset-0 z-[300] bg-[var(--color-bg-page)] flex flex-col border-t-[16px] border-[var(--color-brand-blue)] overflow-y-auto overflow-x-hidden custom-scrollbar pb-12 pt-20 md:pt-32 transition-colors duration-500 will-change-transform"
+                className="fixed inset-0 z-[300] bg-[var(--color-bg-page)] flex flex-col border-t-[16px] border-[var(--color-brand-blue)] overflow-y-auto overflow-x-hidden custom-scrollbar pt-20 md:pt-32 transition-colors duration-500 will-change-transform"
              >
-                <div className="w-full max-w-5xl mx-auto flex flex-col overflow-x-hidden">
-                   <SectionImage url={selectedCategory?.imageUrl} />
-                   <div className="p-6 md:p-16">
-                      <Router page={selectedArticleId} onNav={setPage} language={language} />
+                <div className="w-full max-w-7xl mx-auto flex flex-col flex-grow">
+                   <div className="px-4 md:px-12 w-full">
+                      <div className="w-full max-w-5xl mx-auto flex flex-col">
+                         <SectionImage url={selectedCategory?.imageUrl} />
+                         <div className="py-12 md:py-20">
+                            <Router page={selectedArticleId} onNav={setPage} language={language} isDarkMode={isDarkMode} />
+                         </div>
+                      </div>
                    </div>
                 </div>
              </motion.div>
@@ -275,7 +283,7 @@ const App = () => {
         {/* MONITOR OVERLAY */}
         <AnimatePresence>
           {showAdmin && (
-            <Router page="admin" onNav={setPage} language={language} />
+            <Router page="admin" onNav={setPage} language={language} isDarkMode={isDarkMode} />
           )}
         </AnimatePresence>
       </main>

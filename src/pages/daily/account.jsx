@@ -37,7 +37,7 @@ export default function DailyAccount({ language = 'ET' }) {
     <motion.div initial="initial" animate="animate" variants={staggerContainer} className="w-full max-w-full overflow-x-hidden">
       <motion.div variants={staggerItem}>
         <Section title={title[language]} sub={language === 'ET' ? 'Igapäevaelu' : 'Daily Life'}>
-          <div className="prose prose-lg md:prose-2xl text-balance  prose-slate max-w-full font-bold whitespace-pre-wrap text-slate-600 leading-relaxed mb-12">
+          <div className="prose prose-lg md:prose-2xl text-balance max-w-full font-bold whitespace-pre-wrap leading-relaxed mb-12">
             {language === 'ET' ? (
               <>
                 Teile avatakse <Keyword word="personal account" language={language}>isikuarve</Keyword>. Teie palk, perelt saadud raha ja kõik muud vahendid laekuvad siia. Jääki saate kontrollida tahvlist.

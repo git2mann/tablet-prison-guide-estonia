@@ -21,9 +21,9 @@ export default function Glossary({ language = 'ET', onNav }) {
   }), [terms, search, language]);
 
   return (
-    <motion.div initial="initial" animate="animate" variants={staggerContainer} className="w-full max-w-7xl mx-auto px-6 md:px-12 py-12 md:py-20 overflow-hidden">
+    <motion.div initial="initial" animate="animate" variants={staggerContainer} className="w-full max-w-7xl mx-auto px-6 md:px-12 py-12 md:py-20 ">
       {/* Design-Consistent Header */}
-      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 mb-16 md:mb-24 overflow-hidden">
+      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 mb-16 md:mb-24 ">
         <div className="space-y-4">
           <div className="flex items-center gap-3 text-[var(--color-brand-gold)]">
             <div className="p-2 bg-[var(--color-brand-gold)]/10 rounded-lg flex-shrink-0">
@@ -61,12 +61,12 @@ export default function Glossary({ language = 'ET', onNav }) {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 overflow-hidden">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 ">
         {filtered.map(([id, data], idx) => (
           <motion.div 
             key={id}
             variants={staggerItem}
-            className="p-8 md:p-10 bg-[var(--color-bg-card)] rounded-[48px] border-2 border-[var(--color-border-subtle)] hover:border-[var(--color-brand-gold)] hover:shadow-2xl transition-all duration-500 group flex flex-col justify-between min-h-[280px] overflow-hidden"
+            className="p-8 md:p-10 bg-[var(--color-bg-card)] rounded-[48px] border-2 border-[var(--color-border-subtle)] hover:border-[var(--color-brand-gold)] hover:shadow-2xl transition-all duration-500 group flex flex-col justify-between min-h-[280px] "
           >
             <div className="space-y-4">
               <div className="w-12 h-12 rounded-2xl bg-[var(--color-bg-button-alt)] flex items-center justify-center text-[var(--color-text-primary)] group-hover:bg-[var(--color-brand-gold)] group-hover:rotate-12 transition-all duration-500 flex-shrink-0">
