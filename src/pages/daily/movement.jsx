@@ -122,7 +122,7 @@ export default function DailyMovement({ language = 'ET' }) {
       ],
       permittedContent:" Nothing may be thrown out, left behind, or picked up from the walking area. You are also not allowed to communicate with other detainees who are outside your walking area. In case of rule violations, the official may terminate the walk",
       faqsTitle:"Frequently asked Questions",
-        faqs:[
+      faqs:[
           {
             Question:"How should I dress during movement?",
             Answer:[
