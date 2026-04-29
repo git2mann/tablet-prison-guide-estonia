@@ -1,5 +1,7 @@
 import React from 'react';
 import { Zap } from 'lucide-react';
+import arrivalStill from '../../assets/categories/arrival/arrival_still.png';
+import arrivalLoop from '../../assets/categories/arrival/arrival_loop.mp4';
 
 export default {
   id: 'arrival',
@@ -13,7 +15,8 @@ export default {
     EN: 'Welcome! You have arrived at the prison. It is understandable if you feel uncertain, confused, or anxious right now. Our goal is to ensure your safety and provide necessary support upon arrival. In the first few days, some procedures will be carried out with you, and information about primary needs in prison will be shared. It is possible that everything will not happen immediately – we ask for your patience, as various activities may take time.'
   },
   icon: <Zap className="w-10 h-10" />,
-  imageUrl: 'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=1200&q=80',
+  imageUrl: arrivalStill,
+  videoUrl: arrivalLoop,
   color: 'orange',
   articles: [
     { id: 'arrival.search', title: { ET: 'Otsing ja dokumendid', EN: 'Search & Documents' } },

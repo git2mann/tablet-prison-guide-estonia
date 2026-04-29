@@ -1,5 +1,7 @@
 import React from 'react';
 import { Scale } from 'lucide-react';
+import rulesStill from '../../assets/categories/rules/rules_still.png';
+import rulesLoop from '../../assets/categories/rules/rules_loop.mp4';
 
 export default {
   id: 'rules',
@@ -9,7 +11,8 @@ export default {
     EN: 'A set of rules apply in prison that you are mandatory to follow. Violations can affect your chances for release.'
   },
   icon: <Scale className="w-10 h-10" />,
-  imageUrl: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1200&q=80',
+  imageUrl: rulesStill,
+  videoUrl: rulesLoop,
   color: 'red',
   articles: [
     { id: 'rules.process', title: { ET: 'Rikkumiste menetlemine', EN: 'Violation Process' } },

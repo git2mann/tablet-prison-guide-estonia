@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, BarChart3, ArrowRight, Sparkles, Book, Wallet, HelpCircle, MessageSquare, ArrowRightCircle, Command, Calendar, Clock, Star } from 'lucide-react';
 import { useCategories } from '../../constants/categories';
+import Animation from "../../components/ui/Animation";
+import searchAnim from "../../assets/animations/searching.json";
 
 export default function Home({ onNav, language = 'ET' }) {
   const categories = useCategories();
@@ -65,7 +67,12 @@ export default function Home({ onNav, language = 'ET' }) {
                 placeholder={uiStrings.search[language]}
                 className="w-full bg-[var(--color-bg-elevated)] border-2 border-[var(--color-border-subtle)] rounded-2xl py-4 px-6 pl-14 text-lg font-bold text-[var(--color-text-body)] placeholder:text-[var(--color-text-dim)] focus:border-[var(--color-brand-gold)] outline-none transition-all shadow-inner focus:shadow-xl focus:shadow-[var(--color-brand-gold)]/5"
               />
-              <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-[var(--color-text-dim)]" size={24} />
+              <div className="absolute left-5 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center pointer-events-none">
+                 <div className="absolute inset-0 scale-150 opacity-50">
+                    <Animation animationData={searchAnim} />
+                 </div>
+                 <Search className="relative z-10 text-[var(--color-text-dim)]" size={24} />
+              </div>
               <div className="absolute right-5 top-1/2 -translate-y-1/2 items-center gap-1.5 px-2 py-1 bg-[var(--color-bg-surface)] border border-[var(--color-border-subtle)] rounded-lg shadow-sm opacity-40 hidden md:flex">
                  <Command size={12} className="text-[var(--color-text-dim)]" />
                  <span className="text-[10px] font-black text-[var(--color-text-dim)]">K</span>

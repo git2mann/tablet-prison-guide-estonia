@@ -2,6 +2,8 @@ import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 import { useCategories } from '../../constants/categories';
 import { ArrowRight, Sparkles, Trophy, CheckCircle2, ChevronDown, ShieldCheck } from 'lucide-react';
+import Animation from "../../components/ui/Animation";
+import liquidAmbient from "../../assets/animations/liquid_ambient.json";
 
 const StepDescription = ({ cat, i, align, language, uiStrings, isDarkMode }) => (
   <div className={`flex flex-col ${align === 'right' ? 'md:items-end md:text-right' : align === 'left' ? 'md:items-start md:text-left' : 'items-center text-center'} space-y-3`}>
@@ -29,11 +31,23 @@ const CategoryImage = ({ cat, align, isDarkMode }) => (
     className="relative w-full max-w-sm group/img"
   >
     <div className={`relative aspect-[4/3] rounded-[2rem] overflow-hidden shadow-2xl border-[12px] ${isDarkMode ? 'border-zinc-900' : 'border-white'} transition-all duration-700 group-hover/row:border-[var(--color-brand-gold)] group-hover/row:rotate-1`}>
-      <img 
-        src={cat.imageUrl} 
-        alt="" 
-        className="w-full h-full object-cover scale-110 group-hover/row:scale-100 transition-transform duration-1000" 
-      />
+      {cat.videoUrl ? (
+        <video 
+          src={cat.videoUrl}
+          poster={cat.imageUrl}
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+          className="w-full h-full object-cover scale-110 group-hover/row:scale-100 transition-transform duration-1000"
+        />
+      ) : (
+        <img 
+          src={cat.imageUrl} 
+          alt="" 
+          className="w-full h-full object-cover scale-110 group-hover/row:scale-100 transition-transform duration-1000" 
+        />
+      )}
       <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-brand-blue)]/40 to-transparent opacity-60 group-hover/row:opacity-0 transition-opacity" />
     </div>
     <div className={`absolute -z-10 inset-0 blur-2xl opacity-20 bg-[var(--color-brand-gold)] translate-y-4 ${align === 'right' ? '-rotate-6' : 'rotate-6'}`} />
@@ -95,6 +109,11 @@ export default function LandingPage({ onNav, language = 'ET', isDarkMode }) {
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <motion.div style={{ y: blob1Y }} className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[var(--color-brand-blue)] opacity-[0.08] blur-[120px] rounded-full" />
           <motion.div style={{ y: blob2Y }} className="absolute bottom-[10%] right-[-10%] w-[40%] h-[40%] bg-[var(--color-brand-gold)] opacity-[0.08] blur-[100px] rounded-full" />
+          
+          {/* Lottie Liquid Background */}
+          <div className="absolute inset-0 opacity-40 mix-blend-overlay">
+             <Animation animationData={liquidAmbient} className="w-full h-full" />
+          </div>
         </div>
 
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="relative z-10 max-w-4xl mx-auto flex flex-col items-center">

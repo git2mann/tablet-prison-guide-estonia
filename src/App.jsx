@@ -269,7 +269,7 @@ const App = () => {
                 <div className="w-full max-w-7xl mx-auto flex flex-col flex-grow">
                    <div className="px-4 md:px-12 w-full">
                       <div className="w-full max-w-5xl mx-auto flex flex-col">
-                         <SectionImage url={selectedCategory?.imageUrl} />
+                         <SectionImage url={selectedCategory?.imageUrl} videoUrl={selectedCategory?.videoUrl} />
                          <div className="py-12 md:py-20">
                             <Router page={selectedArticleId} onNav={setPage} language={language} isDarkMode={isDarkMode} />
                          </div>

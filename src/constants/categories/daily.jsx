@@ -1,5 +1,7 @@
 import React from 'react';
 import { Clock } from 'lucide-react';
+import dailyStill from '../../assets/categories/daily/daily_still.png';
+import dailyLoop from '../../assets/categories/daily/daily_loop.mp4';
 
 export default {
   id: 'daily',
@@ -13,7 +15,8 @@ export default {
     EN: 'A daily schedule applies in prison — fixed times when inmates wake up, eat, wash, move around, and rest. The daily schedule is in the interest of order, safety, and occupying your day. You can find the exact daily schedule in the prison internal rules. Most days in prison begin at 06:00 and end at 22:00. Between these two times, all main activities take place: studying, working, participating in programs, and leisure activities.'
   },
   icon: <Clock className="w-10 h-10" />,
-  imageUrl: 'https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=1200&q=80',
+  imageUrl: dailyStill,
+  videoUrl: dailyLoop,
   color: 'blue',
   articles: [
     { id: 'daily.schedule', title: { ET: 'Päevakava ja loendus', EN: 'Schedule & Count' } },
