@@ -7,7 +7,7 @@ export default function HealthChaplain({ language = 'ET' }) {
     ET:{
       title:"Kaplan, usuline tegevus ja hingehoid",
       sub:"Vanglas viibides on Sul õigus järgida enda usutavasid.",
-      notes:[
+      Inotes:[
         "Igas Eesti vanglas töötab kaplan, kes on vangla vaimulik või hingehoiu töötaja..",
         "Tema ülesanne on pakkuda kinnipeetavatele usulist ja vaimset tuge. Ta teeb seda olenemata Sinu konfessioonist või usulisest kuuluvusest.",
         "Kaplaniga vestlused on alati vabatahtlikud ja konfidentsiaalsed.",
@@ -37,7 +37,7 @@ export default function HealthChaplain({ language = 'ET' }) {
     EN:{
       title:" Chaplain, religious activities, and spiritual care",
       sub:"While in prison, you have the right to follow your religious practices",
-      notes:[
+      Inotes:[
         "Every prison in Estonia has a chaplain who is a prison minister or spiritual care worker.",
         "Their task is to provide detainees with religious and spiritual support. They do this regardless of your denomination or religious affiliation. ",
         "Conversations with the chaplain are always voluntary and confidential.",
