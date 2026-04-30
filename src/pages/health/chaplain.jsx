@@ -1,6 +1,7 @@
 import React from 'react';
 import Section from "../../components/ui/Section";
 import Tip from "../../components/ui/Tip";
+import Accordion from '../../components/ui/Accordion';
 
 export default function HealthChaplain({ language = 'ET' }) {
   const content={
@@ -68,14 +69,41 @@ export default function HealthChaplain({ language = 'ET' }) {
   const copy = content[language] || content.ET;
 
   return (
-    <Section title={title[language]} sub={language === 'ET' ? 'Tervis ja heaolu' : 'Health & Wellbeing'}>
-      <div className="prose prose-lg md:prose-2xl text-balance  prose-blue max-w-none font-bold whitespace-pre-wrap text-slate-700 leading-relaxed mb-12">
-        {content[language]}
-      </div>
+    <Section title={copy.title} sub={copy.sub}>
+        <ul style={{listStyleType:"disc",marginLeft:"2rem"}}>{copy.Inotes.map((item, index) => (
+                  <li key={index} style={{ marginBottom: "0.5rem" }}>
+                  {item}
+                      </li>
+                  ))}
 
-      {(tips[language] || tips.EN).map((t, i) => (
-        <Tip key={i}>{t}</Tip>
-      ))}
+      </ul>
+      <Tip>
+        <ul style={{listStyleType:"circle",marginLeft:"2rem"}}>{copy.chapTip.map((item, index) => (
+                  <li key={index} style={{ marginBottom: "0.5rem" }}>
+                  {item}
+                      </li>
+                  ))}
+
+      </ul>
+      </Tip>
+      <Accordion title={copy.mattersTitle}>
+        <ul style={{listStyleType:"numbered",marginLeft:"2rem"}}>{copy.matters.map((item, index) => (
+                  <li key={index} style={{ marginBottom: "0.5rem" }}>
+                  {item}
+                      </li>
+                  ))}
+
+      </ul>
+      </Accordion>
+      <Accordion title={copy.imNote}>
+        <ul style={{listStyleType:"disc",marginLeft:"2rem"}}>{copy.notes.map((item, index) => (
+                  <li key={index} style={{ marginBottom: "0.5rem" }}>
+                  {item}
+                      </li>
+                  ))}
+
+      </ul>
+      </Accordion>
     </Section>
   );
 }
