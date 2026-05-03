@@ -1,14 +1,15 @@
 import React from 'react';
 import Section from "../../components/ui/Section";
 import Tip from "../../components/ui/Tip";
+import Accordion from '../../components/ui/Accordion';
 
 export default function HealthChaplain({ language = 'ET' }) {
-  const content = {
-    ET: {
-      title: "Kaplan, usuline tegevus ja hingehoid",
-      sub: "Vanglas viibides on Sul õigus järgida enda usutavasid.",
-      notes: [
-        "Igas Eesti vanglas töötab kaplan, kes on vangla vaimulik või hingehoiu töötaja.",
+  const content={
+    ET:{
+      title:"Kaplan, usuline tegevus ja hingehoid",
+      sub:"Vanglas viibides on Sul õigus järgida enda usutavasid.",
+      Inotes:[
+        "Igas Eesti vanglas töötab kaplan, kes on vangla vaimulik või hingehoiu töötaja..",
         "Tema ülesanne on pakkuda kinnipeetavatele usulist ja vaimset tuge. Ta teeb seda olenemata Sinu konfessioonist või usulisest kuuluvusest.",
         "Kaplaniga vestlused on alati vabatahtlikud ja konfidentsiaalsed.",
         "Vanglates teenivad eri konfessioonide kaplanid: peamiselt luteri usk ja õigeusk, võimaluse korral ka katoliku usk ja teised usud.",
@@ -26,10 +27,10 @@ export default function HealthChaplain({ language = 'ET' }) {
       ],
       mattersTip: "Kui tunned, et vajad vaimset või usulist tuge, kirjuta avaldus esimesel võimalusel. Abi on tasuta ning kättesaadav kõigile kinnipeetavatele keelest, rahvusest ja usust sõltumata."
     },
-    EN: {
-      title: "Chaplain, religious activities, and spiritual care",
-      sub: "While in prison, you have the right to follow your religious practices.",
-      notes: [
+    EN:{
+      title:" Chaplain, religious activities, and spiritual care",
+      sub:"While in prison, you have the right to follow your religious practices",
+      Inotes:[
         "Every prison in Estonia has a chaplain who is a prison minister or spiritual care worker.",
         "Their task is to provide detainees with religious and spiritual support. They do this regardless of your denomination or religious affiliation.",
         "Conversations with the chaplain are always voluntary and confidential.",
@@ -54,37 +55,40 @@ export default function HealthChaplain({ language = 'ET' }) {
 
   return (
     <Section title={copy.title} sub={copy.sub}>
-      <ul style={{ listStyleType: "disc", marginLeft: "1.5rem", marginBottom: "2rem" }}>
-        {copy.notes.map((note, index) => (
-          <li key={index} style={{ marginBottom: "0.5rem" }}>
-            {note}
-          </li>
-        ))}
+        <ul style={{listStyleType:"disc",marginLeft:"2rem"}}>{copy.Inotes.map((item, index) => (
+                  <li key={index} style={{ marginBottom: "0.5rem" }}>
+                  {item}
+                      </li>
+                  ))}
+
       </ul>
+      <Tip>
+        <ul style={{listStyleType:"circle",marginLeft:"2rem"}}>{copy.chapTip.map((item, index) => (
+                  <li key={index} style={{ marginBottom: "0.5rem" }}>
+                  {item}
+                      </li>
+                  ))}
 
-      {copy.chapTip.map((tip, index) => (
-        <Tip key={index}>{tip}</Tip>
-      ))}
-
-      <h3 style={{
-        fontSize: "1.5rem",
-        fontWeight: "bold",
-        color: "#003B71",
-        marginTop: "2rem",
-        marginBottom: "1rem"
-      }}>
-        {copy.mattersTitle}
-      </h3>
-
-      <ul style={{ listStyleType: "circle", marginLeft: "1.5rem", marginBottom: "2rem" }}>
-        {copy.matters.map((matter, index) => (
-          <li key={index} style={{ marginBottom: "0.5rem" }}>
-            {matter}
-          </li>
-        ))}
       </ul>
+      </Tip>
+      <Accordion title={copy.mattersTitle}>
+        <ul style={{listStyleType:"numbered",marginLeft:"2rem"}}>{copy.matters.map((item, index) => (
+                  <li key={index} style={{ marginBottom: "0.5rem" }}>
+                  {item}
+                      </li>
+                  ))}
 
-      <Tip>{copy.mattersTip}</Tip>
+      </ul>
+      </Accordion>
+      <Accordion title={copy.imNote}>
+        <ul style={{listStyleType:"disc",marginLeft:"2rem"}}>{copy.notes.map((item, index) => (
+                  <li key={index} style={{ marginBottom: "0.5rem" }}>
+                  {item}
+                      </li>
+                  ))}
+
+      </ul>
+      </Accordion>
     </Section>
   );
 }

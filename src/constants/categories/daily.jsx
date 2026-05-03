@@ -27,6 +27,7 @@ export default {
     { id: 'daily.meetings', title: { ET: 'Kohtumised', EN: 'Meetings' } },
     { id: 'daily.letters', title: { ET: 'Kirjavahetus', EN: 'Correspondence' } },
     { id: 'daily.movement', title: { ET: 'Vanglas liikumine', EN: 'Movement in Prison' } },
-    { id: 'daily.leisure', title: { ET: 'Vaba aeg ja sport', EN: 'Leisure & Sports' } }
+    { id: 'daily.leisure', title: { ET: 'Vaba aeg ja sport', EN: 'Leisure & Sports' } },
+    { id: 'daily.tablet', title: { ET: 'zTAHVELARVUTI KASUTAMINE', EN: 'Use of Tablets' } }
   ]
 };
