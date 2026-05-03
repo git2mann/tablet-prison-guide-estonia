@@ -48,9 +48,9 @@ export default function FAQ({ language = 'ET', onNav }) {
   );
 
   return (
-    <motion.div initial="initial" animate="animate" variants={staggerContainer} className="w-full max-w-7xl mx-auto px-6 md:px-12 py-12 md:py-20 space-y-16 md:space-y-24 overflow-hidden">
+    <motion.div initial="initial" animate="animate" variants={staggerContainer} className="w-full max-w-7xl mx-auto px-6 md:px-12 py-12 md:py-20 space-y-16 md:space-y-24 ">
       {/* Design-Consistent Header */}
-      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 overflow-hidden">
+      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 ">
         <div className="space-y-4">
           <div className="flex items-center gap-3 text-[var(--color-brand-gold)]">
             <div className="p-2 bg-[var(--color-brand-gold)]/10 rounded-lg flex-shrink-0">
@@ -88,14 +88,14 @@ export default function FAQ({ language = 'ET', onNav }) {
         </div>
       </div>
 
-      <div className="space-y-6 overflow-hidden">
+      <div className="space-y-6 ">
         {filtered.map((faq, idx) => (
-          <motion.div key={idx} variants={staggerItem} className="bg-[var(--color-bg-card)] rounded-[40px] border-2 border-[var(--color-border-subtle)] overflow-hidden hover:border-[var(--color-brand-gold)]/30 transition-all duration-500 shadow-sm hover:shadow-2xl">
+          <motion.div key={idx} variants={staggerItem} className="bg-[var(--color-bg-card)] rounded-[40px] border-2 border-[var(--color-border-subtle)]  hover:border-[var(--color-brand-gold)]/30 transition-all duration-500 shadow-sm hover:shadow-2xl">
             <button
               onClick={() => setActiveIdx(activeIdx === idx ? null : idx)}
-              className="w-full p-8 md:p-12 flex items-center justify-between text-left group overflow-hidden"
+              className="w-full p-8 md:p-12 flex items-center justify-between text-left group "
             >
-              <div className="flex items-center gap-8 overflow-hidden">
+              <div className="flex items-center gap-8 ">
                 <span className="hidden sm:block font-black text-[var(--color-text-secondary)] opacity-10 italic text-6xl leading-none transition-colors group-hover:text-[var(--color-brand-gold)]/20 flex-shrink-0">{String(idx + 1).padStart(2, '0')}</span>
                 <h3 className="text-2xl md:text-3xl font-black text-[var(--color-text-primary)] uppercase italic tracking-tight leading-tight group-hover:text-[var(--color-brand-blue)] transition-colors  text-balance">{faq.q[language]}</h3>
               </div>
@@ -110,16 +110,16 @@ export default function FAQ({ language = 'ET', onNav }) {
                   animate={{ height: 'auto', opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
                   transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-                  className="overflow-hidden"
+                  className=""
                 >
-                  <div className="p-8 md:p-20 pt-0 border-t-2 border-[var(--color-border-subtle)] overflow-hidden">
-                    <div className="flex gap-8 overflow-hidden">
+                  <div className="p-8 md:p-20 pt-0 border-t-2 border-[var(--color-border-subtle)] ">
+                    <div className="flex gap-8 ">
                        <div className="hidden md:block w-1.5 h-auto bg-[var(--color-brand-gold)] rounded-full opacity-40 flex-shrink-0" />
-                       <div className="space-y-8 overflow-hidden">
+                       <div className="space-y-8 ">
                          <p className="text-2xl md:text-3xl font-bold text-[var(--color-text-secondary)] leading-relaxed text-balance ">
                            {faq.a[language]}
                          </p>
-                         <div className="inline-flex items-center gap-3 px-6 py-2 bg-[var(--color-bg-button-alt)] rounded-full border border-[var(--color-border-subtle)] overflow-hidden">
+                         <div className="inline-flex items-center gap-3 px-6 py-2 bg-[var(--color-bg-button-alt)] rounded-full border border-[var(--color-border-subtle)] ">
                            <div className="w-2 h-2 rounded-full bg-blue-500 flex-shrink-0" />
                            <span className="text-xs font-black uppercase text-[var(--color-text-secondary)] opacity-50 tracking-widest italic  text-balance">Kategooria: {faq.cat}</span>
                          </div>
@@ -141,10 +141,10 @@ export default function FAQ({ language = 'ET', onNav }) {
       )}
 
       {/* Bottom Exit */}
-      <div className="mt-24 pt-12 border-t-2 border-[var(--color-border-subtle)] flex justify-center pb-20 overflow-hidden">
+      <div className="mt-24 pt-12 border-t-2 border-[var(--color-border-subtle)] flex justify-center pb-20 ">
          <button 
            onClick={() => onNav('home')}
-           className="px-16 py-6 bg-[var(--color-brand-blue)] text-white rounded-full font-black uppercase tracking-[0.2em] italic hover:opacity-90 hover:shadow-2xl active:scale-[0.98] transition-all flex items-center justify-center gap-3 overflow-hidden"
+           className="px-16 py-6 bg-[var(--color-brand-blue)] text-white rounded-full font-black uppercase tracking-[0.2em] italic hover:opacity-90 hover:shadow-2xl active:scale-[0.98] transition-all flex items-center justify-center gap-3 "
          >
            <span className=" text-balance">Tagasi pealehele</span>
          </button>

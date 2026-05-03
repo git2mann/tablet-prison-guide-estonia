@@ -13,7 +13,7 @@ export default function ArrivalNeeds({ language = 'ET' }) {
     <motion.div initial="initial" animate="animate" variants={staggerContainer} className="w-full max-w-full overflow-x-hidden">
       <motion.div variants={staggerItem}>
         <Section title={title[language]} sub={sub[language]}>
-          <div className="prose prose-lg md:prose-2xl text-balance  prose-slate max-w-full font-bold whitespace-pre-wrap text-slate-600 leading-relaxed mb-12 text-balance">
+          <div className="prose prose-lg md:prose-2xl text-balance max-w-full font-bold whitespace-pre-wrap leading-relaxed mb-12 text-balance">
             {language === 'ET' ? (
               <>
                 Teile luuakse <Keyword word="personal account" language={language}>isikuarve</Keyword> — ametnik või <Keyword word="contact person" language={language}>kontaktisik</Keyword> annab teile arvenumbri. Teile väljastatakse 1-eurose krediidiga <Keyword word="phone card" language={language}>telefonikaart</Keyword> (~10–20 min), et saaksite lähedastele helistada.
