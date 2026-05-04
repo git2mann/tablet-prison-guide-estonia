@@ -80,7 +80,7 @@ const App = () => {
   const textColor = 'text-[var(--color-text-primary)]';
 
   return (
-    <div className={`min-h-screen bg-[var(--color-bg-page)] font-sans text-[var(--color-text-primary)] flex flex-col select-none touch-manipulation transition-colors duration-500 ${isLanding ? 'pt-0' : 'pt-16 md:pt-24 pb-8'}`}>
+    <div className={`min-h-screen bg-[var(--color-bg-page)] font-sans text-[var(--color-text-primary)] flex flex-col touch-manipulation transition-colors duration-500 ${isLanding ? 'pt-0' : 'pt-16 md:pt-24 pb-8'}`}>
       
       {/* HEADER: Now always visible for toggles, but navigation parts are conditional */}
       <header className="fixed top-0 left-0 right-0 z-[1000] h-16 md:h-24 bg-[var(--color-bg-header)] backdrop-blur-3xl border-b border-[var(--color-border-subtle)] transition-colors duration-500 shadow-[0_10px_40px_rgba(0,0,0,0.03)]">
