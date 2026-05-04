@@ -1,9 +1,9 @@
 const NAV = [
   { id:"home", icon:"⬡", label:"Home" },
   { id:"arrival", icon:"→", label:"Arrival", sub:[
-    {id:"arrival.search",label:"Search & Documents"},
-    {id:"arrival.health",label:"Health Check"},
-    {id:"arrival.needs",label:"Basic Needs"},
+    {id:"arrival.reception",label:"Introduction"},
+    {id:"arrival.procedures",label:"Initial Procedures"},
+    {id:"arrival.needs",label:"Basic Essentials"},
   ]},
   { id:"daily", icon:"◷", label:"Daily Life", sub:[
     {id:"daily.schedule",label:"Schedule & Count"},

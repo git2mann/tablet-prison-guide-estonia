@@ -16,8 +16,8 @@ export default {
   imageUrl: 'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=1200&q=80',
   color: 'orange',
   articles: [
-    { id: 'arrival.search', title: { ET: 'Otsing ja dokumendid', EN: 'Search & Documents' } },
-    { id: 'arrival.health', title: { ET: 'Tervisekontroll', EN: 'Health Check' } },
-    { id: 'arrival.needs', title: { ET: 'Baasvajad', EN: 'Basic Needs' } }
+    { id: 'arrival.reception', title: { ET: 'Sissejuhatus', EN: 'Introduction' } },
+    { id: 'arrival.procedures', title: { ET: 'Esialgsed toimingud', EN: 'Initial Procedures' } },
+    { id: 'arrival.needs', title: { ET: 'Põhivajadused', EN: 'Basic Essentials' } }
   ]
 };
