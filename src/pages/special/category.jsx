@@ -32,11 +32,23 @@ export default function CategoryPage({ categoryId, onNav, language = 'ET', handl
     >
       {/* 1. SEAMLESS HERO HEADER */}
       <div className="w-full relative min-h-[40vh] md:min-h-[50vh] shrink-0 overflow-hidden bg-[var(--color-brand-blue)]">
-        <img 
-          src={selectedCategory.imageUrl + "&w=1600&q=85"} 
-          className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay"
-          alt=""
-        />
+        {selectedCategory.videoUrl ? (
+          <video 
+            src={selectedCategory.videoUrl} 
+            poster={selectedCategory.imageUrl}
+            autoPlay 
+            loop 
+            muted 
+            playsInline 
+            className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay"
+          />
+        ) : (
+          <img 
+            src={selectedCategory.imageUrl + "&w=1600&q=85"} 
+            className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay"
+            alt=""
+          />
+        )}
         <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-brand-blue)]/40 via-transparent to-[var(--color-bg-page)]" />
         
         <div className="relative max-w-7xl mx-auto px-8 md:px-16 pt-24 md:pt-36 pb-12 md:pb-20 flex flex-col justify-end h-full">
@@ -89,17 +101,21 @@ export default function CategoryPage({ categoryId, onNav, language = 'ET', handl
               </p>
 
               <div className="grid grid-cols-1 gap-6 mb-12">
-                 <div className="rounded-[40px] overflow-hidden aspect-video relative border-2 border-slate-100 shadow-lg">
-                    <img src={`https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1000&q=80&sig=1-${categoryId}`} className="w-full h-full object-cover" alt="" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-brand-blue)]/30 to-transparent" />
-                 </div>
-                 <div className="grid grid-cols-2 gap-6">
-                    <div className="rounded-[32px] overflow-hidden aspect-square border-2 border-slate-50 shadow-md">
-                       <img src={`https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=600&q=80&sig=2-${categoryId}`} className="w-full h-full object-cover" alt="" />
-                    </div>
-                    <div className="rounded-[32px] overflow-hidden aspect-square border-2 border-slate-50 shadow-md">
-                       <img src={`https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=600&q=80&sig=3-${categoryId}`} className="w-full h-full object-cover" alt="" />
-                    </div>
+                 <div className="rounded-[40px] overflow-hidden aspect-video relative border-2 border-slate-100 shadow-lg bg-black">
+                    {selectedCategory.videoUrl ? (
+                      <video 
+                        src={selectedCategory.videoUrl} 
+                        poster={selectedCategory.imageUrl}
+                        autoPlay 
+                        loop 
+                        muted 
+                        playsInline 
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <img src={selectedCategory.imageUrl} className="w-full h-full object-cover" alt="" />
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-brand-blue)]/30 to-transparent pointer-events-none" />
                  </div>
               </div>
 
