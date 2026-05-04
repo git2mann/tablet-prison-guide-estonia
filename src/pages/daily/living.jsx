@@ -4,6 +4,8 @@ import { staggerContainer, staggerItem } from "../../constants/animations";
 import { motion } from "framer-motion";
 import Tip from '../../components/ui/Tip';
 import Accordion from '../../components/ui/Accordion';
+import messyCellImage from "../../assets/pictures/79e8rapj.png";
+import cleanCellImage from "../../assets/pictures/Korras kamber 1 - Copy.jpg";
 
 export default function DailyLiving({ language = 'ET' }) {
   const content={
@@ -34,6 +36,7 @@ export default function DailyLiving({ language = 'ET' }) {
         " Selle kaudu saad Sina suhelda vangla personaliga ja personal Sinuga.",
         "Raadio ja telekanalite pakett on tellitud vangla poolt ning see on kogu vanglas ühesugune. Paketid võivad olla vanglati erinevad."
       ],
+      imageCaption:"Elukamber",
       maintenanceTitle:"Kambri korrashoid",
       maintenance:[
         "Vangla poolt saad voodi varustuse ja käterätiku.",
@@ -84,7 +87,7 @@ export default function DailyLiving({ language = 'ET' }) {
         "panna kambris või mujal üles pilte, mis kujutavad alasti inimesi, on ebasündsad, häirivad või vaenu õhutavad."
       ],
       faqsTitle:"Olulised asjad, mida tuleb meeles pidada",
-      faq:[
+      faqs:[
         {
           question:"Millised isiklikud asjad on kambris lubatud?",
           answer:[
@@ -146,6 +149,7 @@ export default function DailyLiving({ language = 'ET' }) {
         "This allows you to communicate with the prison staff and the staff to communicate with you.",
         "The radio and television channel package is ordered by the prison and is the same throughout the prison. The packages may vary from prison to prison."
       ],
+      imageCaption:"Living quarters",
       maintenanceTitle:"Cell Maintenance",
       maintenance:[
         "The prison provides bedding and a towel.",
@@ -282,8 +286,23 @@ export default function DailyLiving({ language = 'ET' }) {
 
       </ul>
       </Accordion>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-10">
+        <img
+          src={messyCellImage}
+          alt=""
+          className="w-full rounded-[28px] object-cover shadow-lg"
+        />
+        <img
+          src={cleanCellImage}
+          alt=""
+          className="w-full rounded-[28px] object-cover shadow-lg"
+        />
+      </div>
+      <p className="text-center text-sm font-black uppercase tracking-widest text-[var(--color-text-secondary)] opacity-70 -mt-4 mb-10">
+        {copy.imageCaption}
+      </p>
       <h3 style={{
-         fontSize: "2rem",
+          fontSize: "2rem",
         fontWeight: 900,
         color: "#003B71",
         letterSpacing: "-0.025em",
