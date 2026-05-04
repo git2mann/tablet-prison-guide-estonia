@@ -167,7 +167,7 @@ export default function DailyEshop({ language = 'ET' }) {
 
 
       <div style={{ marginLeft: "3rem" }}>
-        <h4 style={{ fontWeight: 700,fontSize:"1.9rem" }}>{step.title}</h4>
+        <h4 style={{ fontWeight: 700,fontSize: "1.9rem" }}>{step.title}</h4>
         <p style={{ marginTop: "0.25rem", color: "#374151" }}>
           {step.content}
         </p>

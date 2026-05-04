@@ -106,7 +106,7 @@ export default function RelTEV({ language = "ET" }) {
         {copy.introEnd}
       </Tip>
 
-      <h3 className="text-xl md:text-2xl font-bold text-[#003B71] mt-12 mb-6">
+      <h3 className="text-[2rem] md:text-[2rem] font-bold text-[#003B71] mt-12 mb-6">
         {copy.eligibilityTitle}
       </h3>
 

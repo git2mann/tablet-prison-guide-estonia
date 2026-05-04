@@ -128,7 +128,7 @@ export default function ApplicationAssistant({ language = 'ET', onNav }) {
                <FileText size={32} strokeWidth={2.5} />
              </div>
              <div className="">
-               <h3 className="text-2xl md:text-4xl font-black text-[var(--color-text-primary)] uppercase italic tracking-tighter leading-none  text-balance">Vali teema</h3>
+               <h3 className="text-[2rem] md:text-[2rem] font-black text-[var(--color-text-primary)] uppercase italic tracking-tighter leading-none  text-balance">Vali teema</h3>
                <p className="text-xs font-bold text-[var(--color-text-secondary)] opacity-50 uppercase tracking-widest mt-2 italic  text-balance">Samm-sammuline juhend</p>
              </div>
            </div>
@@ -152,7 +152,7 @@ export default function ApplicationAssistant({ language = 'ET', onNav }) {
                 className="space-y-12 "
               >
                 <div className="space-y-6">
-                  <h3 className="text-4xl md:text-7xl font-black text-[var(--color-text-primary)] tracking-tighter uppercase italic leading-none  text-balance">
+                  <h3 className="text-[2rem] md:text-[2rem] font-black text-[var(--color-text-primary)] tracking-tighter uppercase italic leading-none  text-balance">
                     {node.title[language]}
                   </h3>
                   <div className="h-2 w-32 bg-[var(--color-brand-gold)] rounded-full" />
@@ -191,7 +191,7 @@ export default function ApplicationAssistant({ language = 'ET', onNav }) {
                 animate={{ opacity: 1 }}
                 className="space-y-12 "
               >
-                <h3 className="text-4xl md:text-6xl font-black text-[var(--color-text-primary)] tracking-tighter uppercase italic leading-[0.9] text-balance ">
+                <h3 className="text-[2rem] md:text-[2rem] font-black text-[var(--color-text-primary)] tracking-tighter uppercase italic leading-[0.9] text-balance ">
                   {node.question[language]}
                 </h3>
 

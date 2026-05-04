@@ -59,7 +59,7 @@ export default function ArticleFallback({ articleId, language = 'ET', onNav }) {
             <div className="relative my-16">
               <div className="flex items-center gap-4 mb-10">
                 <div className="w-1.5 h-10 bg-[#FFD000] rounded-full shrink-0" />
-                <h3 className="text-[clamp(1.5rem,5vw,2.5rem)] font-black text-[#003B71] uppercase tracking-tighter italic">
+                <h3 className="text-[2rem] font-black text-[#003B71] uppercase tracking-tighter italic">
                   {labels.procedure[language]}
                 </h3>
               </div>
@@ -105,7 +105,7 @@ export default function ArticleFallback({ articleId, language = 'ET', onNav }) {
                     <span className="text-[10px] font-black text-[var(--color-brand-gold)] uppercase tracking-widest italic block">
                        {nextArticle.categoryTitle?.[language]}
                     </span>
-                    <h4 className="text-3xl md:text-5xl font-black text-[var(--color-text-primary)] uppercase italic tracking-tighter leading-tight text-balance">
+                    <h4 className="text-[1.9rem] md:text-[1.9rem] font-black text-[var(--color-text-primary)] uppercase italic tracking-tighter leading-tight text-balance">
                        {nextArticle.title[language]}
                     </h4>
                  </div>

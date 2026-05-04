@@ -100,7 +100,7 @@ export default function DailyLaundry({ language = 'ET' }) {
         >
           <h3
             style={{
-              fontSize: "1.7rem",
+              fontSize: "2rem",
               fontWeight: 800,
               color: "#003B71",
               marginBottom: "0.8rem"
@@ -132,7 +132,7 @@ export default function DailyLaundry({ language = 'ET' }) {
         >
           <h3
             style={{
-              fontSize: "1.7rem",
+              fontSize: "2rem",
               fontWeight: 800,
               color: "#003B71",
               marginBottom: "0.8rem"

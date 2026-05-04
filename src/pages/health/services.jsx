@@ -183,7 +183,7 @@ export default function HealthServices({ language = 'ET' }) {
     >
       <h4
         style={{
-          fontSize: "1.95rem",
+          fontSize: "1.9rem",
           fontWeight: "700",
           color: "#003B71",
           marginBottom: "0.5rem",

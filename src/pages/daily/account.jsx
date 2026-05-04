@@ -71,8 +71,8 @@ function MoneyFlow({ variant = "claims",labels }) {
         <h4 style={{
           color: "#003B71",
           fontWeight: 800,
-          marginBottom: "0.5rem"
-        }}>
+          marginBottom: "0.5rem",
+          fontSize: "1.9rem"}}>
           Example:
         </h4>
 

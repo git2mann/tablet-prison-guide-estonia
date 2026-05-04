@@ -14,7 +14,7 @@ const StepDescription = ({ cat, i, align, language, uiStrings, isDarkMode }) => 
       </span>
       {align === 'right' && <motion.div initial={{ width: 0 }} whileInView={{ width: 32 }} className="h-[1px] bg-[var(--color-brand-gold)]" />}
     </div>
-    <h3 className="text-xl md:text-3xl font-black text-[var(--color-brand-blue)] tracking-tighter uppercase italic leading-none group-hover/row:translate-y-[-2px] transition-transform duration-300">
+    <h3 className="text-[2rem] md:text-[2rem] font-black text-[var(--color-brand-blue)] tracking-tighter uppercase italic leading-none group-hover/row:translate-y-[-2px] transition-transform duration-300">
       {cat.title[language].replace(/^\d+\.\s*/, '')}
     </h3>
     <p className="text-[9px] md:text-[11px] font-bold text-[var(--color-text-secondary)] uppercase tracking-widest leading-relaxed max-w-[280px] opacity-80">

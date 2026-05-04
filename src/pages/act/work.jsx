@@ -357,7 +357,7 @@ export default function ActWork({ language = 'ET' }) {
       <h3
         style={{
           color: "#16a34a",
-          fontSize: "1.7rem",
+          fontSize: "2rem",
           fontWeight: 800,
           marginBottom: "1rem"
         }}
@@ -470,7 +470,7 @@ export default function ActWork({ language = 'ET' }) {
         
           <h4
             style={{
-              fontSize: "1.8rem",
+              fontSize: "1.9rem",
               fontWeight: 800,
               color: "#003B71",
               marginBottom: "0.6rem",
@@ -577,7 +577,7 @@ export default function ActWork({ language = 'ET' }) {
         >
           <h4
             style={{
-              fontSize: "1.7rem",
+              fontSize: "1.9rem",
               fontWeight: 800,
               color: "#003B71",
               marginBottom: "0.5rem"

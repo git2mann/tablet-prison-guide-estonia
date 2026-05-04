@@ -204,7 +204,7 @@ export default function ArrivalNeeds({ language = 'ET' }) {
 
       
          <h3 style={{
-            fontSize: "1.8rem",
+            fontSize: "2rem",
             fontWeight: 900,
             color: "#003B71",
             marginBottom: "1rem"

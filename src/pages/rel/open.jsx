@@ -171,7 +171,7 @@ export default function RelOpen({ language = 'ET' }) {
 
           <Tip>{copy.conditionsTip}</Tip>
 
-          <h4 className="text-lg md:text-xl font-bold text-[#003B71] pt-4">{copy.considerationTitle}</h4>
+          <h4 className="text-[1.9rem] md:text-[1.9rem] font-bold text-[#003B71] pt-4">{copy.considerationTitle}</h4>
           <ul className="space-y-3 pl-4 text-lg md:text-xl text-slate-700">
             {copy.considerations.map((item) => (
               <li key={item} className="flex items-start gap-3">
@@ -224,7 +224,7 @@ export default function RelOpen({ language = 'ET' }) {
 
       <Warning>
         <div className="space-y-4">
-          <h4 className="text-lg md:text-xl font-bold">{copy.warningTitle}</h4>
+          <h4 className="text-[1.9rem] md:text-[1.9rem] font-bold">{copy.warningTitle}</h4>
           <ul className="list-disc pl-6 space-y-2 text-lg">
             {copy.warning.map((item) => <li key={item}>{item}</li>)}
           </ul>

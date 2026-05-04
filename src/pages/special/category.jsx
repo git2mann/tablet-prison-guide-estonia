@@ -93,7 +93,7 @@ export default function CategoryPage({ categoryId, onNav, language = 'ET', handl
             <div className="bg-[var(--color-bg-card)] rounded-[60px] p-8 md:p-14 shadow-2xl border-2 border-[var(--color-border-subtle)] transition-colors duration-500 overflow-hidden relative">
               <div className="flex items-center gap-4 mb-8">
                 <div className="w-1 h-10 bg-[var(--color-brand-gold)] rounded-full shrink-0" />
-                <h3 className="text-2xl md:text-3xl font-black text-[var(--color-text-primary)] uppercase tracking-tighter italic">{labels.intro[language]}</h3>
+                <h3 className="text-[2rem] md:text-[2rem] font-black text-[var(--color-text-primary)] uppercase tracking-tighter italic">{labels.intro[language]}</h3>
               </div>
               
               <p className="text-[1.8rem] font-bold text-[var(--color-text-primary)] leading-tight text-balance mb-12 italic opacity-80">
@@ -130,7 +130,7 @@ export default function CategoryPage({ categoryId, onNav, language = 'ET', handl
             <div className="bg-[var(--color-bg-button-alt)]/30 rounded-[60px] p-6 md:p-12 border-2 border-white/60 shadow-xl min-h-full transition-colors duration-500">
               <div className="flex items-center justify-between mb-10 px-4">
                  <div className="space-y-1">
-                   <h3 className="text-2xl font-black text-[var(--color-text-primary)] uppercase tracking-widest italic">{labels.articles[language]}</h3>
+                   <h3 className="text-[2rem] font-black text-[var(--color-text-primary)] uppercase tracking-widest italic">{labels.articles[language]}</h3>
                    <div className="h-1 w-12 bg-[var(--color-brand-gold)] rounded-full" />
                  </div>
                  <CheckCircle2 size={32} className="text-slate-200" strokeWidth={3} />
