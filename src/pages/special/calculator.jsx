@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Wallet, Info, RefreshCw, Landmark, X, Clock } from 'lucide-react';
 import { staggerContainer, staggerItem } from "../../constants/animations";
+import Animation from "../../components/ui/Animation";
+import successAnim from "../../assets/animations/success.json";
 
 export default function FundCalculator({ language = 'ET', onNav }) {
   const [balance, setBalance] = useState(0);
@@ -125,7 +127,10 @@ export default function FundCalculator({ language = 'ET', onNav }) {
               </div>
             </div>
 
-            <div className="p-8 bg-[var(--color-bg-card)] rounded-[40px] border-2 border-white/10 shadow-2xl ">
+            <div className="p-8 bg-[var(--color-bg-card)] rounded-[40px] border-2 border-white/10 shadow-2xl relative">
+               <div className="absolute -right-4 -top-4 w-24 h-24 z-20 pointer-events-none opacity-40">
+                  <Animation animationData={successAnim} loop={true} />
+               </div>
                <div className="flex items-center justify-between mb-6 ">
                  <div>
                     <span className="block font-black text-[var(--color-brand-gold)] text-2xl tracking-tighter italic uppercase ">{remainingToCap.toFixed(2)}€</span>
