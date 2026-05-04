@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Book, Wallet, HelpCircle, MessageSquare, ArrowRightCircle, Calendar, Star, Send, Bot, User, ChevronDown } from 'lucide-react';
 import { useCategories } from '../../constants/categories';
+import { searchHandbook } from '../../utils/handbookSearch';
 
 export default function Home({ onNav, language = 'ET' }) {
   const categories = useCategories();
@@ -76,6 +77,40 @@ export default function Home({ onNav, language = 'ET' }) {
     ]);
   }
 
+  const CHAPTER_HEADINGS = {
+    'arrival.search':      { ET: '1. Saabumine ja vastuvõtt vanglasse', EN: '1. Arrival & Reception' },
+    'arrival.health':      { ET: '1. Saabumine ja vastuvõtt vanglasse', EN: '1. Arrival & Reception' },
+    'arrival.needs':       { ET: '1. Saabumine ja vastuvõtt vanglasse', EN: '1. Arrival & Reception' },
+    'daily.schedule':      { ET: '2. Vangla igapäevaelu',               EN: '2. Daily Life' },
+    'daily.account':       { ET: '2. Vangla igapäevaelu',               EN: '2. Daily Life' },
+    'daily.phone':         { ET: '2. Vangla igapäevaelu',               EN: '2. Daily Life' },
+    'daily.eating':        { ET: '2. Vangla igapäevaelu',               EN: '2. Daily Life' },
+    'daily.eshop':         { ET: '2. Vangla igapäevaelu',               EN: '2. Daily Life' },
+    'daily.living':        { ET: '2. Vangla igapäevaelu',               EN: '2. Daily Life' },
+    'daily.hygiene':       { ET: '2. Vangla igapäevaelu',               EN: '2. Daily Life' },
+    'daily.laundry':       { ET: '2. Vangla igapäevaelu',               EN: '2. Daily Life' },
+    'daily.meetings':      { ET: '2. Vangla igapäevaelu',               EN: '2. Daily Life' },
+    'daily.letters':       { ET: '2. Vangla igapäevaelu',               EN: '2. Daily Life' },
+    'daily.movement':      { ET: '2. Vangla igapäevaelu',               EN: '2. Daily Life' },
+    'daily.leisure':       { ET: '2. Vangla igapäevaelu',               EN: '2. Daily Life' },
+    'rules.process':       { ET: '3. Reeglid ja distsipliin',           EN: '3. Rules & Discipline' },
+    'rules.punishments':   { ET: '3. Reeglid ja distsipliin',           EN: '3. Rules & Discipline' },
+    'rules.solitary':      { ET: '3. Reeglid ja distsipliin',           EN: '3. Rules & Discipline' },
+    'health.services':     { ET: '4. Tervis',                           EN: '4. Health' },
+    'health.doctor':       { ET: '4. Tervis',                           EN: '4. Health' },
+    'health.meds':         { ET: '4. Tervis',                           EN: '4. Health' },
+    'health.psych':        { ET: '4. Tervis',                           EN: '4. Health' },
+    'health.chaplain':     { ET: '4. Tervis',                           EN: '4. Health' },
+    'activities.risk':     { ET: '5. Minu tegevused vanglas',           EN: '5. Activities in Prison' },
+    'activities.programs': { ET: '5. Minu tegevused vanglas',           EN: '5. Activities in Prison' },
+    'activities.learn':    { ET: '5. Minu tegevused vanglas',           EN: '5. Activities in Prison' },
+    'activities.work':     { ET: '5. Minu tegevused vanglas',           EN: '5. Activities in Prison' },
+    'release.open':        { ET: '6. Avavangla ja TEV',                 EN: '6. Open Prison & Release' },
+    'release.etev':        { ET: '6. Avavangla ja TEV',                 EN: '6. Open Prison & Release' },
+    'release.tev':         { ET: '6. Avavangla ja TEV',                 EN: '6. Open Prison & Release' },
+    'staff.roles':         { ET: '8. KES-ON-KES — Vangla töötajad ja nende ülesanded', EN: '8. WHO\'S WHO — Prison Staff and Their Roles' },
+  };
+
   const container = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.05 } } };
   const item = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 300, damping: 24 } } };
 
@@ -130,18 +165,100 @@ export default function Home({ onNav, language = 'ET' }) {
             </button>
           </div>
 
-           <div className="w-full max-w-lg relative z-10">
-              <input 
-                type="text" 
-                placeholder={uiStrings.search[language]}
-                className="w-full bg-[var(--color-bg-elevated)] border-2 border-[var(--color-border-subtle)] rounded-2xl py-4 px-6 pl-14 text-lg font-bold text-[var(--color-text-body)] placeholder:text-[var(--color-text-dim)] focus:border-[var(--color-brand-gold)] outline-none transition-all shadow-inner focus:shadow-xl focus:shadow-[var(--color-brand-gold)]/5"
-              />
-              <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-[var(--color-text-dim)]" size={24} />
-              <div className="absolute right-5 top-1/2 -translate-y-1/2 items-center gap-1.5 px-2 py-1 bg-[var(--color-bg-surface)] border border-[var(--color-border-subtle)] rounded-lg shadow-sm opacity-40 hidden md:flex">
-                 <Command size={12} className="text-[var(--color-text-dim)]" />
-                 <span className="text-[10px] font-black text-[var(--color-text-dim)]">K</span>
-              </div>
-           </div>
+          <AnimatePresence>
+            {chatOpen && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div ref={messagesRef} className="px-5 py-4 space-y-4 max-h-72 overflow-y-auto">
+                  {messages.map((msg, i) => (
+                    <div key={i} className={`flex gap-3 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                      {msg.role === 'bot' && (
+                        <div className="w-7 h-7 rounded-xl bg-[var(--color-brand-blue)] flex items-center justify-center flex-shrink-0 mt-1">
+                          <Bot size={14} className="text-white" />
+                        </div>
+                      )}
+                      <div className={`max-w-[80%] flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'} space-y-2`}>
+                        <div className={`px-4 py-3 rounded-2xl text-sm font-medium leading-relaxed ${
+                          msg.role === 'user'
+                            ? 'bg-[var(--color-brand-blue)] text-white rounded-br-sm'
+                            : 'bg-[var(--color-bg-elevated)] text-[var(--color-text-body)] rounded-bl-sm'
+                        }`}>
+                          {msg.results?.length > 0 && (() => {
+                            const r = msg.results[0];
+                            const sectionTitle = language === 'ET' ? r.titleET : r.titleEN;
+                            const chapterHeading = CHAPTER_HEADINGS[r.id]?.[language] ?? sectionTitle;
+                            const showSection = sectionTitle !== chapterHeading;
+                            return (
+                              <span className="block mb-2 space-y-0.5">
+                                <span className="block font-black text-sm uppercase tracking-wider leading-tight" style={{ color: 'var(--color-brand-blue)' }}>
+                                  {chapterHeading}
+                                </span>
+                                {showSection && (
+                                  <span className="block font-black text-[11px] uppercase tracking-wider text-[var(--color-brand-gold)]">
+                                    {sectionTitle}
+                                  </span>
+                                )}
+                              </span>
+                            );
+                          })()}
+                          {msg.text}
+                          {msg.role === 'bot' && msg.text?.endsWith('…') && msg.results?.length > 0 && (
+                            <button
+                              onClick={() => onNav(msg.results[0].id)}
+                              className="ml-1 text-[var(--color-brand-gold)] font-medium hover:underline"
+                            >
+                              Read more / Loe edasi
+                            </button>
+                          )}
+                        </div>
+                        {msg.role === 'bot' && msg.results?.length > 0 && (
+                          <div className="flex flex-wrap gap-2">
+                            {msg.results.map(r => (
+                              <button
+                                key={r.id}
+                                onClick={() => onNav(r.id)}
+                                className="flex items-center gap-1.5 px-3 py-1.5 bg-[var(--color-brand-gold)] text-[var(--color-brand-blue)] rounded-lg text-[10px] font-black uppercase tracking-wider hover:opacity-90 active:scale-95 transition-all"
+                              >
+                                {language === 'ET' ? r.titleET : r.titleEN}
+                                <ArrowRight size={10} strokeWidth={3} />
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                      {msg.role === 'user' && (
+                        <div className="w-7 h-7 rounded-xl bg-[var(--color-bg-elevated)] flex items-center justify-center flex-shrink-0 mt-1">
+                          <User size={14} className="text-[var(--color-text-dim)]" />
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                <div className="px-5 py-4 border-t border-[var(--color-border-subtle)] flex items-center gap-3">
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    value={input}
+                    onChange={e => setInput(e.target.value)}
+                    onKeyDown={e => e.key === 'Enter' && handleSend()}
+                    placeholder={ui.placeholder[language]}
+                    className="flex-1 bg-[var(--color-bg-elevated)] border border-[var(--color-border-subtle)] rounded-xl py-3 px-4 text-sm font-medium text-[var(--color-text-body)] placeholder:text-[var(--color-text-dim)] focus:border-[var(--color-brand-gold)] outline-none transition-all"
+                  />
+                  <button
+                    onClick={handleSend}
+                    disabled={!input.trim()}
+                    className="w-10 h-10 bg-[var(--color-brand-blue)] rounded-xl flex items-center justify-center text-white hover:bg-[var(--color-brand-gold)] hover:text-black transition-all disabled:opacity-30 flex-shrink-0"
+                  >
+                    <Send size={16} />
+                  </button>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </motion.div>
       </div>

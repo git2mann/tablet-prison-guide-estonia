@@ -135,6 +135,39 @@ const INTENT_BOOSTS = [
     addScore: 0.04,
   },
   {
+    testEN: words =>
+      words.has('leaving') || words.has('leave') || words.has('release') ||
+      words.has('released') || words.has('free') || words.has('freedom') ||
+      words.has('going') && (words.has('home') || words.has('out') || words.has('soon')) ||
+      words.has('probation') || words.has('electronic') || words.has('monitoring') ||
+      words.has('parole') || words.has('sentence') && words.has('end') ||
+      words.has('finishing') || words.has('finished') || words.has('done'),
+    testET: words =>
+      [...words].some(w =>
+        w.startsWith('vabanem') || w.startsWith('lahkum') || w.startsWith('vabadu') ||
+        w.startsWith('avavangla') || w.startsWith('elektr') || w.startsWith('kriminaalhoold')
+      ),
+    sections: new Set(['release.open', 'release.etev', 'release.tev']),
+    addScore: 0.12,
+  },
+  {
+    testEN: words =>
+      words.has('mental') || words.has('anxiety') || words.has('depression') ||
+      words.has('depressed') || words.has('stressed') || words.has('stress') ||
+      words.has('struggling') || words.has('psychologist') || words.has('therapist') ||
+      words.has('counselling') || words.has('counseling') || words.has('emotional') ||
+      words.has('lonely') || words.has('loneliness') || words.has('sadness') ||
+      words.has('sad') || words.has('hopeless') || words.has('overwhelmed'),
+    testET: words =>
+      [...words].some(w =>
+        w.startsWith('psühho') || w.startsWith('vaimne') || w.startsWith('vaim') ||
+        w.startsWith('ärevus') || w.startsWith('depres') || w.startsWith('stress') ||
+        w.startsWith('üksin') || w.startsWith('lootus')
+      ),
+    sections: new Set(['health.psych']),
+    addScore: 0.2,
+  },
+  {
     // "video call" / "video visit" → meetings section, not phone calls
     testEN: words => words.has('video'),
     testET: words => [...words].some(w => w.startsWith('video')),
@@ -183,6 +216,7 @@ function stripHeadingLines(text) {
       .replace(/^\d+[\.\d]*\.?\s+[^\n]{3,150}\n/, '') // "8. WHO'S WHO..." / "1.2 ESMAVAJADUSED..."
       .replace(/^\d+\n/, '')                            // bare page numbers like "15\n"
       .replace(/^[A-ZÄÖÜÕ][A-ZÄÖÜÕ\s\d\.—–\-']{8,}\n/, '') // all-caps heading lines
+      .replace(/^[A-ZÄÖÜÕ][a-zA-ZÄÖÜÕäöüõ\s]{2,50}\n/, '') // title-case short heading lines e.g. "Psychologist"
       .trim();
   } while (result !== prev);
   return result;
