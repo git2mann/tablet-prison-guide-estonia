@@ -72,7 +72,7 @@ export default function HealthChaplain({ language = 'ET' }) {
       </ul>
       </Tip>
       <Accordion title={copy.mattersTitle}>
-        <ul style={{listStyleType:"numbered",marginLeft:"2rem"}}>{copy.matters.map((item, index) => (
+        <ul style={{listStyleType:"decimal",marginLeft:"2rem"}}>{copy.matters.map((item, index) => (
                   <li key={index} style={{ marginBottom: "0.5rem" }}>
                   {item}
                       </li>
@@ -80,15 +80,7 @@ export default function HealthChaplain({ language = 'ET' }) {
 
       </ul>
       </Accordion>
-      <Accordion title={copy.imNote}>
-        <ul style={{listStyleType:"disc",marginLeft:"2rem"}}>{copy.notes.map((item, index) => (
-                  <li key={index} style={{ marginBottom: "0.5rem" }}>
-                  {item}
-                      </li>
-                  ))}
-
-      </ul>
-      </Accordion>
+      <Tip>{copy.mattersTip}</Tip>
     </Section>
   );
 }

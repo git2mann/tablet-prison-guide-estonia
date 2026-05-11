@@ -142,7 +142,7 @@ export default function ArrivalNeeds({ language = 'ET' }) {
           borderRadius: "999px",
           fontWeight: 800,
           boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
-          fontSize: "0.95rem"
+          fontSize: "1.8rem"
         }}>
           Your Essentials Kit
         </div>
@@ -171,7 +171,7 @@ export default function ArrivalNeeds({ language = 'ET' }) {
               display: "flex",
               alignItems: "center",
               gap: "0.6rem",
-              fontSize: "0.9rem"
+              fontSize: "1.7rem"
             }}
           >
             <span style={{
