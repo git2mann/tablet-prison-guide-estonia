@@ -1,18 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Book, Wallet, HelpCircle, MessageSquare, ArrowRightCircle, Calendar, Star, Send, Bot, User, ChevronDown } from 'lucide-react';
+import { ArrowRight, Book, Wallet, HelpCircle, MessageSquare, ArrowRightCircle, Calendar, Star, ChevronDown } from 'lucide-react';
 import { useCategories } from '../../constants/categories';
 import { searchHandbook } from '../../utils/handbookSearch';
 
 export default function Home({ onNav, language = 'ET' }) {
   const categories = useCategories();
   const [hoveredId, setHoveredId] = useState(null);
-  const [input, setInput] = useState('');
-  const [messages, setMessages] = useState([]);
-  const [chatOpen, setChatOpen] = useState(true);
   const [showScrollHint, setShowScrollHint] = useState(true);
-  const messagesRef = useRef(null);
-  const inputRef = useRef(null);
   const featuredRef = useRef(null);
 
   const ui = {
@@ -27,55 +22,14 @@ export default function Home({ onNav, language = 'ET' }) {
       ET: 'Vanglas kehtib range päevakava. Leia siit info kellaaegade, loenduste ja igapäevaste rutiinide kohta.',
       EN: 'A strict daily schedule applies in prison. Find information about times, counts, and daily routines here.'
     },
-    placeholder:  { ET: 'Küsi käsiraamatust...', EN: 'Ask the handbook...' },
-    greeting:     {
-      ET: 'Tere! Olen sinu vangla käsiraamatu abiline. Võid küsida minult kõike vanglaelu kohta – helistamine, toit, arstiabi, töötamine ja palju muud. Olen siin, et aidata.',
-      EN: 'Hi, I\'m your prison handbook assistant. You can ask me anything about prison life - phone calls, food, medical care, work, and more. I\'m here to help.'
-    },
-    noResult:     { ET: 'Teemat ei leitud. Proovi teise sõnaga.', EN: 'Topic not found. Try different words.' },
-    goTo:         { ET: 'Loe täpsemalt', EN: 'Read more' },
     offline:      { ET: 'Töötab ilma internetita', EN: 'Works offline' },
   };
-
-  const greeting = { role: 'bot', text: ui.greeting[language], results: [] };
-
-  useEffect(() => {
-    setMessages([greeting]);
-  }, [language]);
-
-  useEffect(() => {
-    if (messagesRef.current) {
-      messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
-    }
-  }, [messages]);
-
-  useEffect(() => {
-    if (chatOpen) setTimeout(() => inputRef.current?.focus(), 350);
-  }, [chatOpen]);
 
   useEffect(() => {
     const onScroll = () => setShowScrollHint(window.scrollY < 80);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
-
-  function handleSend() {
-    const q = input.trim();
-    if (!q) return;
-    setInput('');
-    setChatOpen(true);
-
-    const results = searchHandbook(q, language, 2);
-    const botText = results.length > 0
-      ? results[0].snippet
-      : ui.noResult[language];
-
-    setMessages(prev => [
-      ...prev,
-      { role: 'user', text: q },
-      { role: 'bot', text: botText, results },
-    ]);
-  }
 
   const CHAPTER_HEADINGS = {
     'arrival.search':      { ET: '1. Saabumine ja vastuvõtt vanglasse', EN: '1. Arrival & Reception' },
@@ -117,7 +71,7 @@ export default function Home({ onNav, language = 'ET' }) {
   return (
     <div className="max-w-7xl mx-auto px-4 md:px-12 pt-4 pb-8 md:pt-6 md:pb-12 space-y-12 md:space-y-20">
 
-      {/* PAGE HEADING + CHATBOT + FEATURED */}
+      {/* PAGE HEADING + FEATURED */}
       <div className="space-y-6">
       <div className="space-y-10">
       <motion.h1
@@ -129,138 +83,6 @@ export default function Home({ onNav, language = 'ET' }) {
         <span className="text-[var(--color-brand-gold)]">{ui.heroSub[language]}</span>
       </motion.h1>
 
-      {/* HERO — chatbot */}
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-        className="rounded-[2rem] overflow-hidden shadow-2xl border-2 border-[var(--color-brand-blue)]"
-      >
-        <div className="bg-[var(--color-bg-surface)] overflow-hidden">
-
-          {/* Header */}
-          <div className="px-6 py-5 flex items-center justify-between bg-[var(--color-brand-blue)]">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-[var(--color-brand-gold)] flex items-center justify-center flex-shrink-0">
-                <Bot size={24} className="text-[var(--color-brand-blue)]" />
-              </div>
-              <div>
-                <p className="text-sm font-black uppercase tracking-wider leading-tight" style={{ color: '#ffffff' }}>
-                  {language === 'ET' ? 'Käsiraamatu abiline' : 'Handbook Assistant'}
-                </p>
-              </div>
-            </div>
-            <button
-              onClick={() => setChatOpen(o => !o)}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 border border-white/20 text-white/80 hover:bg-white/20 hover:text-white transition-all"
-            >
-              <span className="text-[9px] font-black uppercase tracking-wider" style={{ color: '#ffffff' }}>
-                {chatOpen
-                  ? (language === 'ET' ? 'Peida' : 'Hide')
-                  : (language === 'ET' ? 'Ava' : 'Expand')}
-              </span>
-              <motion.div animate={{ rotate: chatOpen ? 180 : 0 }} transition={{ duration: 0.3 }}>
-                <ChevronDown size={13} />
-              </motion.div>
-            </button>
-          </div>
-
-          <AnimatePresence>
-            {chatOpen && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: 'auto', opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                <div ref={messagesRef} className="px-5 py-4 space-y-4 max-h-72 overflow-y-auto">
-                  {messages.map((msg, i) => (
-                    <div key={i} className={`flex gap-3 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                      {msg.role === 'bot' && (
-                        <div className="w-7 h-7 rounded-xl bg-[var(--color-brand-blue)] flex items-center justify-center flex-shrink-0 mt-1">
-                          <Bot size={14} className="text-white" />
-                        </div>
-                      )}
-                      <div className={`max-w-[80%] flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'} space-y-2`}>
-                        <div className={`px-4 py-3 rounded-2xl text-sm font-medium leading-relaxed ${
-                          msg.role === 'user'
-                            ? 'bg-[var(--color-brand-blue)] text-white rounded-br-sm'
-                            : 'bg-[var(--color-bg-elevated)] text-[var(--color-text-body)] rounded-bl-sm'
-                        }`}>
-                          {msg.results?.length > 0 && (() => {
-                            const r = msg.results[0];
-                            const sectionTitle = language === 'ET' ? r.titleET : r.titleEN;
-                            const chapterHeading = CHAPTER_HEADINGS[r.id]?.[language] ?? sectionTitle;
-                            const showSection = sectionTitle !== chapterHeading;
-                            return (
-                              <span className="block mb-2 space-y-0.5">
-                                <span className="block font-black text-sm uppercase tracking-wider leading-tight" style={{ color: 'var(--color-brand-blue)' }}>
-                                  {chapterHeading}
-                                </span>
-                                {showSection && (
-                                  <span className="block font-black text-[11px] uppercase tracking-wider text-[var(--color-brand-gold)]">
-                                    {sectionTitle}
-                                  </span>
-                                )}
-                              </span>
-                            );
-                          })()}
-                          {msg.text}
-                          {msg.role === 'bot' && msg.text?.endsWith('…') && msg.results?.length > 0 && (
-                            <button
-                              onClick={() => onNav(msg.results[0].id)}
-                              className="ml-1 text-[var(--color-brand-gold)] font-medium hover:underline"
-                            >
-                              Read more / Loe edasi
-                            </button>
-                          )}
-                        </div>
-                        {msg.role === 'bot' && msg.results?.length > 0 && (
-                          <div className="flex flex-wrap gap-2">
-                            {msg.results.map(r => (
-                              <button
-                                key={r.id}
-                                onClick={() => onNav(r.id)}
-                                className="flex items-center gap-1.5 px-3 py-1.5 bg-[var(--color-brand-gold)] text-[var(--color-brand-blue)] rounded-lg text-[10px] font-black uppercase tracking-wider hover:opacity-90 active:scale-95 transition-all"
-                              >
-                                {language === 'ET' ? r.titleET : r.titleEN}
-                                <ArrowRight size={10} strokeWidth={3} />
-                              </button>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                      {msg.role === 'user' && (
-                        <div className="w-7 h-7 rounded-xl bg-[var(--color-bg-elevated)] flex items-center justify-center flex-shrink-0 mt-1">
-                          <User size={14} className="text-[var(--color-text-dim)]" />
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-                <div className="px-5 py-4 border-t border-[var(--color-border-subtle)] flex items-center gap-3">
-                  <input
-                    ref={inputRef}
-                    type="text"
-                    value={input}
-                    onChange={e => setInput(e.target.value)}
-                    onKeyDown={e => e.key === 'Enter' && handleSend()}
-                    placeholder={ui.placeholder[language]}
-                    className="flex-1 bg-[var(--color-bg-elevated)] border border-[var(--color-border-subtle)] rounded-xl py-3 px-4 text-sm font-medium text-[var(--color-text-body)] placeholder:text-[var(--color-text-dim)] focus:border-[var(--color-brand-gold)] outline-none transition-all"
-                  />
-                  <button
-                    onClick={handleSend}
-                    disabled={!input.trim()}
-                    className="w-10 h-10 bg-[var(--color-brand-blue)] rounded-xl flex items-center justify-center text-white hover:bg-[var(--color-brand-gold)] hover:text-black transition-all disabled:opacity-30 flex-shrink-0"
-                  >
-                    <Send size={16} />
-                  </button>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      </motion.div>
       </div>
 
       {/* FEATURED ARTICLE */}

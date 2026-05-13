@@ -8,6 +8,7 @@ import {
 import { useCategories } from './constants/categories';
 import Router from './components/Router';
 import { SectionImage } from './components/ui/SectionImage';
+import FloatingAssistant from './components/ui/FloatingAssistant';
 import { appleSpring, fadeIn, uiTransition } from './constants/animations';
 
 const App = () => {
@@ -335,6 +336,10 @@ const App = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {!isLanding && (
+        <FloatingAssistant language={language} onNav={setPage} />
+      )}
     </div>
   );
 };
