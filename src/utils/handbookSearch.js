@@ -68,6 +68,74 @@ const SYNONYMS = {
   }
 };
 
+/**
+ * Canonical-topic overrides — when a query is "about" one of these topics,
+ * route it to the chapter or tool page that actually *defines* / *delivers*
+ * the topic, regardless of how many incidental mentions exist elsewhere.
+ *
+ * Triggers are lowercase substrings matched against the cleaned query.
+ * - `id` is the route id (handbook section id, or special page id like
+ *   'calculator' / 'assistant' / 'glossary' / 'faq').
+ * - For tool pages, set `isTool: true` and provide `title` + `snippet` so the
+ *   search result can be rendered without a matching entry in handbookContent.
+ */
+const TOPIC_OVERRIDES = [
+  // Staff roles — all live in the "Who's Who" chapter
+  { triggers: ['contact person', 'contact officer', 'kontaktisik', 'inspektor', 'inspector', 'case manager', 'juhtumikorraldaja', 'guard', 'valvur', 'social worker', 'sotsiaaltöötaja'], id: 'staff.roles' },
+  // Probation officer is also defined in staff.roles (plus release.tev for the supervision flow)
+  { triggers: ['probation officer', 'kriminaalhooldusametnik'], id: 'staff.roles' },
+
+  // Tool pages — not in handbookContent.json, surfaced as direct shortcuts
+  {
+    triggers: ['calculator', 'kalkulaator', 'release fund', 'vabanemisfond', 'fund split', 'isikuarve calculator'],
+    id: 'calculator',
+    isTool: true,
+    title: { ET: 'Kalkulaator', EN: 'Calculator' },
+    snippet: {
+      ET: 'Vabanemisfondi kalkulaator — arvuta, kuidas Sinu isikuarvele laekuv raha jaotub vabanemisfondi, võlgade tasumiseks ja Sinu kasutuseks.',
+      EN: 'Release fund calculator — see how money credited to your personal account splits between the release fund, debt repayment, and your personal use.'
+    }
+  },
+  {
+    triggers: ['glossary', 'sõnastik', 'sonastik', 'mõisted', 'moisted', 'terminid'],
+    id: 'glossary',
+    isTool: true,
+    title: { ET: 'Sõnastik', EN: 'Glossary' },
+    snippet: {
+      ET: 'Sõnastik — otsi vanglas kasutatavate mõistete ja lühendite selgitusi (nt ITK, VEK, kontaktisik, vabanemisfond).',
+      EN: 'Glossary — look up explanations of prison terms and abbreviations (e.g. ITK, VEK, contact officer, release fund).'
+    }
+  },
+  {
+    triggers: ['faq', 'kkk', 'frequently asked', 'korduma kippuvad'],
+    id: 'faq',
+    isTool: true,
+    title: { ET: 'KKK', EN: 'FAQ' },
+    snippet: {
+      ET: 'Korduma kippuvad küsimused — kiired vastused kõige sagedasematele vanglaeluga seotud küsimustele.',
+      EN: 'Frequently asked questions — quick answers to the most common questions about prison life.'
+    }
+  },
+  {
+    triggers: ['assistant', 'abiline', 'help me', 'aita mind', 'guided help', 'juhendaja'],
+    id: 'assistant',
+    isTool: true,
+    title: { ET: 'Abiline', EN: 'Assistant' },
+    snippet: {
+      ET: 'Abiline — sammhaaval juhend levinud taotluste jaoks: tööle kandideerimine, lähedastega kohtumine, õppimine ja muu.',
+      EN: 'Assistant — a step-by-step guide for common requests: applying for work, family visits, studying, and more.'
+    }
+  },
+];
+
+function findTopicOverride(query) {
+  const q = query.toLowerCase();
+  for (const entry of TOPIC_OVERRIDES) {
+    if (entry.triggers.some(t => q.includes(t))) return entry;
+  }
+  return null;
+}
+
 // Common words that carry no topical signal
 const STOP_WORDS = new Set([
   // English
@@ -154,12 +222,40 @@ export function searchHandbook(query, lang = 'ET', topN = 2) {
   let expandedQuery = searchTerm;
   let suggestedTerm = null;
   const langSyns = SYNONYMS[lang];
-  
+
   for (const [word, syn] of Object.entries(langSyns)) {
     if (searchTerm.includes(word)) {
       expandedQuery = searchTerm + ' ' + syn;
       suggestedTerm = syn.split(' ')[0];
       break;
+    }
+  }
+
+  // Canonical-topic routing — force certain queries to their defining chapter
+  // or tool page. When an override fires, return ONLY that result so irrelevant
+  // runner-ups are suppressed.
+  const override = findTopicOverride(searchTerm);
+  if (override) {
+    // Tool pages (calculator, glossary, faq, assistant) — not in handbookContent
+    if (override.isTool) {
+      return [{
+        id: override.id,
+        titleET: override.title.ET,
+        titleEN: override.title.EN,
+        snippet: override.snippet[lang] ?? override.snippet.EN,
+        suggestion: suggestedTerm ? suggestedTerm : null
+      }];
+    }
+    // Handbook section override
+    const section = handbookContent.find(s => s.id === override.id);
+    if (section) {
+      return [{
+        id: section.id,
+        titleET: SECTION_TITLES[section.id]?.ET ?? section.id,
+        titleEN: SECTION_TITLES[section.id]?.EN ?? section.id,
+        snippet: extractSnippet(section[lang] ?? section.ET ?? '', cleanWords, lang),
+        suggestion: suggestedTerm ? suggestedTerm : null
+      }];
     }
   }
 

@@ -147,7 +147,9 @@ const App = () => {
     audioGuide: { ET: 'Helijuhis', EN: 'Audio Guide' },
     awesome: { ET: 'Sule aken', EN: 'Got it' },
     accessibility: { ET: 'Ligipääsetavus', EN: 'Accessibility' },
-    darkMode: { ET: 'Tume režiim', EN: 'Dark Mode' }
+    darkMode: { ET: 'Tume režiim', EN: 'Dark Mode' },
+    portalInfoTitle: { ET: 'Portaali info', EN: 'Portal info' },
+    portalInfoBody: { ET: 'Süsteem on turvatud ja Teie tegevus on logitud.', EN: 'The system is secure and your activity is logged.' }
   };
 
   const navStrings = {
@@ -578,8 +580,8 @@ const App = () => {
                 <Smartphone size={48} className="text-black group-hover:rotate-12 transition-transform" />
               </div>
               <div className="space-y-4">
-                <h3 className="text-3xl font-black text-[var(--color-text-primary)] uppercase tracking-tighter italic leading-none">Portaali info</h3>
-                <p className="text-lg text-[var(--color-text-secondary)] font-bold leading-relaxed text-balance">Süsteem on turvatud ja Teie tegevus on logitud.</p>
+                <h3 className="text-3xl font-black text-[var(--color-text-primary)] uppercase tracking-tighter italic leading-none">{uiStrings.portalInfoTitle[language]}</h3>
+                <p className="text-lg text-[var(--color-text-secondary)] font-bold leading-relaxed text-balance">{uiStrings.portalInfoBody[language]}</p>
               </div>
               <button onClick={() => setShowHandoverMsg(false)} className="w-full py-5 bg-[var(--color-brand-blue)] text-white rounded-[28px] text-xl font-black active:scale-95 shadow-xl transition-all hover:bg-blue-800 uppercase italic">{uiStrings.awesome[language]}</button>
             </motion.div>

@@ -156,54 +156,29 @@ export default function HealthServices({ language = 'ET' }) {
 
       <Section title={copy.assistTitle}>
         <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-            gap: "1.5rem",
-            marginTop: "1.5rem"
-          }}
+          className="mt-6 grid gap-6"
+          style={{ gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))" }}
         >
           {copy.services.map((item, index) => (
             <div
               key={index}
-              style={{
-                background: "#FFFFFF",
-                borderRadius: "20px",
-                padding: "1.5rem",
-                border: "2px solid #E5E7EB",
-                boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
-                transition: "all 0.25s ease"
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "translateY(-5px)";
-                e.currentTarget.style.boxShadow = "0 10px 20px rgba(0,0,0,0.1)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.05)";
-              }}
+              className="rounded-[20px] p-6 border-2 bg-[var(--color-bg-card)] border-[var(--color-border-subtle)] shadow-[0_4px_12px_var(--color-shadow)] hover:shadow-[0_10px_20px_var(--color-shadow-strong)] hover:-translate-y-1 transition-all duration-200"
             >
               <h4
-                style={{
-                  fontSize: "1.95rem",
-                  fontWeight: "700",
-                  color: "#003B71",
-                  marginBottom: "0.5rem",
-                  textDecoration: "underline"
-                }}
+                className="mb-2 underline text-[1.95rem] font-bold text-[var(--color-text-primary)] [.dark-mode_&]:text-[var(--color-brand-gold)]"
               >
                 {item.service}
               </h4>
 
-              <p style={{ marginBottom: "0.5rem" }}>
-                <strong>Includes:</strong> {item.include}
+              <p className="mb-2 text-[var(--color-text-body)]">
+                <strong>{language === 'ET' ? 'Sisaldab:' : 'Includes:'}</strong> {item.include}
               </p>
 
-              <p style={{ marginBottom: "0.5rem" }}>
-                <strong>How it works:</strong> {item.work}
+              <p className="mb-2 text-[var(--color-text-body)]">
+                <strong>{language === 'ET' ? 'Kuidas see toimib:' : 'How it works:'}</strong> {item.work}
               </p>
 
-              <p style={{ color: "#16a34a", fontWeight: "600" }}>
+              <p className="font-semibold text-emerald-600 [.dark-mode_&]:text-emerald-400">
                 {item.fees}
               </p>
             </div>

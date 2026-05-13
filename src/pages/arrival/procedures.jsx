@@ -110,7 +110,7 @@ export default function ArrivalNeeds({ language = 'ET' }) {
 
       <div style={{
         display: "flex",
-        alignItems: "center",
+        alignItems: "flex-start",
         justifyContent: "space-between",
         marginTop: "2rem",
         position: "relative"
@@ -119,12 +119,13 @@ export default function ArrivalNeeds({ language = 'ET' }) {
 
         <div style={{
           position: "absolute",
-          top: "50%",
+          top: "20px",
           left: 0,
           right: 0,
           height: "3px",
-          background: "#E5E7EB",
-          zIndex: 0
+          background: "var(--color-border-subtle)",
+          zIndex: 0,
+          transform: "translateY(-50%)"
         }} />
 
         {steps.map((step, index) => (
@@ -138,29 +139,30 @@ export default function ArrivalNeeds({ language = 'ET' }) {
               width: "100%"
             }}
           >
-          
+
             <div style={{
               margin: "0 auto",
               width: "40px",
               height: "40px",
               borderRadius: "50%",
-              background: index === activeStep ? "#1CD8D8" : "#D1D5DB",
-              color: index === activeStep ? "#fff" : "#374151",
+              background: index === activeStep ? "#1CD8D8" : "var(--color-bg-elevated)",
+              color: index === activeStep ? "#fff" : "var(--color-text-secondary)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               fontWeight: "bold",
-              transition: "0.3s"
+              transition: "0.3s",
+              border: index === activeStep ? "none" : "1px solid var(--color-border-subtle)"
             }}>
               {index + 1}
             </div>
 
-          
+
             <p style={{
               marginTop: "0.5rem",
               fontSize: "0.85rem",
               fontWeight: index === activeStep ? "700" : "500",
-              color: index === activeStep ? "#003B71" : "#6B7280"
+              color: index === activeStep ? "var(--color-text-primary)" : "var(--color-text-secondary)"
             }}>
               {step.title}
             </p>
@@ -196,17 +198,19 @@ export default function ArrivalNeeds({ language = 'ET' }) {
          }}
          style={{
             marginTop: "3rem",
-            background: "#F9FAFB",
+            background: "var(--color-bg-card)",
             padding: "2rem",
-            borderRadius: "20px"
+            borderRadius: "20px",
+            border: "2px solid var(--color-border-subtle)",
+            color: "var(--color-text-body)"
          }}
       >
 
-      
+
          <h3 style={{
             fontSize: "2rem",
             fontWeight: 900,
-            color: "#003B71",
+            color: "var(--color-text-primary)",
             marginBottom: "1rem"
          }}>
             {steps[activeStep].title}

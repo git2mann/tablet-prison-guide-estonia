@@ -110,12 +110,12 @@ export default function SymptomChecker({ language = 'ET' }) {
 
   return (
     <div className="w-full max-w-4xl mx-auto my-12">
-      <div className="bg-white rounded-[40px] md:rounded-[60px] border-2 border-slate-100 shadow-2xl overflow-hidden relative">
-        
+      <div className="bg-[var(--color-bg-card)] border-2 border-[var(--color-border-subtle)] rounded-[40px] md:rounded-[60px] shadow-2xl overflow-hidden relative">
+
         {/* Progress bar */}
-        <div className="absolute top-0 left-0 right-0 h-2 bg-slate-50">
-          <motion.div 
-            className="h-full bg-[#FFD000]"
+        <div className="absolute top-0 left-0 right-0 h-2 bg-[var(--color-bg-elevated)]">
+          <motion.div
+            className="h-full bg-[var(--color-brand-gold)]"
             initial={{ width: '0%' }}
             animate={{ width: isResult ? '100%' : `${(history.length / 3) * 100}%` }}
           />
@@ -134,34 +134,34 @@ export default function SymptomChecker({ language = 'ET' }) {
               {!isResult ? (
                 <>
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600">
+                    <div className="w-12 h-12 rounded-2xl bg-blue-50 [.dark-mode_&]:bg-[var(--color-bg-elevated)] flex items-center justify-center text-blue-600 [.dark-mode_&]:text-[var(--color-brand-gold)]">
                       <MessageSquare size={24} />
                     </div>
-                    <span className="font-black text-xs uppercase tracking-[0.3em] text-slate-300 italic">
+                    <span className="font-black text-xs uppercase tracking-[0.3em] italic text-[var(--color-text-dim)]">
                       {language === 'ET' ? 'Küsimus' : 'Question'} {history.length + 1}
                     </span>
                   </div>
 
-                  <h3 className="text-3xl md:text-5xl font-black text-[#003B71] tracking-tighter uppercase italic leading-[1.1]">
+                  <h3 className="text-3xl md:text-5xl font-black tracking-tighter uppercase italic leading-[1.1] text-[var(--color-text-primary)]">
                     {node.question[language]}
                   </h3>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <button
                       onClick={() => handleAnswer('yes')}
-                      className="group flex items-center justify-between p-8 bg-[#003B71] hover:bg-blue-800 rounded-[32px] transition-all shadow-xl active:scale-[0.98]"
+                      className="group flex items-center justify-between p-8 bg-[var(--color-brand-blue)] hover:opacity-90 rounded-[32px] transition-all shadow-xl active:scale-[0.98]"
                     >
-                      <span className="text-2xl font-black text-white uppercase italic">{labels.yes[language]}</span>
-                      <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white group-hover:translate-x-2 transition-transform">
+                      <span className="text-2xl font-black text-white [.dark-mode_&]:text-[var(--color-brand-gold)] uppercase italic">{labels.yes[language]}</span>
+                      <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white [.dark-mode_&]:text-[var(--color-brand-gold)] group-hover:translate-x-2 transition-transform">
                         <ChevronRight size={24} />
                       </div>
                     </button>
                     <button
                       onClick={() => handleAnswer('no')}
-                      className="group flex items-center justify-between p-8 bg-slate-50 hover:bg-slate-100 rounded-[32px] border-2 border-slate-100 transition-all active:scale-[0.98]"
+                      className="group flex items-center justify-between p-8 bg-[var(--color-bg-elevated)] hover:bg-[var(--color-bg-button-alt)] rounded-[32px] border-2 border-[var(--color-border-subtle)] transition-all active:scale-[0.98]"
                     >
-                      <span className="text-2xl font-black text-slate-400 uppercase italic">{labels.no[language]}</span>
-                      <div className="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-400 group-hover:translate-x-2 transition-transform">
+                      <span className="text-2xl font-black uppercase italic text-[var(--color-text-secondary)]">{labels.no[language]}</span>
+                      <div className="w-10 h-10 rounded-full bg-[var(--color-bg-button-alt)] flex items-center justify-center text-[var(--color-text-secondary)] group-hover:translate-x-2 transition-transform">
                         <ChevronRight size={24} />
                       </div>
                     </button>
@@ -170,19 +170,19 @@ export default function SymptomChecker({ language = 'ET' }) {
               ) : (
                 <div className="space-y-8">
                   <div className={`inline-flex items-center gap-4 px-6 py-3 rounded-full border-2 ${
-                    node.style === 'danger' ? 'bg-red-50 border-red-100 text-red-600' :
-                    node.style === 'warning' ? 'bg-amber-50 border-amber-100 text-amber-600' :
-                    'bg-blue-50 border-blue-100 text-blue-600'
+                    node.style === 'danger' ? 'bg-red-50 [.dark-mode_&]:bg-red-500/10 border-red-100 [.dark-mode_&]:border-red-500/30 text-red-600 [.dark-mode_&]:text-red-300' :
+                    node.style === 'warning' ? 'bg-amber-50 [.dark-mode_&]:bg-amber-500/10 border-amber-100 [.dark-mode_&]:border-amber-500/30 text-amber-600 [.dark-mode_&]:text-amber-300' :
+                    'bg-blue-50 [.dark-mode_&]:bg-[var(--color-bg-elevated)] border-blue-100 [.dark-mode_&]:border-[var(--color-border-subtle)] text-blue-600 [.dark-mode_&]:text-[var(--color-brand-gold)]'
                   }`}>
                     {node.icon}
                     <span className="font-black uppercase tracking-widest text-sm">{node.title[language]}</span>
                   </div>
 
                   <div className="space-y-6">
-                    <h3 className="text-4xl md:text-6xl font-black text-[#003B71] tracking-tighter uppercase italic leading-none">
+                    <h3 className="text-4xl md:text-6xl font-black tracking-tighter uppercase italic leading-none text-[var(--color-text-primary)]">
                       {labels.plan[language]}
                     </h3>
-                    <p className="text-2xl md:text-3xl font-bold text-slate-600 leading-relaxed text-balance">
+                    <p className="text-2xl md:text-3xl font-bold leading-relaxed text-balance text-[var(--color-text-body)]">
                       {node.text[language]}
                     </p>
                   </div>
@@ -190,12 +190,12 @@ export default function SymptomChecker({ language = 'ET' }) {
                   <div className="flex flex-col sm:flex-row gap-4 pt-6">
                     <button
                       onClick={reset}
-                      className="px-10 py-5 bg-[#FFD000] text-[#003B71] rounded-2xl font-black uppercase tracking-widest text-sm hover:shadow-xl transition-all active:scale-[0.95] flex items-center gap-2"
+                      className="px-10 py-5 bg-[var(--color-brand-gold)] text-[var(--color-brand-blue)] [.dark-mode_&]:text-black rounded-2xl font-black uppercase tracking-widest text-sm hover:shadow-xl transition-all active:scale-[0.95] flex items-center gap-2"
                     >
                       <RefreshCcw size={18} />
                       {labels.reset[language]}
                     </button>
-                    <div className="flex items-center gap-3 px-6 text-slate-400 italic font-bold">
+                    <div className="flex items-center gap-3 px-6 italic font-bold text-[var(--color-text-dim)]">
                        <Clock size={18} />
                        {labels.availability[language]}
                     </div>
@@ -207,9 +207,9 @@ export default function SymptomChecker({ language = 'ET' }) {
         </div>
 
         {history.length > 0 && !isResult && (
-          <button 
+          <button
             onClick={goBack}
-            className="absolute bottom-8 left-8 text-slate-300 hover:text-slate-500 font-black uppercase tracking-widest text-[10px] flex items-center gap-2 transition-colors"
+            className="absolute bottom-8 left-8 font-black uppercase tracking-widest text-[10px] flex items-center gap-2 transition-colors text-[var(--color-text-dim)] hover:text-[var(--color-text-secondary)]"
           >
             <ChevronRight size={14} className="rotate-180" /> {labels.back[language]}
           </button>
@@ -217,8 +217,8 @@ export default function SymptomChecker({ language = 'ET' }) {
       </div>
 
       <div className="mt-8 flex items-start gap-4 px-8">
-        <Info className="text-[#FFD000] shrink-0" size={20} />
-        <p className="text-xs font-bold text-slate-400 italic leading-relaxed">
+        <Info className="text-[var(--color-brand-gold)] shrink-0" size={20} />
+        <p className="text-xs font-bold italic leading-relaxed text-[var(--color-text-dim)]">
           {labels.disclaimer[language]}
         </p>
       </div>
