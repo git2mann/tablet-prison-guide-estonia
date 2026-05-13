@@ -114,6 +114,127 @@
   --color-border-strong: #ffffff;
 }
 
+/* ====================================================================
+   HIGH-CONTRAST MODE — visibility guards
+   In HC modes, brand-blue and brand-gold collapse to pure black / white
+   (or yellow), which collides with hard-coded text-white / text-black
+   utility classes used on brand surfaces (e.g. "Read more" buttons,
+   calculator chips, audio toggle, modal icons). These rules force the
+   text + icons on those surfaces to the contrasting HC color, beating
+   the Tailwind utility specificity with !important.
+   ==================================================================== */
+
+/* HC LIGHT — brand-blue & brand-gold are both pure black; text/icons must be white */
+.accessibility-mode .bg-\[var\(--color-brand-blue\)\],
+.accessibility-mode .bg-\[var\(--color-brand-gold\)\] {
+  color: #ffffff !important;
+}
+.accessibility-mode .bg-\[var\(--color-brand-blue\)\] *,
+.accessibility-mode .bg-\[var\(--color-brand-gold\)\] * {
+  color: #ffffff !important;
+}
+
+/* HC DARK — brand-blue is white, brand-gold is yellow; text/icons must be black */
+.accessibility-mode.dark-mode .bg-\[var\(--color-brand-blue\)\],
+.accessibility-mode.dark-mode .bg-\[var\(--color-brand-gold\)\] {
+  color: #000000 !important;
+}
+.accessibility-mode.dark-mode .bg-\[var\(--color-brand-blue\)\] *,
+.accessibility-mode.dark-mode .bg-\[var\(--color-brand-gold\)\] * {
+  color: #000000 !important;
+}
+
+/* Literal bg-white slabs (e.g. FloatingAssistant panel, language toggle) */
+.accessibility-mode .bg-white * {
+  color: #000000 !important;
+}
+.accessibility-mode.dark-mode .bg-white {
+  background-color: #000000 !important;
+}
+.accessibility-mode.dark-mode .bg-white * {
+  color: #ffffff !important;
+}
+
+/* Audio button gradients (amber when off, emerald when on) — flatten to
+   plain HC surface so the icon is always readable */
+.accessibility-mode [class*="from-amber"],
+.accessibility-mode [class*="from-emerald"] {
+  background: var(--color-bg-page) !important;
+  border-color: var(--color-text-body) !important;
+}
+.accessibility-mode [class*="from-amber"] *,
+.accessibility-mode [class*="from-emerald"] * {
+  color: var(--color-text-body) !important;
+}
+
+/* ----- HOVER-STATE guards -----
+   Hover variants like `group-hover:bg-[var(--color-brand-gold)]` or
+   `hover:bg-[var(--color-brand-blue)]` swap the surface on interaction.
+   Tailwind compiles these to different class names than the static
+   `bg-[...]` utilities, so they need their own rules. */
+
+/* HC LIGHT — brand surfaces (black or also black) need white text + icons on hover */
+.accessibility-mode .group:hover .group-hover\:bg-\[var\(--color-brand-blue\)\],
+.accessibility-mode .group:hover .group-hover\:bg-\[var\(--color-brand-gold\)\],
+.accessibility-mode .hover\:bg-\[var\(--color-brand-blue\)\]:hover,
+.accessibility-mode .hover\:bg-\[var\(--color-brand-gold\)\]:hover {
+  color: #ffffff !important;
+}
+.accessibility-mode .group:hover .group-hover\:bg-\[var\(--color-brand-blue\)\] *,
+.accessibility-mode .group:hover .group-hover\:bg-\[var\(--color-brand-gold\)\] *,
+.accessibility-mode .hover\:bg-\[var\(--color-brand-blue\)\]:hover *,
+.accessibility-mode .hover\:bg-\[var\(--color-brand-gold\)\]:hover * {
+  color: #ffffff !important;
+}
+
+/* HC DARK — brand-blue surfaces become white, brand-gold stays yellow.
+   Both want BLACK text/icons for max contrast. */
+.accessibility-mode.dark-mode .group:hover .group-hover\:bg-\[var\(--color-brand-blue\)\],
+.accessibility-mode.dark-mode .group:hover .group-hover\:bg-\[var\(--color-brand-gold\)\],
+.accessibility-mode.dark-mode .hover\:bg-\[var\(--color-brand-blue\)\]:hover,
+.accessibility-mode.dark-mode .hover\:bg-\[var\(--color-brand-gold\)\]:hover {
+  color: #000000 !important;
+}
+.accessibility-mode.dark-mode .group:hover .group-hover\:bg-\[var\(--color-brand-blue\)\] *,
+.accessibility-mode.dark-mode .group:hover .group-hover\:bg-\[var\(--color-brand-gold\)\] *,
+.accessibility-mode.dark-mode .hover\:bg-\[var\(--color-brand-blue\)\]:hover *,
+.accessibility-mode.dark-mode .hover\:bg-\[var\(--color-brand-gold\)\]:hover * {
+  color: #000000 !important;
+}
+
+/* Literal yellow hover (hover:bg-[#FFD000]) used in FloatingAssistant —
+   in HC dark the page is black so the yellow chip is fine, but force
+   the icon/text to black either way for predictable contrast. */
+.accessibility-mode .hover\:bg-\[\#FFD000\]:hover,
+.accessibility-mode .hover\:bg-\[\#FFD000\]:hover * {
+  color: #000000 !important;
+}
+
+/* Accessibility (Eye) toggle button — when HC is enabled, the active state
+   uses a brand-blue → indigo-900 gradient with text-brand-gold. In HC light
+   brand-gold collapses to black, making the eye icon black on a dark
+   gradient. Flatten the gradient and force the icon to the inverse of the
+   page bg so it stays a clearly visible "you are in HC mode" control. */
+.accessibility-mode [class*="to-indigo-900"] {
+  background: var(--color-text-body) !important;
+  border-color: var(--color-bg-page) !important;
+  color: var(--color-bg-page) !important;
+}
+.accessibility-mode [class*="to-indigo-900"] * {
+  color: var(--color-bg-page) !important;
+}
+
+/* Category page stats badge — uses `bg-[var(--color-brand-blue)]/75` which
+   the HC descendant guard doesn't target directly, but its parent hero
+   uses `bg-[var(--color-brand-blue)]` which does. In HC dark the guard
+   was forcing the "3 Teemat" text to black; this rule reclaims yellow as
+   the explicit color for this badge only. Must come after the HC guards
+   so source order resolves the tie in this rule's favor. */
+.accessibility-mode.dark-mode .bg-\[var\(--color-brand-blue\)\]\/75,
+.accessibility-mode.dark-mode .bg-\[var\(--color-brand-blue\)\]\/75 * {
+  color: #ffff00 !important;
+}
+
 :root {
   background: var(--color-bg-page);
   --line-height-standard: 1.5;

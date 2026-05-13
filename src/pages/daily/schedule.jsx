@@ -182,82 +182,51 @@ function TimelineItem({ item }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div style={{
-      position: "relative",
-      marginBottom: "2rem"
-    }}>
-      
-      <div style={{
-        position: "absolute",
-        left: "-2px",
-        top: "6px",
-        width: "16px",
-        height: "16px",
-        borderRadius: "50%",
-        background: open ? "#14B8A6" : "#D1D5DB",
-        transition: "0.3s"
-      }} />
+    <div className="relative mb-8">
+      {/* Timeline dot */}
+      <div
+        className={`absolute -left-0.5 top-1.5 w-4 h-4 rounded-full transition-colors duration-300 ${
+          open
+            ? 'bg-teal-500'
+            : 'bg-[var(--color-bg-elevated)] border border-[var(--color-border-subtle)]'
+        }`}
+      />
 
       <div
         onClick={() => setOpen(!open)}
-        style={{
-          marginLeft: "1.5rem",
-          padding: "1rem 1.2rem",
-          borderRadius: "16px",
-          background: "#F9FAFB",
-          border: "2px solid #E5E7EB",
-          cursor: "pointer",
-          transition: "all 0.3s ease",
-          transform: open ? "scale(1.02)" : "scale(1)"
-        }}
+        className={`ml-6 px-5 py-4 rounded-2xl border-2 cursor-pointer transition-all duration-300 bg-[var(--color-bg-card)] border-[var(--color-border-subtle)] hover:border-[var(--color-brand-gold)] ${
+          open ? 'scale-[1.02] shadow-lg' : 'scale-100'
+        }`}
       >
-        
-        <div style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center"
-        }}>
+        <div className="flex justify-between items-center">
           <div>
-            <div className="audio-readable" style={{
-              fontSize: "1.9rem",
-              color: "#6B7280",
-              fontWeight: 600
-            }}>
+            <div className="audio-readable text-[1.9rem] font-semibold text-[var(--color-text-secondary)]">
               {item.time}
             </div>
 
-            <div className="audio-readable" style={{
-              fontSize: "1.9rem",
-              fontWeight: 800,
-              color: "#06772f"
-            }}>
+            <div className="audio-readable text-[1.9rem] font-extrabold text-emerald-700 [.dark-mode_&]:text-emerald-400">
               {item.title}
             </div>
           </div>
 
-          <div style={{
-            fontSize: "1.9rem",
-            transform: open ? "rotate(90deg)" : "rotate(0deg)",
-            transition: "0.3s"
-          }}>
+          <div
+            className={`text-[1.9rem] transition-transform duration-300 text-[var(--color-text-secondary)] ${
+              open ? 'rotate-90' : 'rotate-0'
+            }`}
+          >
             ▶
           </div>
         </div>
 
         {open && (
-          <div className="audio-readable" style={{
-            marginTop: "0.8rem",
-            fontSize: "1.9rem",
-            color: "#374151",
-            lineHeight: 1.5
-          }}>
+          <div className="audio-readable mt-3 text-[1.9rem] leading-relaxed text-[var(--color-text-body)]">
             {item.content}
           </div>
         )}
       </div>
     </div>
-      );
-    }
+  );
+}
   return (
     <Section title={copy.title} sub={copy.sub}>
        <ul style={{listStyleType:"none",marginLeft:"2rem"}}>{copy.scheduleBegin.map((item, index) => (
@@ -279,7 +248,7 @@ function TimelineItem({ item }) {
       <h3 style={{
          fontSize: "2rem",
         fontWeight: 900,
-        color: "#003B71",
+        color: "var(--color-text-primary)",
         letterSpacing: "-0.025em",
         lineHeight: 1.2,
         fontStyle: "italic",
@@ -297,7 +266,7 @@ function TimelineItem({ item }) {
           top: 0,
           bottom: 0,
           width: "4px",
-          background: "#E5E7EB"
+          background: "var(--color-border-subtle)"
         }} />
 
         {copy.typicalday.map((item, index) => (
@@ -318,7 +287,7 @@ function TimelineItem({ item }) {
        <h3 style={{
          fontSize: "2rem",
         fontWeight: 900,
-        color: "#003B71",
+        color: "var(--color-text-primary)",
         letterSpacing: "-0.025em",
         lineHeight: 1.2,
         marginTop:"2rem"

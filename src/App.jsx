@@ -397,10 +397,10 @@ const App = () => {
                 className={`relative overflow-hidden h-8 w-8 md:h-14 md:w-14 rounded-full font-black border-2 flex items-center justify-center shadow-sm transition-colors duration-150 ${
                   isAudioPlaying
                     ? 'bg-gradient-to-br from-emerald-600 via-teal-700 to-cyan-800 border-emerald-400 text-emerald-100 shadow-[0_0_18px_rgba(16,185,129,0.55)]'
-                    : 'bg-gradient-to-br from-slate-50 via-white to-slate-100 border-slate-200 text-slate-400 shadow-[0_0_12px_rgba(148,163,184,0.3)]'
+                    : 'bg-gradient-to-br from-amber-300 via-yellow-200 to-amber-400 [.dark-mode_&]:from-amber-500/30 [.dark-mode_&]:via-yellow-400/15 [.dark-mode_&]:to-amber-500/30 border-amber-400 [.dark-mode_&]:border-amber-400/50 text-amber-900 [.dark-mode_&]:text-amber-200 shadow-[0_0_14px_rgba(251,191,36,0.5)] hover:shadow-[0_0_18px_rgba(251,191,36,0.7)]'
                 }`}
               >
-                <Volume2 className={`w-4 h-4 md:w-6 md:h-6 ${isAudioPlaying ? 'drop-shadow-[0_0_4px_rgba(255,255,255,0.6)]' : ''}`} strokeWidth={isAudioPlaying ? 3 : 2.5} />
+                <Volume2 className={`w-4 h-4 md:w-6 md:h-6 ${isAudioPlaying ? 'drop-shadow-[0_0_4px_rgba(255,255,255,0.6)]' : 'drop-shadow-[0_0_3px_rgba(245,158,11,0.5)]'}`} strokeWidth={isAudioPlaying ? 3 : 2.75} />
                 
                 {isAudioPlaying && (
                   <motion.span

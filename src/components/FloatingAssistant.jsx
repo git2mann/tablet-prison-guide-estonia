@@ -103,15 +103,15 @@ export default function FloatingAssistant({ language = 'ET', onNav }) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.92 }}
             transition={{ type: 'spring', stiffness: 380, damping: 28 }}
-            className="pointer-events-auto w-[92vw] max-w-sm rounded-3xl overflow-hidden shadow-2xl border-2 border-[var(--color-brand-blue)] bg-white [.dark-mode_&]:bg-[#16223a] origin-bottom-right"
+            className="pointer-events-auto w-[92vw] max-w-sm rounded-3xl overflow-hidden shadow-2xl border-2 border-[var(--color-brand-blue)] bg-[var(--color-bg-card)] origin-bottom-right"
           >
             {/* Header */}
             <div className="px-4 py-3 flex items-center justify-between bg-[var(--color-brand-blue)]">
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-[#FFD000] flex items-center justify-center flex-shrink-0">
+                <div className="w-9 h-9 rounded-xl bg-[var(--color-brand-gold)] flex items-center justify-center flex-shrink-0">
                   <Bot size={18} className="text-[var(--color-brand-blue)]" />
                 </div>
-                <p className="text-xs font-black uppercase tracking-wider leading-tight" style={{ color: '#ffffff' }}>
+                <p className="text-xs font-black uppercase tracking-wider leading-tight text-white">
                   {STRINGS.title[language]}
                 </p>
               </div>
@@ -129,15 +129,15 @@ export default function FloatingAssistant({ language = 'ET', onNav }) {
               {messages.map((msg, i) => (
                 <div key={i} className={`flex gap-2.5 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                   {msg.role === 'bot' && (
-                    <div className="w-7 h-7 rounded-xl bg-[var(--color-brand-blue)] [.dark-mode_&]:bg-white flex items-center justify-center flex-shrink-0 mt-1">
-                      <Bot size={14} className="text-white [.dark-mode_&]:text-[var(--color-brand-blue)]" />
+                    <div className="w-7 h-7 rounded-xl bg-[var(--color-brand-blue)] flex items-center justify-center flex-shrink-0 mt-1">
+                      <Bot size={14} className="text-white" />
                     </div>
                   )}
                   <div className={`max-w-[80%] flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'} space-y-2`}>
                     <div className={`px-3.5 py-2.5 rounded-2xl text-sm font-medium leading-relaxed ${
                       msg.role === 'user'
                         ? 'bg-[var(--color-brand-blue)] text-white rounded-br-sm'
-                        : 'bg-[#f1f5f9] text-[#1e293b] [.dark-mode_&]:bg-[#1f2c48] [.dark-mode_&]:text-[#e7ecf6] rounded-bl-sm'
+                        : 'bg-[var(--color-bg-elevated)] text-[var(--color-text-body)] rounded-bl-sm'
                     }`}>
                       {msg.results?.length > 0 && (() => {
                         const r = msg.results[0];
@@ -146,11 +146,11 @@ export default function FloatingAssistant({ language = 'ET', onNav }) {
                         const showSection = sectionTitle !== chapterHeading;
                         return (
                           <span className="block mb-2 space-y-0.5">
-                            <span className="block font-black text-sm uppercase tracking-wider leading-tight text-[var(--color-brand-blue)] [.dark-mode_&]:text-[#7eb0e8]">
+                            <span className="block font-black text-sm uppercase tracking-wider leading-tight text-[var(--color-brand-blue)] [.dark-mode_&]:text-[var(--color-brand-gold)]">
                               {chapterHeading}
                             </span>
                             {showSection && (
-                              <span className="block font-black text-[11px] uppercase tracking-wider text-[#FFD000]">
+                              <span className="block font-black text-[11px] uppercase tracking-wider text-[var(--color-brand-gold)]">
                                 {sectionTitle}
                               </span>
                             )}
@@ -161,7 +161,7 @@ export default function FloatingAssistant({ language = 'ET', onNav }) {
                       {msg.role === 'bot' && msg.text?.endsWith('…') && msg.results?.length > 0 && (
                         <button
                           onClick={() => handleNav(msg.results[0].id)}
-                          className="ml-1 text-[#FFD000] font-medium hover:underline"
+                          className="ml-1 text-[var(--color-brand-gold)] font-medium hover:underline"
                         >
                           {language === 'ET' ? 'Loe edasi' : 'Read more'}
                         </button>
@@ -173,7 +173,7 @@ export default function FloatingAssistant({ language = 'ET', onNav }) {
                           <button
                             key={r.id}
                             onClick={() => handleNav(r.id)}
-                            className="flex items-center gap-1.5 px-3 py-1.5 bg-[#FFD000] text-[var(--color-brand-blue)] rounded-lg text-[10px] font-black uppercase tracking-wider hover:opacity-90 active:scale-95 transition-all"
+                            className="flex items-center gap-1.5 px-3 py-1.5 bg-[var(--color-brand-gold)] text-[var(--color-brand-blue)] rounded-lg text-[10px] font-black uppercase tracking-wider hover:opacity-90 active:scale-95 transition-all"
                           >
                             {language === 'ET' ? r.titleET : r.titleEN}
                             <ArrowRight size={10} strokeWidth={3} />
@@ -183,8 +183,8 @@ export default function FloatingAssistant({ language = 'ET', onNav }) {
                     )}
                   </div>
                   {msg.role === 'user' && (
-                    <div className="w-7 h-7 rounded-xl bg-[#f1f5f9] [.dark-mode_&]:bg-[#1f2c48] flex items-center justify-center flex-shrink-0 mt-1">
-                      <User size={14} className="text-[#94a3b8] [.dark-mode_&]:text-[#6b7a95]" />
+                    <div className="w-7 h-7 rounded-xl bg-[var(--color-bg-elevated)] flex items-center justify-center flex-shrink-0 mt-1">
+                      <User size={14} className="text-[var(--color-text-dim)]" />
                     </div>
                   )}
                 </div>
@@ -192,7 +192,7 @@ export default function FloatingAssistant({ language = 'ET', onNav }) {
             </div>
 
             {/* Input */}
-            <div className="px-4 py-3 border-t border-[#e2e8f0] [.dark-mode_&]:border-[#283452] flex items-center gap-2.5 bg-white [.dark-mode_&]:bg-[#16223a]">
+            <div className="px-4 py-3 border-t border-[var(--color-border-subtle)] flex items-center gap-2.5 bg-[var(--color-bg-card)]">
               <input
                 ref={inputRef}
                 type="text"
@@ -200,12 +200,12 @@ export default function FloatingAssistant({ language = 'ET', onNav }) {
                 onChange={e => setInput(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && handleSend()}
                 placeholder={STRINGS.placeholder[language]}
-                className="flex-1 bg-[#f1f5f9] [.dark-mode_&]:bg-[#0d1626] border border-[#e2e8f0] [.dark-mode_&]:border-[#283452] rounded-xl py-2.5 px-3.5 text-sm font-medium text-[#1e293b] [.dark-mode_&]:text-[#e7ecf6] placeholder:text-[#94a3b8] [.dark-mode_&]:placeholder:text-[#6b7a95] focus:border-[#FFD000] outline-none transition-all"
+                className="flex-1 bg-[var(--color-bg-elevated)] border border-[var(--color-border-subtle)] rounded-xl py-2.5 px-3.5 text-sm font-medium text-[var(--color-text-body)] placeholder:text-[var(--color-text-dim)] focus:border-[var(--color-brand-gold)] outline-none transition-all"
               />
               <button
                 onClick={handleSend}
                 disabled={!input.trim()}
-                className="w-9 h-9 bg-[var(--color-brand-blue)] rounded-xl flex items-center justify-center text-white hover:bg-[#FFD000] hover:text-black transition-all disabled:opacity-30 flex-shrink-0"
+                className="w-9 h-9 bg-[var(--color-brand-blue)] rounded-xl flex items-center justify-center text-white hover:bg-[var(--color-brand-gold)] hover:text-black transition-all disabled:opacity-30 flex-shrink-0"
               >
                 <Send size={14} />
               </button>

@@ -74,7 +74,7 @@ export default function CategoryPage({ categoryId, onNav, language = 'ET', handl
 
             <div className="flex items-center gap-4">
               {stats.map((s, i) => (
-                <div key={i} className="flex items-center gap-3 px-5 py-2 bg-[var(--color-brand-blue)]/75 [.dark-mode_&]:bg-black/50 backdrop-blur-xl rounded-xl border border-[var(--color-brand-gold)]/40 text-[var(--color-brand-gold)] shadow-xl">
+                <div key={i} className="flex items-center gap-3 px-5 py-2 bg-[var(--color-brand-blue)]/75 [.dark-mode_&]:bg-black/50 backdrop-blur-xl rounded-xl border border-[var(--color-brand-gold)]/40 text-[var(--color-brand-gold)] [.dark-mode_&]:text-white [.accessibility-mode.dark-mode_&]:text-[#ffff00] shadow-xl">
                   {s.icon}
                   <span className="text-[10px] font-black uppercase tracking-widest leading-none">{s.value} {s.label[language]}</span>
                 </div>
