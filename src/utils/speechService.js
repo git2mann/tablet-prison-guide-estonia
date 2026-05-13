@@ -14,14 +14,23 @@ class SpeechService {
     this.isPlaying = false;
     this.onEndCallback = null;
     this.options = {
-      rate: 0.9,
-      pitch: 1.05,
+      rate: 1.0,
+      pitch: 1.0,
       volume: 1.0,
     };
+    this.voices = [];
+    
+    // Crucial: getVoices() is async-populated
+    if (this.synth.onvoiceschanged !== undefined) {
+      this.synth.onvoiceschanged = () => {
+        this.voices = this.synth.getVoices();
+      };
+    }
+    this.voices = this.synth.getVoices();
   }
 
   /**
-   * Prioritize high-quality voices
+   * Prioritize high-quality neural/online voices
    */
   getBestVoice(lang) {
     const voices = this.synth.getVoices();
@@ -31,26 +40,41 @@ class SpeechService {
     if (langVoices.length === 0) return null;
 
     // Preference mapping (descending priority)
-    // We prioritize "Natural" and "Premium" which are usually neural-based
-    // For Estonian, we specifically look for Mari, Meelis, or Heidi if available
-    const keywords = ['Natural', 'Premium', 'Enhanced', 'Mari', 'Meelis', 'Heidi', 'Google', 'Siri', 'Apple', 'Samantha', 'Daniel'];
+    // "Online" voices in Chrome/Edge are neural and sound significantly better (Siri-like)
+    const keywords = [
+      'Online',     // Chrome/Edge neural voices
+      'Neural',     // Windows/Azure neural voices
+      'Natural',    // Apple natural voices
+      'Premium',    // High-quality local voices
+      'Google',     // Google's better web voices
+      'Siri', 
+      'Apple', 
+      'Samantha', 
+      'Daniel',
+      'Mari',       // Best Estonian female
+      'Meelis',     // Best Estonian male
+      'Heidi'
+    ];
     
-    for (const kw of keywords) {
-      const match = langVoices.find(v => v.name.includes(kw));
-      if (match) return match;
-    }
+    // Sort available voices by their match in our priority list
+    const sorted = [...langVoices].sort((a, b) => {
+      const aScore = keywords.findIndex(kw => a.name.includes(kw));
+      const bScore = keywords.findIndex(kw => b.name.includes(kw));
+      
+      // If keyword found (index >= 0), lower index is better
+      const aVal = aScore === -1 ? 999 : aScore;
+      const bVal = bScore === -1 ? 999 : bScore;
+      
+      return aVal - bVal;
+    });
 
-    return langVoices[0];
+    return sorted[0];
   }
 
   /**
    * Speak a collection of text segments
-   * @param {string[]} segments 
-   * @param {string} lang ('ET' or 'EN')
-   * @param {function} onEnd
    */
   speak(segments, lang, onEnd) {
-    // Force immediate stop and cleanup of any existing speech sequence
     this.stop();
     
     this.isPlaying = true;
@@ -71,29 +95,33 @@ class SpeechService {
     const text = this.queue.shift();
     const utterance = new SpeechSynthesisUtterance(text);
     
-    // Voice selection
     const voice = this.getBestVoice(this.lang);
-    if (voice) utterance.voice = voice;
+    if (voice) {
+      utterance.voice = voice;
+      // console.log(`Using voice: ${voice.name} (${voice.lang})`);
+    }
 
     utterance.lang = this.lang === 'ET' ? 'et-EE' : 'en-US';
     
-    // Dynamic rate/pitch adjustment for naturalness
+    // Refined naturalness parameters
     if (this.lang === 'ET') {
-      utterance.rate = 0.86; // Slightly slower for better phonetics
-      utterance.pitch = 1.08; // Slightly higher for more human tone
+      // Estonian sounds better slightly slower and with a tiny bit of pitch lift
+      utterance.rate = 0.88; 
+      utterance.pitch = 1.05;
     } else {
-      utterance.rate = 0.94;
+      // English online voices are already very good at 1.0/1.0
+      utterance.rate = 0.95;
       utterance.pitch = 1.0;
     }
     
     utterance.volume = this.options.volume;
 
-    // GC Protection
     this.currentUtterance = utterance;
 
     utterance.onend = () => {
       if (this.isPlaying) {
-        const pauseDuration = text.length < 40 ? 500 : 250;
+        // Human-like pause between sentences/paragraphs
+        const pauseDuration = text.length < 50 ? 600 : 350;
         this.pauseTimeout = setTimeout(() => this._processQueue(), pauseDuration);
       }
     };
