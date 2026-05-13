@@ -3,7 +3,7 @@ import handbookContent from '../constants/handbookContent.json';
 const SECTION_TITLES = {
   'arrival.search':       { ET: '1.1 Otsing ja dokumendid',        EN: '1.1 Search & Documents' },
   'arrival.health':       { ET: '1.2 Tervisekontroll',              EN: '1.2 Health Check' },
-  'arrival.needs':        { ET: '1.2 Esmavajadused',                EN: '1.2 Basic Needs' },
+  'arrival.needs':        { ET: '1.3 Esmavajadused',                EN: '1.3 Basic Needs' },
   'daily.schedule':       { ET: '2.1 Päevakava ja loendus',         EN: '2.1 Schedule & Count' },
   'daily.account':        { ET: '2.2 Isikuarve',                    EN: '2.2 Personal Account' },
   'daily.phone':          { ET: '2.3 Telefonikõned',                EN: '2.3 Phone Calls' },
@@ -24,14 +24,22 @@ const SECTION_TITLES = {
   'health.meds':          { ET: '4.3 Ravimite reeglid',             EN: '4.3 Medication Rules' },
   'health.psych':         { ET: '4.4 Psühholoog',                   EN: '4.4 Psychologist' },
   'health.chaplain':      { ET: '4.5 Kaplan',                       EN: '4.5 Chaplain' },
-  'activities.risk':      { ET: '5.1 Riskihindamine ja ITK',        EN: '5.1 Risk Assessment & ITK' },
-  'activities.programs':  { ET: '5.2 Sotsiaalprogrammid',           EN: '5.2 Social Programs' },
-  'activities.learn':     { ET: '5.3 Õppimine',                     EN: '5.3 Education' },
-  'activities.work':      { ET: '5.4 Töötamine',                    EN: '5.4 Working' },
-  'release.open':         { ET: '6.1 Avavangla',                    EN: '6.1 Open Prison' },
-  'release.etev':         { ET: '6.2 Elektrooniline valve',         EN: '6.2 Electronic Monitoring' },
-  'release.tev':          { ET: '6.3 Kriminaalhooldus (TEV)',       EN: '6.3 Probation (TEV)' },
+  'act.risk':             { ET: '5.1 Riskihindamine ja ITK',        EN: '5.1 Risk Assessment & ITK' },
+  'act.programs':         { ET: '5.2 Sotsiaalprogrammid',           EN: '5.2 Social Programs' },
+  'act.learn':            { ET: '5.3 Õppimine',                     EN: '5.3 Education' },
+  'act.work':             { ET: '5.4 Töötamine',                    EN: '5.4 Working' },
+  'rel.open':             { ET: '6.1 Avavangla',                    EN: '6.1 Open Prison' },
+  'rel.etev':             { ET: '6.2 Elektrooniline valve',         EN: '6.2 Electronic Monitoring' },
+  'rel.tev':              { ET: '6.3 Kriminaalhooldus (TEV)',       EN: '6.3 Probation (TEV)' },
+  'prep.steps':           { ET: '7.1 Olulised sammud vabanemiseks', EN: '7.1 Important Steps for Release' },
   'staff.roles':          { ET: '8. KES-ON-KES — Vangla töötajad ja nende ülesanded', EN: '8. WHO\'S WHO — Prison Staff and Their Roles' },
+  'journey.overview':     { ET: '9. Kinnipeetava teekond',           EN: '9. Inmate Journey' },
+};
+
+// Map search IDs to actual Router/Page IDs (only for many-to-one mappings)
+const SEARCH_ID_TO_PAGE_ID = {
+  'arrival.search': 'arrival.procedures',
+  'arrival.health': 'arrival.procedures',
 };
 
 const SYNONYMS = {
@@ -164,7 +172,7 @@ export function searchHandbook(query, lang = 'ET', topN = 2) {
     .sort((a, b) => b.score - a.score);
 
   return results.slice(0, topN).map(r => ({
-    id: r.section.id,
+    id: SEARCH_ID_TO_PAGE_ID[r.section.id] || r.section.id,
     titleET: SECTION_TITLES[r.section.id]?.ET ?? r.section.id,
     titleEN: SECTION_TITLES[r.section.id]?.EN ?? r.section.id,
     snippet: extractSnippet(r.section[lang] ?? r.section.ET ?? '', cleanWords, lang),

@@ -385,6 +385,32 @@ const App = () => {
               </AnimatePresence>
             </motion.button>
 
+            {selectedArticleId && (
+              <motion.button
+                onClick={toggleAudioMode}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.88 }}
+                transition={{ type: 'spring', stiffness: 600, damping: 20 }}
+                aria-label={uiStrings.audioGuide[language]}
+                className={`relative overflow-hidden h-8 w-8 md:h-14 md:w-14 rounded-full font-black border-2 flex items-center justify-center shadow-sm transition-colors duration-150 ${
+                  isAudioPlaying
+                    ? 'bg-gradient-to-br from-emerald-600 via-teal-700 to-cyan-800 border-emerald-400 text-emerald-100 shadow-[0_0_18px_rgba(16,185,129,0.55)]'
+                    : 'bg-gradient-to-br from-slate-50 via-white to-slate-100 border-slate-200 text-slate-400 shadow-[0_0_12px_rgba(148,163,184,0.3)]'
+                }`}
+              >
+                <Volume2 className={`w-4 h-4 md:w-6 md:h-6 ${isAudioPlaying ? 'drop-shadow-[0_0_4px_rgba(255,255,255,0.6)]' : ''}`} strokeWidth={isAudioPlaying ? 3 : 2.5} />
+                
+                {isAudioPlaying && (
+                  <motion.span
+                    layoutId="audio-pulse"
+                    className="absolute inset-0 rounded-full border-2 border-emerald-200"
+                    animate={{ opacity: [0, 0.5, 0], scale: [1, 1.4, 1] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                  />
+                )}
+              </motion.button>
+            )}
+
             <button
               onClick={() => setLanguage(l => l === 'ET' ? 'EN' : 'ET')}
               className="active:scale-95 h-8 md:h-14 px-2 md:px-4 rounded-full font-black border-2 flex items-center gap-1 transition-all shadow-sm bg-white border-slate-100 text-[var(--color-brand-blue)]"
@@ -532,7 +558,7 @@ const App = () => {
                 </div>
                 <div className="min-w-0">
                    <div className="text-[10px] font-black text-[var(--color-brand-gold)] uppercase tracking-widest leading-none mb-2">{uiStrings.audioGuide[language]}</div>
-                   <div className="text-lg font-black text-[var(--color-text-primary)] truncate uppercase italic">{selectedArticleMetadata?.title[language]}</div>
+                   <div className="text-lg font-black text-[var(--color-text-primary)] truncate uppercase italic">{selectedArticleMetadata?.title[language] || selectedCategory?.title[language] || uiStrings.title[language]}</div>
                 </div>
              </div>
              <div className="flex items-center gap-4">
