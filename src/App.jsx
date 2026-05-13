@@ -8,7 +8,7 @@ import {
 import { useCategories } from './constants/categories';
 import Router from './components/Router';
 import { SectionImage } from './components/ui/SectionImage';
-import FloatingAssistant from './components/ui/FloatingAssistant';
+import FloatingAssistant from './components/FloatingAssistant';
 import { appleSpring, fadeIn, uiTransition } from './constants/animations';
 import handbookContent from './constants/handbookContent.json';
 import { speechService } from './utils/speechService';
@@ -175,7 +175,7 @@ const App = () => {
                     key="back" 
                     initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.8 }}
                     onClick={handleBack} 
-                    className="p-2 md:p-5 bg-[var(--color-bg-button-alt)] rounded-full text-[var(--color-brand-blue)] hover:bg-[var(--color-brand-gold)] transition-all shadow-sm flex-shrink-0"
+                    className="p-2 md:p-5 bg-[var(--color-bg-button-alt)] rounded-full text-[var(--color-brand-blue)] [.dark-mode_&]:text-[var(--color-brand-gold)] hover:bg-[var(--color-brand-gold)] [.dark-mode_&]:hover:text-[var(--color-brand-blue)] transition-all shadow-sm flex-shrink-0"
                   >
                     <ArrowLeft className="w-5 h-5 md:w-6 md:h-6" strokeWidth={3} />
                   </motion.button>
@@ -257,36 +257,136 @@ const App = () => {
           </div>
 
           <div className="flex items-center justify-end gap-1.5 md:gap-4 flex-shrink-0">
-            <AnimatePresence>
-              {selectedArticleId && (
-                <motion.button 
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.5 }}
-                  onClick={toggleAudioMode} 
-                  className={`active:scale-95 h-8 w-8 md:h-14 md:w-14 rounded-full font-black border-2 flex items-center justify-center transition-all shadow-sm ${isAudioPlaying ? 'bg-[var(--color-brand-gold)] border-[var(--color-brand-gold)] text-black' : 'bg-white border-slate-100 text-[var(--color-brand-blue)]'}`}
-                >
-                  <Volume2 size={16} md:size={22} strokeWidth={isAudioPlaying ? 3 : 2} />
-                </motion.button>
-              )}
-            </AnimatePresence>
-
-            <button 
-              onClick={() => setIsDarkMode(!isDarkMode)} 
-              className={`active:scale-95 h-8 w-8 md:h-14 md:w-14 rounded-full font-black border-2 flex items-center justify-center transition-all shadow-sm ${isDarkMode ? 'bg-[var(--color-brand-gold)] border-[var(--color-brand-gold)] text-black' : 'bg-white border-slate-100 text-slate-200'}`}
+            {/* ✨ Cute Dark / Light Mode Toggle ✨ */}
+            <motion.button
+              onClick={() => setIsDarkMode(!isDarkMode)}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.88 }}
+              transition={{ type: 'spring', stiffness: 600, damping: 20 }}
+              aria-label={uiStrings.darkMode[language]}
+              className={`relative overflow-hidden h-8 w-8 md:h-14 md:w-14 rounded-full font-black border-2 flex items-center justify-center shadow-sm transition-colors duration-150 ${
+                isDarkMode
+                  ? 'bg-gradient-to-br from-indigo-900 via-slate-900 to-black border-[var(--color-brand-gold)] text-[var(--color-brand-gold)] shadow-[0_0_18px_rgba(255,208,0,0.45)]'
+                  : 'bg-gradient-to-br from-amber-100 via-yellow-200 to-orange-200 border-amber-300 text-amber-700 shadow-[0_0_18px_rgba(255,193,7,0.35)]'
+              }`}
             >
-              {isDarkMode ? <Sun size={16} md:size={22} strokeWidth={3} /> : <Moon size={16} md:size={22} strokeWidth={2} />}
-            </button>
+              {/* Twinkling stars when in dark mode */}
+              <AnimatePresence>
+                {isDarkMode && (
+                  <>
+                    <motion.span
+                      key="star1"
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ opacity: [0.3, 1, 0.3], scale: [0.6, 1, 0.6] }}
+                      exit={{ opacity: 0, scale: 0 }}
+                      transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+                      className="absolute top-1 left-1.5 md:top-2 md:left-2.5 w-0.5 h-0.5 md:w-1 md:h-1 bg-[var(--color-brand-gold)] rounded-full"
+                    />
+                    <motion.span
+                      key="star2"
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ opacity: [0.3, 1, 0.3], scale: [0.6, 1, 0.6] }}
+                      exit={{ opacity: 0, scale: 0 }}
+                      transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut', delay: 0.4 }}
+                      className="absolute bottom-1.5 right-1 md:bottom-2.5 md:right-2 w-0.5 h-0.5 md:w-1 md:h-1 bg-white rounded-full"
+                    />
+                    <motion.span
+                      key="star3"
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ opacity: [0.3, 1, 0.3], scale: [0.6, 1, 0.6] }}
+                      exit={{ opacity: 0, scale: 0 }}
+                      transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut', delay: 0.8 }}
+                      className="absolute top-2.5 right-1.5 md:top-4 md:right-3 w-0.5 h-0.5 md:w-1 md:h-1 bg-[var(--color-brand-gold)] rounded-full"
+                    />
+                  </>
+                )}
+              </AnimatePresence>
 
-            <button 
-              onClick={() => setIsAccessible(!isAccessible)} 
-              className={`active:scale-95 h-8 w-8 md:h-14 md:w-14 rounded-full font-black border-2 flex items-center justify-center transition-all shadow-sm ${isAccessible ? 'bg-[var(--color-brand-blue)] border-[var(--color-brand-blue)] text-[var(--color-brand-gold)]' : 'bg-white border-slate-100 text-slate-200'}`}
+              {/* Animated icon swap */}
+              <AnimatePresence mode="wait" initial={false}>
+                {isDarkMode ? (
+                  <motion.span
+                    key="sun-icon"
+                    initial={{ rotate: -90, scale: 0.4, opacity: 0 }}
+                    animate={{ rotate: 0, scale: 1, opacity: 1 }}
+                    exit={{ rotate: 90, scale: 0.4, opacity: 0 }}
+                    transition={{ duration: 0.15, ease: 'easeOut' }}
+                    className="relative z-10"
+                  >
+                    <Sun className="w-4 h-4 md:w-6 md:h-6 fill-current drop-shadow-[0_0_4px_rgba(255,208,0,0.6)]" strokeWidth={2.5} />
+                  </motion.span>
+                ) : (
+                  <motion.span
+                    key="moon-icon"
+                    initial={{ rotate: 90, scale: 0.4, opacity: 0 }}
+                    animate={{ rotate: 0, scale: 1, opacity: 1 }}
+                    exit={{ rotate: -90, scale: 0.4, opacity: 0 }}
+                    transition={{ duration: 0.15, ease: 'easeOut' }}
+                    className="relative z-10"
+                  >
+                    <Moon className="w-4 h-4 md:w-6 md:h-6 fill-current" strokeWidth={2} />
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </motion.button>
+
+            {/* ✨ Cute High / Low Contrast Toggle ✨ */}
+            <motion.button
+              onClick={() => setIsAccessible(!isAccessible)}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.88 }}
+              transition={{ type: 'spring', stiffness: 600, damping: 20 }}
+              aria-label={uiStrings.accessibility[language]}
+              className={`relative overflow-hidden h-8 w-8 md:h-14 md:w-14 rounded-full font-black border-2 flex items-center justify-center shadow-sm transition-colors duration-150 ${
+                isAccessible
+                  ? 'bg-gradient-to-br from-[var(--color-brand-blue)] via-blue-800 to-indigo-900 border-[var(--color-brand-gold)] text-[var(--color-brand-gold)] shadow-[0_0_18px_rgba(0,59,113,0.55)]'
+                  : 'bg-gradient-to-br from-slate-50 via-white to-sky-50 border-sky-200 text-sky-400 shadow-[0_0_12px_rgba(125,211,252,0.4)]'
+              }`}
             >
-              {isAccessible ? <Eye size={16} md:size={22} strokeWidth={3} /> : <EyeOff size={16} md:size={22} strokeWidth={2} />}
-            </button>
+              {/* Pulsing halo ring when contrast is high */}
+              <AnimatePresence>
+                {isAccessible && (
+                  <motion.span
+                    key="halo"
+                    initial={{ opacity: 0, scale: 0.6 }}
+                    animate={{ opacity: [0.4, 0, 0.4], scale: [0.9, 1.4, 0.9] }}
+                    exit={{ opacity: 0, scale: 0.6 }}
+                    transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                    className="absolute inset-0 rounded-full border-2 border-[var(--color-brand-gold)]"
+                  />
+                )}
+              </AnimatePresence>
 
-            <button 
-              onClick={() => setLanguage(l => l === 'ET' ? 'EN' : 'ET')} 
+              {/* Animated icon swap */}
+              <AnimatePresence mode="wait" initial={false}>
+                {isAccessible ? (
+                  <motion.span
+                    key="eye-on"
+                    initial={{ scale: 0.4, opacity: 0, y: 4 }}
+                    animate={{ scale: 1, opacity: 1, y: 0 }}
+                    exit={{ scale: 0.4, opacity: 0, y: -4 }}
+                    transition={{ duration: 0.15, ease: 'easeOut' }}
+                    className="relative z-10"
+                  >
+                    <Eye className="w-4 h-4 md:w-6 md:h-6 drop-shadow-[0_0_4px_rgba(255,208,0,0.6)]" strokeWidth={3} />
+                  </motion.span>
+                ) : (
+                  <motion.span
+                    key="eye-off"
+                    initial={{ scale: 0.4, opacity: 0, y: -4 }}
+                    animate={{ scale: 1, opacity: 1, y: 0 }}
+                    exit={{ scale: 0.4, opacity: 0, y: 4 }}
+                    transition={{ duration: 0.15, ease: 'easeOut' }}
+                    className="relative z-10"
+                  >
+                    <EyeOff className="w-4 h-4 md:w-6 md:h-6" strokeWidth={2.5} />
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </motion.button>
+
+            <button
+              onClick={() => setLanguage(l => l === 'ET' ? 'EN' : 'ET')}
               className="active:scale-95 h-8 md:h-14 px-2 md:px-4 rounded-full font-black border-2 flex items-center gap-1 transition-all shadow-sm bg-white border-slate-100 text-[var(--color-brand-blue)]"
             >
               <Languages className="w-4 h-4 md:w-5 md:h-5" />
@@ -367,7 +467,7 @@ const App = () => {
                                 disabled={!articleNav.previous}
                                 className="group min-h-[96px] p-5 md:p-6 rounded-[28px] border-2 border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] text-left flex items-center gap-5 shadow-sm transition-all hover:border-[var(--color-brand-gold)] hover:shadow-xl disabled:opacity-30 disabled:pointer-events-none"
                               >
-                                <span className="w-12 h-12 rounded-2xl bg-[var(--color-bg-elevated)] text-[var(--color-brand-blue)] flex items-center justify-center shrink-0 group-hover:bg-[var(--color-brand-gold)] group-hover:text-black transition-all">
+                                <span className="w-12 h-12 rounded-2xl bg-[var(--color-bg-elevated)] text-[var(--color-brand-blue)] [.dark-mode_&]:text-[var(--color-brand-gold)] flex items-center justify-center shrink-0 group-hover:bg-[var(--color-brand-gold)] group-hover:text-black [.dark-mode_&]:group-hover:text-[var(--color-brand-blue)] transition-all">
                                   <ArrowLeft size={24} strokeWidth={3} />
                                 </span>
                                 <span className="min-w-0">
@@ -383,17 +483,17 @@ const App = () => {
                               <button
                                 type="button"
                                 onClick={() => articleNav.next ? setPage(articleNav.next.id) : setPage('home')}
-                                className="group min-h-[96px] p-5 md:p-6 rounded-[28px] border-2 border-[var(--color-brand-blue)] bg-[var(--color-brand-blue)] text-left flex items-center justify-between gap-5 shadow-xl transition-all hover:bg-[var(--color-brand-gold)] hover:border-[var(--color-brand-gold)]"
+                                className="group min-h-[96px] p-5 md:p-6 rounded-[28px] border-2 border-[var(--color-brand-blue)] bg-[var(--color-brand-blue)] text-left flex items-center justify-between gap-5 shadow-xl transition-all hover:border-[var(--color-brand-gold)] hover:shadow-2xl hover:-translate-y-0.5"
                               >
                                 <span className="min-w-0">
-                                  <span className="block text-[10px] font-black uppercase tracking-[0.25em] text-[var(--color-brand-gold)] group-hover:text-black/60 mb-1">
+                                  <span className="block text-[10px] font-black uppercase tracking-[0.25em] text-[var(--color-brand-gold)] mb-1">
                                     {articleNav.next ? navStrings.nextArticle[language] : navStrings.chapterDone[language]}
                                   </span>
-                                  <span className="block text-xl md:text-2xl font-black uppercase italic tracking-tighter text-white group-hover:text-black truncate">
+                                  <span className="block text-xl md:text-2xl font-black uppercase italic tracking-tighter text-white truncate">
                                     {articleNav.next?.title?.[language] || navStrings.mainMenu[language]}
                                   </span>
                                 </span>
-                                <span className="w-12 h-12 rounded-2xl bg-white/10 text-[var(--color-brand-gold)] flex items-center justify-center shrink-0 group-hover:bg-black/10 group-hover:text-black transition-all">
+                                <span className="w-12 h-12 rounded-2xl bg-[var(--color-brand-gold)]/15 text-[var(--color-brand-gold)] flex items-center justify-center shrink-0 group-hover:bg-[var(--color-brand-gold)] group-hover:text-[var(--color-brand-blue)] group-hover:translate-x-1 transition-all duration-300">
                                   {articleNav.next ? <ArrowRight size={24} strokeWidth={3} /> : <Home size={24} strokeWidth={3} />}
                                 </span>
                               </button>
@@ -461,37 +561,8 @@ const App = () => {
         )}
       </AnimatePresence>
 
-      <AnimatePresence>
-        {showAudioInstructions && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[2500] flex items-center justify-center bg-black/80 backdrop-blur-xl p-6">
-            <motion.div initial={{ scale: 0.9, y: 40 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.9, y: 40 }} transition={appleSpring} className="bg-[var(--color-bg-card)] rounded-[60px] p-8 md:p-12 max-w-lg w-full text-center space-y-8 shadow-2xl border-4 border-[var(--color-brand-gold)]">
-              <div className="w-24 h-24 bg-[var(--color-brand-blue)] rounded-[32px] flex items-center justify-center mx-auto shadow-2xl">
-                <Volume2 size={56} className="text-[var(--color-brand-gold)] animate-pulse" />
-              </div>
-              <div className="space-y-4">
-                <h3 className="text-3xl font-black text-[var(--color-text-primary)] uppercase tracking-tighter italic leading-tight">
-                  {language === 'ET' ? 'Interaktiivne Helijuhis' : 'Interactive Audio Guide'}
-                </h3>
-                <p className="text-xl text-[var(--color-text-secondary)] font-bold leading-relaxed text-balance">
-                  {language === 'ET' 
-                    ? 'Puuduta mis tahes teksti ekraanil, et kuulata seda ette loetuna.' 
-                    : 'Tap any text on the screen to hear it read aloud.'}
-                </p>
-              </div>
-              <button 
-                onClick={() => setShowAudioInstructions(false)} 
-                className="w-full py-6 bg-[var(--color-brand-gold)] text-[var(--color-brand-blue)] rounded-[30px] text-2xl font-black active:scale-95 shadow-xl transition-all hover:bg-yellow-400 uppercase italic"
-              >
-                {language === 'ET' ? 'Sain aru' : 'Got it'}
-              </button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {!isLanding && (
-        <FloatingAssistant language={language} onNav={setPage} />
-      )}
+      {/* ✨ Persistent Floating Handbook Assistant — visible across all pages ✨ */}
+      {!isLanding && <FloatingAssistant language={language} onNav={setPage} />}
     </div>
   );
 };

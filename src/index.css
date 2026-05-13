@@ -10,6 +10,8 @@
   --color-bg-page: #f8f9fa;
   --color-bg-surface: #ffffff;
   --color-bg-elevated: #f1f5f9;
+  --color-bg-card: #ffffff;
+  --color-bg-button-alt: #f1f5f9;
   --color-bg-header: rgba(255, 255, 255, 0.85);
   
   --color-text-primary: #003B71;
@@ -30,32 +32,39 @@
   --color-warning-accent: #fa5252;
 }
 
-/* CYBER DARK MODE (BLACK & YELLOW) */
+/* SOFT MIDNIGHT DARK MODE — keeps the light-mode navy + gold vibe, just at night */
 .dark-mode {
-  --color-bg-page: #000000; /* Pure Black */
-  --color-bg-surface: #0a0a0a; /* Deep Charcoal */
-  --color-bg-elevated: #1a1a1a; /* Dark Grey */
-  --color-bg-header: rgba(0, 0, 0, 0.85);
-  
-  --color-brand-blue: #FFD000; /* Yellow replaces Blue in Dark Mode */
-  --color-brand-gold: #FFD000;
-  
-  --color-text-primary: #FFD000; /* High Contrast Yellow */
-  --color-text-body: #e5e7eb; /* Slate 200 - Very readable on black */
-  --color-text-secondary: #9ca3af; /* Slate 400 */
-  --color-text-dim: #4b5563; /* Slate 600 */
-  
-  --color-border-subtle: #1f2937; /* Slate 800 */
-  --color-border-strong: #374151; /* Slate 700 */
-  
-  --color-shadow: rgba(0, 0, 0, 0.8);
-  --color-shadow-strong: rgba(255, 208, 0, 0.05);
+  /* Warm midnight navy surfaces (no pure black) */
+  --color-bg-page: #0d1626;       /* Soft midnight navy */
+  --color-bg-surface: #16223a;    /* Card / panel navy */
+  --color-bg-elevated: #1f2c48;   /* Elevated navy */
+  --color-bg-card: #16223a;       /* Same as surface — solid card bg */
+  --color-bg-button-alt: #1f2c48; /* Same as elevated — secondary chip bg */
+  --color-bg-header: rgba(13, 22, 38, 0.85);
 
-  /* Functional Component Tokens - Dark */
-  --color-tip-bg: rgba(255, 208, 0, 0.1);
-  --color-tip-accent: #FFD000;
-  --color-warning-bg: rgba(239, 68, 68, 0.15); /* Keep red for warning but muted */
-  --color-warning-accent: #ef4444;
+  /* Keep the brand pair — navy + gold. Brand-blue lifts to a deeper royal
+     navy that stays readable on dark surfaces while preserving the navy identity. */
+  --color-brand-blue: #2d5fa8;
+  --color-brand-gold: #FFD000;
+
+  /* Text hierarchy — gold headings for brand pop, warm off-white body */
+  --color-text-primary: #FFD000;     /* Gold for titles / primary accents */
+  --color-text-body: #e7ecf6;        /* Warm off-white */
+  --color-text-secondary: #a5b4cf;   /* Soft blue-slate */
+  --color-text-dim: #6b7a95;         /* Dim blue-slate */
+
+  /* Navy-tinted borders so cards feel cohesive, not floating on void */
+  --color-border-subtle: #283452;
+  --color-border-strong: #3d4d70;
+
+  --color-shadow: rgba(0, 0, 0, 0.45);
+  --color-shadow-strong: rgba(45, 95, 168, 0.18);
+
+  /* Functional tokens — keep tip = blue and warning = red (parallels light mode) */
+  --color-tip-bg: rgba(96, 165, 250, 0.12);
+  --color-tip-accent: #60a5fa;
+  --color-warning-bg: rgba(248, 113, 113, 0.15);
+  --color-warning-accent: #f87171;
 }
 
 /* ACCESSIBILITY MODE */
@@ -63,21 +72,46 @@
   --font-sans: "Lexend", "Atkinson Hyperlegible", sans-serif;
   --line-height-standard: 1.8;
   --letter-spacing-standard: 0.05em;
-  
-  /* High contrast light */
+
+  /* High contrast light — pure black on white, no blue anywhere */
   --color-brand-blue: #000000;
+  --color-brand-gold: #000000;
+
+  --color-text-primary: #000000;
   --color-text-body: #000000;
+  --color-text-secondary: #000000;
+  --color-text-dim: #000000;
+
   --color-bg-page: #ffffff;
+  --color-bg-surface: #ffffff;
+  --color-bg-elevated: #ffffff;
+  --color-bg-card: #ffffff;
+  --color-bg-button-alt: #ffffff;
+  --color-bg-header: rgba(255, 255, 255, 0.95);
+
   --color-border-subtle: #000000;
+  --color-border-strong: #000000;
 }
 
 .accessibility-mode.dark-mode {
-  /* High contrast dark */
+  /* High contrast dark — pure white on black, yellow allowed only as accent */
   --color-brand-blue: #ffffff;
   --color-brand-gold: #ffff00;
+
+  --color-text-primary: #ffffff;
   --color-text-body: #ffffff;
+  --color-text-secondary: #ffffff;
+  --color-text-dim: #ffffff;
+
   --color-bg-page: #000000;
+  --color-bg-surface: #000000;
+  --color-bg-elevated: #000000;
+  --color-bg-card: #000000;
+  --color-bg-button-alt: #000000;
+  --color-bg-header: rgba(0, 0, 0, 0.95);
+
   --color-border-subtle: #ffffff;
+  --color-border-strong: #ffffff;
 }
 
 :root {

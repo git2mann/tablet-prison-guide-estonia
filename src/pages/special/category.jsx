@@ -33,23 +33,23 @@ export default function CategoryPage({ categoryId, onNav, language = 'ET', handl
       {/* 1. SEAMLESS HERO HEADER */}
       <div className="w-full relative min-h-[40vh] md:min-h-[50vh] shrink-0 overflow-hidden bg-[var(--color-brand-blue)]">
         {selectedCategory.videoUrl ? (
-          <video 
-            src={selectedCategory.videoUrl} 
+          <video
+            src={selectedCategory.videoUrl}
             poster={selectedCategory.imageUrl}
-            autoPlay 
-            loop 
-            muted 
-            playsInline 
-            className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover opacity-55"
           />
         ) : (
-          <img 
-            src={selectedCategory.imageUrl + "&w=1600&q=85"} 
-            className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay"
+          <img
+            src={selectedCategory.imageUrl + "&w=1600&q=85"}
+            className="absolute inset-0 w-full h-full object-cover opacity-55"
             alt=""
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-brand-blue)]/40 via-transparent to-[var(--color-bg-page)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-brand-blue)]/50 via-[var(--color-brand-blue)]/15 to-[var(--color-bg-page)]" />
         
         <div className="relative max-w-7xl mx-auto px-8 md:px-16 pt-24 md:pt-36 pb-12 md:pb-20 flex flex-col justify-end h-full">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
@@ -74,7 +74,7 @@ export default function CategoryPage({ categoryId, onNav, language = 'ET', handl
 
             <div className="flex items-center gap-4">
               {stats.map((s, i) => (
-                <div key={i} className="flex items-center gap-3 px-5 py-2 bg-white/10 backdrop-blur-xl rounded-xl border border-white/20 text-[var(--color-brand-gold)] shadow-xl">
+                <div key={i} className="flex items-center gap-3 px-5 py-2 bg-[var(--color-brand-blue)]/75 [.dark-mode_&]:bg-black/50 backdrop-blur-xl rounded-xl border border-[var(--color-brand-gold)]/40 text-[var(--color-brand-gold)] shadow-xl">
                   {s.icon}
                   <span className="text-[10px] font-black uppercase tracking-widest leading-none">{s.value} {s.label[language]}</span>
                 </div>
@@ -115,7 +115,7 @@ export default function CategoryPage({ categoryId, onNav, language = 'ET', handl
                     ) : (
                       <img src={selectedCategory.imageUrl} className="w-full h-full object-cover" alt="" />
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-brand-blue)]/30 to-transparent pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-brand-blue)]/40 to-transparent pointer-events-none" />
                  </div>
               </div>
 
@@ -152,7 +152,7 @@ export default function CategoryPage({ categoryId, onNav, language = 'ET', handl
                     className={`w-full group p-4 md:p-5 bg-[var(--color-bg-card)] rounded-[24px] border-2 border-[var(--color-border-subtle)] hover:border-[var(--color-brand-gold)] hover:shadow-lg transition-all text-left flex items-center justify-between gap-4 relative overflow-hidden min-h-[60px] md:min-h-[70px]`}
                   >
                     <div className="flex items-center gap-4 md:gap-6 relative z-10 min-w-0 flex-1">
-                      <span className="text-lg md:text-xl font-black text-[var(--color-brand-gold)] opacity-40 italic tabular-nums shrink-0">
+                      <span className="text-lg md:text-xl font-black text-[var(--color-brand-gold)] italic tabular-nums shrink-0">
                         {String(idx + 1).padStart(2, '0')}
                       </span>
 

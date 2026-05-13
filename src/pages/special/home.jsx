@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Book, Wallet, HelpCircle, MessageSquare, ArrowRightCircle, Calendar, Star, ChevronDown } from 'lucide-react';
 import { useCategories } from '../../constants/categories';
-import { searchHandbook } from '../../utils/handbookSearch';
 
 export default function Home({ onNav, language = 'ET' }) {
   const categories = useCategories();
@@ -31,40 +30,6 @@ export default function Home({ onNav, language = 'ET' }) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const CHAPTER_HEADINGS = {
-    'arrival.search':      { ET: '1. Saabumine ja vastuvõtt vanglasse', EN: '1. Arrival & Reception' },
-    'arrival.health':      { ET: '1. Saabumine ja vastuvõtt vanglasse', EN: '1. Arrival & Reception' },
-    'arrival.needs':       { ET: '1. Saabumine ja vastuvõtt vanglasse', EN: '1. Arrival & Reception' },
-    'daily.schedule':      { ET: '2. Vangla igapäevaelu',               EN: '2. Daily Life' },
-    'daily.account':       { ET: '2. Vangla igapäevaelu',               EN: '2. Daily Life' },
-    'daily.phone':         { ET: '2. Vangla igapäevaelu',               EN: '2. Daily Life' },
-    'daily.eating':        { ET: '2. Vangla igapäevaelu',               EN: '2. Daily Life' },
-    'daily.eshop':         { ET: '2. Vangla igapäevaelu',               EN: '2. Daily Life' },
-    'daily.living':        { ET: '2. Vangla igapäevaelu',               EN: '2. Daily Life' },
-    'daily.hygiene':       { ET: '2. Vangla igapäevaelu',               EN: '2. Daily Life' },
-    'daily.laundry':       { ET: '2. Vangla igapäevaelu',               EN: '2. Daily Life' },
-    'daily.meetings':      { ET: '2. Vangla igapäevaelu',               EN: '2. Daily Life' },
-    'daily.letters':       { ET: '2. Vangla igapäevaelu',               EN: '2. Daily Life' },
-    'daily.movement':      { ET: '2. Vangla igapäevaelu',               EN: '2. Daily Life' },
-    'daily.leisure':       { ET: '2. Vangla igapäevaelu',               EN: '2. Daily Life' },
-    'rules.process':       { ET: '3. Reeglid ja distsipliin',           EN: '3. Rules & Discipline' },
-    'rules.punishments':   { ET: '3. Reeglid ja distsipliin',           EN: '3. Rules & Discipline' },
-    'rules.solitary':      { ET: '3. Reeglid ja distsipliin',           EN: '3. Rules & Discipline' },
-    'health.services':     { ET: '4. Tervis',                           EN: '4. Health' },
-    'health.doctor':       { ET: '4. Tervis',                           EN: '4. Health' },
-    'health.meds':         { ET: '4. Tervis',                           EN: '4. Health' },
-    'health.psych':        { ET: '4. Tervis',                           EN: '4. Health' },
-    'health.chaplain':     { ET: '4. Tervis',                           EN: '4. Health' },
-    'activities.risk':     { ET: '5. Minu tegevused vanglas',           EN: '5. Activities in Prison' },
-    'activities.programs': { ET: '5. Minu tegevused vanglas',           EN: '5. Activities in Prison' },
-    'activities.learn':    { ET: '5. Minu tegevused vanglas',           EN: '5. Activities in Prison' },
-    'activities.work':     { ET: '5. Minu tegevused vanglas',           EN: '5. Activities in Prison' },
-    'release.open':        { ET: '6. Avavangla ja TEV',                 EN: '6. Open Prison & Release' },
-    'release.etev':        { ET: '6. Avavangla ja TEV',                 EN: '6. Open Prison & Release' },
-    'release.tev':         { ET: '6. Avavangla ja TEV',                 EN: '6. Open Prison & Release' },
-    'staff.roles':         { ET: '8. KES-ON-KES — Vangla töötajad ja nende ülesanded', EN: '8. WHO\'S WHO — Prison Staff and Their Roles' },
-  };
-
   const container = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.05 } } };
   const item = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 300, damping: 24 } } };
 
@@ -73,17 +38,14 @@ export default function Home({ onNav, language = 'ET' }) {
 
       {/* PAGE HEADING + FEATURED */}
       <div className="space-y-6">
-      <div className="space-y-10">
       <motion.h1
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-4xl md:text-5xl font-black text-[var(--color-text-primary)] tracking-tighter uppercase italic leading-none px-2"
+        className="text-4xl md:text-5xl font-black text-[var(--color-text-primary)] [.dark-mode_&]:text-[var(--color-brand-blue)] tracking-tighter uppercase italic leading-none px-2"
       >
         {ui.heroTitle[language]}{' '}
         <span className="text-[var(--color-brand-gold)]">{ui.heroSub[language]}</span>
       </motion.h1>
-
-      </div>
 
       {/* FEATURED ARTICLE */}
       <motion.div
@@ -162,7 +124,7 @@ export default function Home({ onNav, language = 'ET' }) {
               <div className="absolute -right-16 -top-16 w-56 h-56 bg-[var(--color-brand-gold)] opacity-0 group-hover:opacity-[0.05] blur-[80px] transition-opacity rounded-full pointer-events-none" />
               <div className="absolute -left-16 -bottom-16 w-48 h-48 bg-[var(--color-brand-blue)] opacity-0 group-hover:opacity-[0.03] blur-[60px] transition-opacity rounded-full pointer-events-none" />
               <div className="flex items-start justify-between relative z-10">
-                <div className="w-20 h-20 bg-[var(--color-bg-elevated)] rounded-[1.5rem] flex items-center justify-center text-[var(--color-brand-blue)] group-hover:bg-[var(--color-brand-gold)] group-hover:text-black group-hover:rotate-12 transition-all duration-700 shadow-sm border border-[var(--color-border-subtle)]">
+                <div className="w-20 h-20 bg-[var(--color-bg-elevated)] rounded-[1.5rem] flex items-center justify-center text-[var(--color-brand-blue)] [.dark-mode_&]:text-[var(--color-brand-gold)] group-hover:bg-[var(--color-brand-gold)] group-hover:text-black [.dark-mode_&]:group-hover:text-[var(--color-brand-blue)] group-hover:rotate-12 transition-all duration-700 shadow-sm border border-[var(--color-border-subtle)]">
                   {React.cloneElement(cat.icon, { size: 40, strokeWidth: 2.5 })}
                 </div>
                 <div className="opacity-0 group-hover:opacity-100 transition-all translate-x-4 group-hover:translate-x-0 duration-500">
@@ -170,7 +132,7 @@ export default function Home({ onNav, language = 'ET' }) {
                 </div>
               </div>
               <div className="space-y-4 relative z-10">
-                <h3 className="text-[2rem] md:text-[2rem] font-black text-[var(--color-text-primary)] uppercase tracking-tighter italic leading-none group-hover:text-[var(--color-brand-blue)] transition-colors duration-500">
+                <h3 className="text-[2rem] md:text-[2rem] font-black text-[var(--color-text-primary)] uppercase tracking-tighter italic leading-none group-hover:text-[var(--color-brand-blue)] transition-colors duration-500 line-clamp-2 text-balance">
                   {cat.title[language]}
                 </h3>
                 <p className="text-xs md:text-sm font-bold text-[var(--color-text-secondary)] uppercase tracking-[0.1em] leading-relaxed line-clamp-2 opacity-70 group-hover:opacity-100 transition-opacity">
@@ -202,7 +164,7 @@ export default function Home({ onNav, language = 'ET' }) {
       </AnimatePresence>
 
       {/* QUICK TOOLS STRIP */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 xl:grid-cols-4 gap-6">
         {[
           { id: 'calculator', icon: <Wallet size={24} />, label: { ET: 'Kalkulaator', EN: 'Calculator' } },
           { id: 'assistant',  icon: <HelpCircle size={24} />, label: { ET: 'Abiline', EN: 'Assistant' } },
@@ -213,13 +175,13 @@ export default function Home({ onNav, language = 'ET' }) {
             key={tool.id}
             whileHover={{ y: -8, scale: 1.02 }}
             onClick={() => onNav(tool.id)}
-            className="flex flex-col md:flex-row items-center gap-4 md:gap-6 p-6 md:p-8 bg-[var(--color-bg-surface)] border-2 border-[var(--color-border-subtle)] rounded-[2rem] shadow-md hover:shadow-2xl hover:border-[var(--color-brand-gold)] transition-all group overflow-hidden relative"
+            className="flex flex-col md:flex-row items-center gap-3 md:gap-4 p-5 md:p-6 bg-[var(--color-bg-surface)] border-2 border-[var(--color-border-subtle)] rounded-[2rem] shadow-md hover:shadow-2xl hover:border-[var(--color-brand-gold)] transition-all group overflow-hidden relative"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-brand-gold)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-            <div className="w-14 h-14 bg-[var(--color-bg-elevated)] rounded-2xl flex items-center justify-center text-[var(--color-brand-blue)] group-hover:bg-[var(--color-brand-gold)] group-hover:text-black transition-all duration-500 shadow-sm relative z-10">
+            <div className="shrink-0 w-12 h-12 md:w-14 md:h-14 bg-[var(--color-bg-elevated)] rounded-2xl flex items-center justify-center text-[var(--color-brand-blue)] [.dark-mode_&]:text-[var(--color-brand-gold)] group-hover:bg-[var(--color-brand-gold)] group-hover:text-black [.dark-mode_&]:group-hover:text-[var(--color-brand-blue)] transition-all duration-500 shadow-sm relative z-10">
               {tool.icon}
             </div>
-            <span className="text-xs md:text-sm font-black uppercase tracking-[0.2em] text-[var(--color-text-primary)] italic relative z-10">{tool.label[language]}</span>
+            <span className="min-w-0 flex-1 pr-1 text-center md:text-left text-xs md:text-sm font-black uppercase tracking-[0.08em] leading-tight break-words text-[var(--color-text-primary)] italic relative z-10">{tool.label[language]}</span>
           </motion.button>
         ))}
       </div>
