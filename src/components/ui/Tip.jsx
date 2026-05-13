@@ -9,7 +9,7 @@ export default function Tip({ children }) {
       </div>
       <div>
         <h4 className="text-sm font-black text-[var(--color-tip-accent)] uppercase tracking-widest mb-1 italic">NÕUANNE</h4>
-        <p className="text-[1.25rem] font-bold text-[var(--color-text-body)] leading-relaxed">{children}</p>
+        <div className="text-[1.25rem] font-bold text-[var(--color-text-body)] leading-relaxed">{children}</div>
       </div>
     </div>
   );

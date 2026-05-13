@@ -137,3 +137,53 @@ body {
   backdrop-blur: 16px;
   border: 1px solid var(--color-border-subtle);
 }
+
+/* Audio Selection Mode Styles */
+.audio-selection-active #handbook-article-container h1,
+.audio-selection-active #handbook-article-container h2,
+.audio-selection-active #handbook-article-container h3,
+.audio-selection-active #handbook-article-container h4,
+.audio-selection-active #handbook-article-container p,
+.audio-selection-active #handbook-article-container li,
+.audio-selection-active #handbook-article-container th,
+.audio-selection-active #handbook-article-container td,
+.audio-selection-active #handbook-article-container button,
+.audio-selection-active #handbook-article-container span,
+.audio-selection-active #handbook-article-container .audio-readable {
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  padding: 4px 8px;
+  margin: -4px -8px;
+}
+
+.audio-selection-active #handbook-article-container h1:hover,
+.audio-selection-active #handbook-article-container h2:hover,
+.audio-selection-active #handbook-article-container h3:hover,
+.audio-selection-active #handbook-article-container h4:hover,
+.audio-selection-active #handbook-article-container p:hover,
+.audio-selection-active #handbook-article-container li:hover,
+.audio-selection-active #handbook-article-container th:hover,
+.audio-selection-active #handbook-article-container td:hover,
+.audio-selection-active #handbook-article-container button:hover,
+.audio-selection-active #handbook-article-container span:hover,
+.audio-selection-active #handbook-article-container .audio-readable:hover {
+  background: var(--color-brand-gold);
+  color: var(--color-brand-blue) !important;
+  box-shadow: 0 4px 15px rgba(255, 208, 0, 0.3);
+  transform: scale(1.01);
+}
+
+.audio-selection-active #handbook-article-container .speaking {
+  background: var(--color-brand-blue) !important;
+  color: white !important;
+  box-shadow: 0 0 20px rgba(0, 59, 113, 0.4);
+  animation: pulse-audio 2s infinite;
+}
+
+@keyframes pulse-audio {
+  0% { opacity: 1; }
+  50% { opacity: 0.8; }
+  100% { opacity: 1; }
+}

@@ -7,6 +7,7 @@ import { useCategories, getNextArticle } from "../../constants/categories";
 import { staggerContainer, staggerItem } from "../../constants/animations";
 import { motion } from "framer-motion";
 import { ArrowRight, BookOpen } from 'lucide-react';
+import GlossaryWrapper from '../../components/ui/GlossaryWrapper';
 
 export default function ArticleFallback({ articleId, language = 'ET', onNav }) {
   const categories = useCategories();
@@ -39,7 +40,9 @@ export default function ArticleFallback({ articleId, language = 'ET', onNav }) {
           sub={selectedCategory.title[language]}
         >
           <div className="prose prose-lg md:prose-2xl text-balance  prose-slate max-w-full font-bold whitespace-pre-wrap text-slate-600 leading-relaxed mb-12 overflow-x-hidden">
-            {selectedArticle.content ? selectedArticle.content[language] : ""}
+            <GlossaryWrapper language={language}>
+              {selectedArticle.content ? selectedArticle.content[language] : ""}
+            </GlossaryWrapper>
           </div>
 
           {selectedArticle.table && (
@@ -75,7 +78,7 @@ export default function ArticleFallback({ articleId, language = 'ET', onNav }) {
                           {String(idx + 1).padStart(2, '0')}
                         </span>
                         <p className="text-lg md:text-2xl font-bold text-slate-600 leading-relaxed pt-1 text-balance">
-                          {step}
+                          <GlossaryWrapper language={language}>{step}</GlossaryWrapper>
                         </p>
                       </div>
                     </div>

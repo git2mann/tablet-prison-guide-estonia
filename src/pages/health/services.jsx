@@ -2,10 +2,13 @@ import React from 'react';
 import Section from "../../components/ui/Section";
 import Table from "../../components/ui/Table";
 import Tip from "../../components/ui/Tip"
+import SymptomChecker from "../../components/ui/SymptomChecker";
+
 export default function HealthServices({ language = 'ET' }) {
   const content = {
     ET:{
       title: "MINU FUUSILINE JA VAIMNE TERVIS",
+      checkerTitle: "Arstiabi teejuht (jah/ei küsimused)",
       sub:[
         "Vangla tervishoid ja arstiabi toimub selgete reeglite järgi, et iga kinnipeetav saaks vajaliku abi õigel ajal ja turvaliselt. ",
         "Esmase tervisekontrolli läbid tavaliselt esimese 24–72 tunni jooksul pärast saabumist – seal selgitatakse välja Sinu varasemad haigused ja pooleliolevad ravikuurid (näiteks diabeet või muud haigused).",
@@ -67,6 +70,7 @@ export default function HealthServices({ language = 'ET' }) {
     },
     EN:{
       title: "YOUR PHYSICAL AND MENTAL HEALTH",
+      checkerTitle: "Medical Assistant (Yes/No questions)",
       sub:[
         "Healthcare and medical assistance in Vangla are conducted according to clear rules, ensuring that every detainee receives the necessary help in a timely and safe manner. ",
         " The initial health check is usually completed within the first 24–72 hours after arrival – during this, your previous illnesses and ongoing treatments (such as diabetes or other conditions) will be assessed.",
@@ -133,80 +137,79 @@ export default function HealthServices({ language = 'ET' }) {
   const copy = content[language] || content.ET;
 
   return (
-    <Section title={copy.title} sub={<ul style={{ paddingLeft: "1.5rem" }}>
-      {copy.sub.map((item, index) => (
-        <li key={index} style={{ marginBottom: "0.5rem" }}>
-          {item}
-        </li>
-      ))}
-    </ul>
-  }>
-      <p>{copy.line}</p>
-      <Tip>{copy.healthTip}</Tip>
-            <h3 style={{
-        fontSize: "2rem",
-        fontWeight: 900,
-        color: "#003B71",
-        letterSpacing: "-0.025em",
-        lineHeight: 1.2,
-        fontStyle: "italic",
-      }}>
-        {copy.assistTitle}
-      </h3>
-      <div
-  style={{
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-    gap: "1.5rem",
-    marginTop: "1.5rem"
-  }}
->
-  {copy.services.map((item, index) => (
-    <div
-      key={index}
-      style={{
-        background: "#FFFFFF",
-        borderRadius: "20px",
-        padding: "1.5rem",
-        border: "2px solid #E5E7EB",
-        boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
-        transition: "all 0.25s ease"
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.transform = "translateY(-5px)";
-        e.currentTarget.style.boxShadow = "0 10px 20px rgba(0,0,0,0.1)";
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = "translateY(0)";
-        e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.05)";
-      }}
-    >
-      <h4
-        style={{
-          fontSize: "1.95rem",
-          fontWeight: "700",
-          color: "#003B71",
-          marginBottom: "0.5rem",
-          textDecoration: "underline"
-        }}
-      >
-        {item.service}
-      </h4>
+    <div className="space-y-16">
+      <Section title={copy.title} sub={<ul style={{ paddingLeft: "1.5rem" }}>
+        {copy.sub.map((item, index) => (
+          <li key={index} style={{ marginBottom: "0.5rem" }}>
+            {item}
+          </li>
+        ))}
+      </ul>
+    }>
+        <p className="text-xl font-bold text-slate-700">{copy.line}</p>
+        <Tip>{copy.healthTip}</Tip>
+      </Section>
 
-      <p style={{ marginBottom: "0.5rem" }}>
-        <strong>Includes:</strong> {item.include}
-      </p>
+      <Section title={copy.checkerTitle}>
+        <SymptomChecker language={language} />
+      </Section>
 
-      <p style={{ marginBottom: "0.5rem" }}>
-        <strong>How it works:</strong> {item.work}
-      </p>
+      <Section title={copy.assistTitle}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+            gap: "1.5rem",
+            marginTop: "1.5rem"
+          }}
+        >
+          {copy.services.map((item, index) => (
+            <div
+              key={index}
+              style={{
+                background: "#FFFFFF",
+                borderRadius: "20px",
+                padding: "1.5rem",
+                border: "2px solid #E5E7EB",
+                boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+                transition: "all 0.25s ease"
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "translateY(-5px)";
+                e.currentTarget.style.boxShadow = "0 10px 20px rgba(0,0,0,0.1)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.05)";
+              }}
+            >
+              <h4
+                style={{
+                  fontSize: "1.95rem",
+                  fontWeight: "700",
+                  color: "#003B71",
+                  marginBottom: "0.5rem",
+                  textDecoration: "underline"
+                }}
+              >
+                {item.service}
+              </h4>
 
-      <p style={{ color: "#16a34a", fontWeight: "600" }}>
-        {item.fees}
-      </p>
+              <p style={{ marginBottom: "0.5rem" }}>
+                <strong>Includes:</strong> {item.include}
+              </p>
+
+              <p style={{ marginBottom: "0.5rem" }}>
+                <strong>How it works:</strong> {item.work}
+              </p>
+
+              <p style={{ color: "#16a34a", fontWeight: "600" }}>
+                {item.fees}
+              </p>
+            </div>
+          ))}
+        </div>
+      </Section>
     </div>
-  ))}
-</div>
-    </Section>
   );
 }

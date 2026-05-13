@@ -17,9 +17,9 @@ export default function Section({ title, sub, children, style = {}, className = 
           {sub && (
             <div className="flex flex-wrap items-center gap-3 md:gap-4 ml-4 md:ml-8">
               <div className="h-px flex-1 min-w-[80px] bg-[var(--color-border-strong)]" />
-              <p className="section-subtitle text-[1.5rem] font-bold text-[var(--color-text-secondary)] uppercase tracking-[0.08em] leading-tight max-w-full break-words [overflow-wrap:anywhere]">
+              <div className="section-subtitle text-[1.5rem] font-bold text-[var(--color-text-secondary)] uppercase tracking-[0.08em] leading-tight max-w-full break-words [overflow-wrap:anywhere] audio-readable">
                 {sub}
-              </p>
+              </div>
             </div>
           )}
         </div>

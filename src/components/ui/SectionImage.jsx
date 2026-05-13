@@ -14,10 +14,17 @@ export const SectionImage = ({ url, videoUrl, alt }) => {
             loop 
             muted 
             playsInline 
+            crossOrigin="anonymous"
             className="w-full h-full object-cover animate-in fade-in duration-1000"
           />
         ) : (
-          <img src={url} alt={alt} className="w-full h-full object-cover animate-in fade-in duration-1000" onError={() => setHasError(true)} />
+          <img 
+            src={url} 
+            alt={alt} 
+            crossOrigin="anonymous"
+            className="w-full h-full object-cover animate-in fade-in duration-1000" 
+            onError={() => setHasError(true)} 
+          />
         )
       ) : (
         <ImageIcon size={64} className="opacity-10 text-[var(--color-text-dim)]" />

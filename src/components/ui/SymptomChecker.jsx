@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ChevronRight, AlertCircle, ClipboardCheck, Clock, UserCheck, MessageSquare, HeartPulse, Info } from 'lucide-react';
+import { X, ChevronRight, AlertCircle, ClipboardCheck, Clock, UserCheck, MessageSquare, HeartPulse, Info, RefreshCcw } from 'lucide-react';
 
 const FLOW = {
   start: {
     question: {
-      ET: 'Kas tegemist on erakorralise murega? (Tugev valu, verejooks, hingamisraskused)',
-      EN: 'Is this an emergency? (Severe pain, bleeding, breathing difficulties)'
+      ET: 'Kas tegemist on erakorralise murega? (Tugev valu, verejooks, hingamisraskused, teadvusekaotus)',
+      EN: 'Is this an emergency? (Severe pain, bleeding, breathing difficulties, loss of consciousness)'
     },
     yes: 'emergency',
     no: 'mental'
@@ -93,8 +93,23 @@ export default function SymptomChecker({ language = 'ET' }) {
     setHistory([]);
   };
 
+  const labels = {
+    title: { ET: "Arstiabi teejuht", EN: "Medical Assistant" },
+    desc: { ET: "Vasta küsimustele, et leida sobivaim lahendus.", EN: "Answer the questions to find the best solution." },
+    yes: { ET: "JAH", EN: "YES" },
+    no: { ET: "EI", EN: "NO" },
+    back: { ET: "Tagasi", EN: "Back" },
+    reset: { ET: "Alusta uuesti", EN: "Start Over" },
+    plan: { ET: "Teie tegevusplaan", EN: "Your Action Plan" },
+    availability: { ET: "Abi kättesaadavus sõltub mure kriitilisusest", EN: "Availability of help depends on the criticality of the concern" },
+    disclaimer: { 
+      ET: 'See juhis põhineb vangla sisekorraeeskirjadel. See ei asenda meditsiinilist diagnoosi, vaid selgitab, kuidas abi küsida.', 
+      EN: 'This guide is based on prison internal rules. It does not replace medical diagnosis; it explains how to request help.' 
+    }
+  };
+
   return (
-    <div className="w-full max-w-4xl mx-auto">
+    <div className="w-full max-w-4xl mx-auto my-12">
       <div className="bg-white rounded-[40px] md:rounded-[60px] border-2 border-slate-100 shadow-2xl overflow-hidden relative">
         
         {/* Progress bar */}
@@ -110,9 +125,9 @@ export default function SymptomChecker({ language = 'ET' }) {
           <AnimatePresence mode="wait">
             <motion.div
               key={currentNode}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.2 }}
               className="space-y-10"
             >
@@ -122,7 +137,9 @@ export default function SymptomChecker({ language = 'ET' }) {
                     <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600">
                       <MessageSquare size={24} />
                     </div>
-                    <span className="font-black text-xs uppercase tracking-[0.3em] text-slate-300 italic">Küsimus {history.length + 1}</span>
+                    <span className="font-black text-xs uppercase tracking-[0.3em] text-slate-300 italic">
+                      {language === 'ET' ? 'Küsimus' : 'Question'} {history.length + 1}
+                    </span>
                   </div>
 
                   <h3 className="text-3xl md:text-5xl font-black text-[#003B71] tracking-tighter uppercase italic leading-[1.1]">
@@ -134,7 +151,7 @@ export default function SymptomChecker({ language = 'ET' }) {
                       onClick={() => handleAnswer('yes')}
                       className="group flex items-center justify-between p-8 bg-[#003B71] hover:bg-blue-800 rounded-[32px] transition-all shadow-xl active:scale-[0.98]"
                     >
-                      <span className="text-2xl font-black text-white uppercase italic">JAH</span>
+                      <span className="text-2xl font-black text-white uppercase italic">{labels.yes[language]}</span>
                       <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white group-hover:translate-x-2 transition-transform">
                         <ChevronRight size={24} />
                       </div>
@@ -143,7 +160,7 @@ export default function SymptomChecker({ language = 'ET' }) {
                       onClick={() => handleAnswer('no')}
                       className="group flex items-center justify-between p-8 bg-slate-50 hover:bg-slate-100 rounded-[32px] border-2 border-slate-100 transition-all active:scale-[0.98]"
                     >
-                      <span className="text-2xl font-black text-slate-400 uppercase italic">EI</span>
+                      <span className="text-2xl font-black text-slate-400 uppercase italic">{labels.no[language]}</span>
                       <div className="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-400 group-hover:translate-x-2 transition-transform">
                         <ChevronRight size={24} />
                       </div>
@@ -163,7 +180,7 @@ export default function SymptomChecker({ language = 'ET' }) {
 
                   <div className="space-y-6">
                     <h3 className="text-4xl md:text-6xl font-black text-[#003B71] tracking-tighter uppercase italic leading-none">
-                      Teie tegevusplaan
+                      {labels.plan[language]}
                     </h3>
                     <p className="text-2xl md:text-3xl font-bold text-slate-600 leading-relaxed text-balance">
                       {node.text[language]}
@@ -173,13 +190,14 @@ export default function SymptomChecker({ language = 'ET' }) {
                   <div className="flex flex-col sm:flex-row gap-4 pt-6">
                     <button
                       onClick={reset}
-                      className="px-10 py-5 bg-[#FFD000] text-[#003B71] rounded-2xl font-black uppercase tracking-widest text-sm hover:shadow-xl transition-all active:scale-[0.95]"
+                      className="px-10 py-5 bg-[#FFD000] text-[#003B71] rounded-2xl font-black uppercase tracking-widest text-sm hover:shadow-xl transition-all active:scale-[0.95] flex items-center gap-2"
                     >
-                      Alusta uuesti
+                      <RefreshCcw size={18} />
+                      {labels.reset[language]}
                     </button>
                     <div className="flex items-center gap-3 px-6 text-slate-400 italic font-bold">
                        <Clock size={18} />
-                       Abi kättesaadavus sõltub mure kriitilisusest
+                       {labels.availability[language]}
                     </div>
                   </div>
                 </div>
@@ -193,7 +211,7 @@ export default function SymptomChecker({ language = 'ET' }) {
             onClick={goBack}
             className="absolute bottom-8 left-8 text-slate-300 hover:text-slate-500 font-black uppercase tracking-widest text-[10px] flex items-center gap-2 transition-colors"
           >
-            <ChevronRight size={14} className="rotate-180" /> Tagasi
+            <ChevronRight size={14} className="rotate-180" /> {labels.back[language]}
           </button>
         )}
       </div>
@@ -201,9 +219,7 @@ export default function SymptomChecker({ language = 'ET' }) {
       <div className="mt-8 flex items-start gap-4 px-8">
         <Info className="text-[#FFD000] shrink-0" size={20} />
         <p className="text-xs font-bold text-slate-400 italic leading-relaxed">
-          {language === 'ET' 
-            ? 'See juhis põhineb vangla sisekorraeeskirjadel. See ei asenda meditsiinilist diagnoosi, vaid selgitab, kuidas abi küsida.' 
-            : 'This guide is based on prison internal rules. It does not replace medical diagnosis; it explains how to request help.'}
+          {labels.disclaimer[language]}
         </p>
       </div>
     </div>

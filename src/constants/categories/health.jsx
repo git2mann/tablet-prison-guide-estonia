@@ -9,7 +9,7 @@ export default {
     EN: 'Healthcare and medical aid follow clear rules so you receive necessary help timely and safely.'
   },
   icon: <HeartPulse className="w-10 h-10" />,
-  imageUrl: 'https://images.unsplash.com/photo-1505751172107-16785669b61d?auto=format&fit=crop&w=1200&q=80',
+  imageUrl: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=80',
   color: 'green',
   articles: [
     { id: 'health.services', title: { ET: 'Arstiabi ja teenused', EN: 'Medical Services' } },

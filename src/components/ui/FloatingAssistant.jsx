@@ -83,11 +83,31 @@ export default function FloatingAssistant({ language = 'ET', onNav }) {
       ? results[0].snippet
       : ui.noResult[language];
 
+    const suggestion = results.find(r => r.suggestion)?.suggestion;
+
     setMessages(prev => [
       ...prev,
       { role: 'user', text: q },
-      { role: 'bot', text: botText, results },
+      { role: 'bot', text: botText, results, suggestion },
     ]);
+  }
+
+  function handleSuggestion(s) {
+    setInput(s);
+    // Use a timeout to ensure state update before sending
+    setTimeout(() => {
+      const results = searchHandbook(s, language, 2);
+      const botText = results.length > 0
+        ? results[0].snippet
+        : ui.noResult[language];
+      
+      setMessages(prev => [
+        ...prev,
+        { role: 'user', text: s },
+        { role: 'bot', text: botText, results },
+      ]);
+      setInput('');
+    }, 10);
   }
 
   const toggleOpen = () => {
@@ -183,6 +203,18 @@ export default function FloatingAssistant({ language = 'ET', onNav }) {
                             >
                               {language === 'ET' ? 'Loe edasi' : 'Read more'}
                             </button>
+                          )}
+                          {msg.suggestion && (
+                            <div className="mt-2 pt-2 border-t border-[var(--color-border-subtle)] text-[11px] italic">
+                              {language === 'ET' ? 'Kas mõtlesid: ' : 'Did you mean: '}
+                              <button 
+                                onClick={() => handleSuggestion(msg.suggestion)}
+                                className="font-black text-[var(--color-brand-gold)] hover:underline"
+                              >
+                                {msg.suggestion}
+                              </button>
+                              ?
+                            </div>
                           )}
                         </div>
                         {msg.role === 'bot' && msg.results?.length > 0 && (

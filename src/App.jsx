@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   ArrowLeft, Languages, LogOut, Volume2, 
@@ -10,6 +10,8 @@ import Router from './components/Router';
 import { SectionImage } from './components/ui/SectionImage';
 import FloatingAssistant from './components/ui/FloatingAssistant';
 import { appleSpring, fadeIn, uiTransition } from './constants/animations';
+import handbookContent from './constants/handbookContent.json';
+import { speechService } from './utils/speechService';
 
 const App = () => {
   const [page, setPage] = useState('landing');
@@ -17,7 +19,9 @@ const App = () => {
   const [isAccessible, setIsAccessible] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+  const [showAudioInstructions, setShowAudioInstructions] = useState(false);
   const [showHandoverMsg, setShowHandoverMsg] = useState(false);
+  const speechRef = useRef(null);
   
   const categories = useCategories();
 
@@ -54,6 +58,58 @@ const App = () => {
     return selectedCategory.articles.find(a => a.id === selectedArticleId);
   }, [selectedCategory, selectedArticleId]);
 
+  // TTS Logic - Redesigned for Interactive Selection
+  useEffect(() => {
+    const container = document.getElementById('handbook-article-container');
+    
+    if (isAudioPlaying && selectedArticleId) {
+      if (!container) return;
+      
+      container.classList.add('audio-selection-active');
+      
+      const handleSectionClick = (e) => {
+        const target = e.target.closest('h1, h2, h3, h4, p, li, th, td, button, span, .audio-readable');
+        
+        // If it's a valid readable target
+        if (target) {
+          // DO NOT preventDefault or stopPropagation
+          // This allows accordions, buttons, etc. to still work
+          
+          // Visual feedback
+          container.querySelectorAll('.speaking').forEach(el => el.classList.remove('speaking'));
+          target.classList.add('speaking');
+          
+          const text = target.innerText.trim();
+          
+          // speechService.speak automatically cancels any ongoing speech
+          speechService.speak([text], language, () => {
+            target.classList.remove('speaking');
+          });
+        }
+      };
+
+      container.addEventListener('click', handleSectionClick, true);
+      
+      return () => {
+        container.classList.remove('audio-selection-active');
+        container.removeEventListener('click', handleSectionClick, true);
+        speechService.stop();
+      };
+    } else {
+      if (container) container.classList.remove('audio-selection-active');
+      speechService.stop();
+    }
+  }, [isAudioPlaying, selectedArticleId, language]);
+
+  const toggleAudioMode = () => {
+    if (!isAudioPlaying) {
+      setShowAudioInstructions(true);
+      setIsAudioPlaying(true);
+    } else {
+      setIsAudioPlaying(false);
+    }
+  };
+
   useEffect(() => {
     const shouldLock = selectedCategoryId || selectedArticleId || showAdmin || isTool || isLanding;
     document.body.style.overflow = shouldLock ? 'hidden' : 'auto';
@@ -83,13 +139,11 @@ const App = () => {
   return (
     <div className={`min-h-screen bg-[var(--color-bg-page)] font-sans text-[var(--color-text-primary)] flex flex-col touch-manipulation transition-colors duration-500 ${isLanding ? 'pt-0' : 'pt-16 md:pt-24 pb-8'}`}>
       
-      {/* HEADER: Now always visible for toggles, but navigation parts are conditional */}
+      {/* HEADER */}
       <header className="fixed top-0 left-0 right-0 z-[1000] h-16 md:h-24 bg-[var(--color-bg-header)] backdrop-blur-3xl border-b border-[var(--color-border-subtle)] transition-colors duration-500 shadow-[0_10px_40px_rgba(0,0,0,0.03)]">
         <div className="max-w-7xl mx-auto h-full flex items-center px-2 md:px-12 relative z-10 overflow-hidden">
-          {/* Liquid glass light leak for header */}
           <div className="absolute top-0 left-1/4 w-64 h-full bg-[var(--color-brand-gold)] opacity-[0.03] blur-[60px] pointer-events-none" />
           
-          {/* LEFT: BACK / EXIT (Hidden on Landing) */}
           <div className="flex items-center gap-2 md:gap-6 flex-shrink-0 min-w-[40px] md:min-w-[80px]">
             {!isLanding && (
               <AnimatePresence mode="wait">
@@ -126,7 +180,6 @@ const App = () => {
             )}
           </div>
 
-          {/* BREADCRUMBS (Hidden on Landing) */}
           <div className="flex-1 flex items-center justify-start px-2 md:px-8 min-w-0 overflow-hidden">
             {!isLanding && (
               <div className="flex items-center gap-1.5 md:gap-3 flex-nowrap min-w-0">
@@ -180,8 +233,21 @@ const App = () => {
             )}
           </div>
 
-          {/* RIGHT: CONTROLS (Always Visible) */}
           <div className="flex items-center justify-end gap-1.5 md:gap-4 flex-shrink-0">
+            <AnimatePresence>
+              {selectedArticleId && (
+                <motion.button 
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.5 }}
+                  onClick={toggleAudioMode} 
+                  className={`active:scale-95 h-8 w-8 md:h-14 md:w-14 rounded-full font-black border-2 flex items-center justify-center transition-all shadow-sm ${isAudioPlaying ? 'bg-[var(--color-brand-gold)] border-[var(--color-brand-gold)] text-black' : 'bg-white border-slate-100 text-[var(--color-brand-blue)]'}`}
+                >
+                  <Volume2 size={16} md:size={22} strokeWidth={isAudioPlaying ? 3 : 2} />
+                </motion.button>
+              )}
+            </AnimatePresence>
+
             <button 
               onClick={() => setIsDarkMode(!isDarkMode)} 
               className={`active:scale-95 h-8 w-8 md:h-14 md:w-14 rounded-full font-black border-2 flex items-center justify-center transition-all shadow-sm ${isDarkMode ? 'bg-[var(--color-brand-gold)] border-[var(--color-brand-gold)] text-black' : 'bg-white border-slate-100 text-slate-200'}`}
@@ -216,7 +282,7 @@ const App = () => {
           )}
         </AnimatePresence>
 
-        {/* DASHBOARD (Base Layer) */}
+        {/* DASHBOARD */}
         {!isLanding && (
           <motion.div 
             animate={{ 
@@ -225,20 +291,18 @@ const App = () => {
               opacity: (selectedCategoryId || showAdmin || isTool) ? 0.5 : 1
             }}
             transition={isAccessible ? { duration: 0 } : uiTransition}
-            className="w-full h-full overflow-x-hidden will-change-[filter,transform,opacity]"
+            className="w-full h-full overflow-x-hidden"
           >
             <Router page="home" onNav={setPage} language={language} isDarkMode={isDarkMode} />
           </motion.div>
         )}
 
-        {/* CATEGORY OVERLAY */}
         <AnimatePresence>
           {selectedCategoryId && (
             <Router page={`category.${selectedCategoryId}`} onNav={setPage} language={language} handleBack={handleBack} isDarkMode={isDarkMode} />
           )}
         </AnimatePresence>
 
-        {/* TOOL OVERLAY */}
         <AnimatePresence mode="wait">
           {isTool && (
              <motion.div 
@@ -247,7 +311,7 @@ const App = () => {
                 animate={{ opacity: 1, y: 0 }} 
                 exit={isAccessible ? { opacity: 1 } : { opacity: 0, y: '20%' }} 
                 transition={isAccessible ? { duration: 0 } : uiTransition} 
-                className="fixed inset-0 z-[400] bg-[var(--color-bg-overlay)] flex flex-col border-t-[16px] border-[#FFD000] overflow-y-auto overflow-x-hidden custom-scrollbar pt-20 md:pt-32 transition-colors duration-500 will-change-transform"
+                className="fixed inset-0 z-[400] bg-[var(--color-bg-overlay)] flex flex-col border-t-[16px] border-[#FFD000] overflow-y-auto overflow-x-hidden custom-scrollbar pt-20 md:pt-32 transition-colors duration-500"
              >
                 <div className="w-full flex-grow flex flex-col">
                    <Router page={page} onNav={setPage} language={language} handleBack={handleBack} isDarkMode={isDarkMode} />
@@ -265,9 +329,9 @@ const App = () => {
                 animate={{ opacity: 1, y: 0 }} 
                 exit={isAccessible ? { opacity: 1 } : { opacity: 0, y: '20%' }} 
                 transition={isAccessible ? { duration: 0 } : uiTransition} 
-                className="fixed inset-0 z-[300] bg-[var(--color-bg-page)] flex flex-col border-t-[16px] border-[var(--color-brand-blue)] overflow-y-auto overflow-x-hidden custom-scrollbar pt-20 md:pt-32 transition-colors duration-500 will-change-transform"
+                className="fixed inset-0 z-[300] bg-[var(--color-bg-page)] flex flex-col border-t-[16px] border-[var(--color-brand-blue)] overflow-y-auto overflow-x-hidden custom-scrollbar pt-20 md:pt-32 transition-colors duration-500"
              >
-                <div className="w-full max-w-7xl mx-auto flex flex-col flex-grow">
+                <div className="w-full max-w-7xl mx-auto flex flex-col flex-grow" id="handbook-article-container">
                    <div className="px-4 md:px-12 w-full">
                       <div className="w-full max-w-5xl mx-auto flex flex-col">
                          <SectionImage url={selectedCategory?.imageUrl} videoUrl={selectedCategory?.videoUrl} />
@@ -281,7 +345,6 @@ const App = () => {
           )}
         </AnimatePresence>
 
-        {/* MONITOR OVERLAY */}
         <AnimatePresence>
           {showAdmin && (
             <Router page="admin" onNav={setPage} language={language} isDarkMode={isDarkMode} />
@@ -332,6 +395,34 @@ const App = () => {
                 <p className="text-lg text-[var(--color-text-secondary)] font-bold leading-relaxed text-balance">Süsteem on turvatud ja Teie tegevus on logitud.</p>
               </div>
               <button onClick={() => setShowHandoverMsg(false)} className="w-full py-5 bg-[var(--color-brand-blue)] text-white rounded-[28px] text-xl font-black active:scale-95 shadow-xl transition-all hover:bg-blue-800 uppercase italic">{uiStrings.awesome[language]}</button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {showAudioInstructions && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[2500] flex items-center justify-center bg-black/80 backdrop-blur-xl p-6">
+            <motion.div initial={{ scale: 0.9, y: 40 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.9, y: 40 }} transition={appleSpring} className="bg-[var(--color-bg-card)] rounded-[60px] p-8 md:p-12 max-w-lg w-full text-center space-y-8 shadow-2xl border-4 border-[var(--color-brand-gold)]">
+              <div className="w-24 h-24 bg-[var(--color-brand-blue)] rounded-[32px] flex items-center justify-center mx-auto shadow-2xl">
+                <Volume2 size={56} className="text-[var(--color-brand-gold)] animate-pulse" />
+              </div>
+              <div className="space-y-4">
+                <h3 className="text-3xl font-black text-[var(--color-text-primary)] uppercase tracking-tighter italic leading-tight">
+                  {language === 'ET' ? 'Interaktiivne Helijuhis' : 'Interactive Audio Guide'}
+                </h3>
+                <p className="text-xl text-[var(--color-text-secondary)] font-bold leading-relaxed text-balance">
+                  {language === 'ET' 
+                    ? 'Puuduta mis tahes teksti ekraanil, et kuulata seda ette loetuna.' 
+                    : 'Tap any text on the screen to hear it read aloud.'}
+                </p>
+              </div>
+              <button 
+                onClick={() => setShowAudioInstructions(false)} 
+                className="w-full py-6 bg-[var(--color-brand-gold)] text-[var(--color-brand-blue)] rounded-[30px] text-2xl font-black active:scale-95 shadow-xl transition-all hover:bg-yellow-400 uppercase italic"
+              >
+                {language === 'ET' ? 'Sain aru' : 'Got it'}
+              </button>
             </motion.div>
           </motion.div>
         )}

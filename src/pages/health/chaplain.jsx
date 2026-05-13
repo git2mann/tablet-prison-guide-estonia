@@ -4,12 +4,12 @@ import Tip from "../../components/ui/Tip";
 import Accordion from '../../components/ui/Accordion';
 
 export default function HealthChaplain({ language = 'ET' }) {
-  const content={
-    ET:{
-      title:"Kaplan, usuline tegevus ja hingehoid",
-      sub:"Vanglas viibides on Sul õigus järgida enda usutavasid.",
-      Inotes:[
-        "Igas Eesti vanglas töötab kaplan, kes on vangla vaimulik või hingehoiu töötaja..",
+  const content = {
+    ET: {
+      title: "Kaplan, usuline tegevus ja hingehoid",
+      sub: "Vanglas viibides on Sul õigus järgida enda usutavasid.",
+      notes: [
+        "Igas Eesti vanglas töötab kaplan, kes on vangla vaimulik või hingehoiu töötaja.",
         "Tema ülesanne on pakkuda kinnipeetavatele usulist ja vaimset tuge. Ta teeb seda olenemata Sinu konfessioonist või usulisest kuuluvusest.",
         "Kaplaniga vestlused on alati vabatahtlikud ja konfidentsiaalsed.",
         "Vanglates teenivad eri konfessioonide kaplanid: peamiselt luteri usk ja õigeusk, võimaluse korral ka katoliku usk ja teised usud.",
@@ -27,10 +27,10 @@ export default function HealthChaplain({ language = 'ET' }) {
       ],
       mattersTip: "Kui tunned, et vajad vaimset või usulist tuge, kirjuta avaldus esimesel võimalusel. Abi on tasuta ning kättesaadav kõigile kinnipeetavatele keelest, rahvusest ja usust sõltumata."
     },
-    EN:{
-      title:" Chaplain, religious activities, and spiritual care",
-      sub:"While in prison, you have the right to follow your religious practices",
-      Inotes:[
+    EN: {
+      title: "Chaplain, religious activities, and spiritual care",
+      sub: "While in prison, you have the right to follow your religious practices",
+      notes: [
         "Every prison in Estonia has a chaplain who is a prison minister or spiritual care worker.",
         "Their task is to provide detainees with religious and spiritual support. They do this regardless of your denomination or religious affiliation.",
         "Conversations with the chaplain are always voluntary and confidential.",
@@ -55,40 +55,39 @@ export default function HealthChaplain({ language = 'ET' }) {
 
   return (
     <Section title={copy.title} sub={copy.sub}>
-        <ul style={{listStyleType:"disc",marginLeft:"2rem"}}>{copy.Inotes.map((item, index) => (
-                  <li key={index} style={{ marginBottom: "0.5rem" }}>
-                  {item}
-                      </li>
-                  ))}
-
+      <ul className="list-disc ml-8 space-y-2">
+        {copy.notes.map((item, index) => (
+          <li key={index} className="text-lg leading-relaxed text-slate-700">
+            {item}
+          </li>
+        ))}
       </ul>
+
       <Tip>
-        <ul style={{listStyleType:"circle",marginLeft:"2rem"}}>{copy.chapTip.map((item, index) => (
-                  <li key={index} style={{ marginBottom: "0.5rem" }}>
-                  {item}
-                      </li>
-                  ))}
-
-      </ul>
+        <ul className="list-circle ml-8 space-y-2">
+          {copy.chapTip.map((item, index) => (
+            <li key={index} className="text-lg font-bold">
+              {item}
+            </li>
+          ))}
+        </ul>
       </Tip>
+
       <Accordion title={copy.mattersTitle}>
-        <ul style={{listStyleType:"numbered",marginLeft:"2rem"}}>{copy.matters.map((item, index) => (
-                  <li key={index} style={{ marginBottom: "0.5rem" }}>
-                  {item}
-                      </li>
-                  ))}
-
-      </ul>
+        <ul className="list-decimal ml-8 space-y-4">
+          {copy.matters.map((item, index) => (
+            <li key={index} className="text-lg leading-relaxed">
+              {item}
+            </li>
+          ))}
+        </ul>
       </Accordion>
-      <Accordion title={copy.imNote}>
-        <ul style={{listStyleType:"disc",marginLeft:"2rem"}}>{copy.notes.map((item, index) => (
-                  <li key={index} style={{ marginBottom: "0.5rem" }}>
-                  {item}
-                      </li>
-                  ))}
 
-      </ul>
-      </Accordion>
+      <div className="mt-8 p-6 bg-blue-50 border-2 border-blue-100 rounded-2xl">
+        <p className="text-lg font-bold text-blue-800 leading-relaxed italic">
+          {copy.mattersTip}
+        </p>
+      </div>
     </Section>
   );
 }

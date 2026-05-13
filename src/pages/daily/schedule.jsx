@@ -218,7 +218,7 @@ function TimelineItem({ item }) {
           alignItems: "center"
         }}>
           <div>
-            <div style={{
+            <div className="audio-readable" style={{
               fontSize: "1.9rem",
               color: "#6B7280",
               fontWeight: 600
@@ -226,7 +226,7 @@ function TimelineItem({ item }) {
               {item.time}
             </div>
 
-            <div style={{
+            <div className="audio-readable" style={{
               fontSize: "1.9rem",
               fontWeight: 800,
               color: "#06772f"
@@ -245,7 +245,7 @@ function TimelineItem({ item }) {
         </div>
 
         {open && (
-          <div style={{
+          <div className="audio-readable" style={{
             marginTop: "0.8rem",
             fontSize: "1.9rem",
             color: "#374151",
