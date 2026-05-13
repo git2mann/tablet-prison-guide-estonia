@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   ArrowLeft, Languages, LogOut, Volume2, 
   Pause, X, Home, ChevronRight as ChevronIcon,
-  Play, Smartphone, Eye, EyeOff, Moon, Sun
+  Play, Smartphone, Eye, EyeOff, Moon, Sun, ArrowRight
 } from 'lucide-react';
 import { useCategories } from './constants/categories';
 import Router from './components/Router';
@@ -56,6 +56,22 @@ const App = () => {
   const selectedArticleMetadata = useMemo(() => {
     if (!selectedCategory || !selectedArticleId) return null;
     return selectedCategory.articles.find(a => a.id === selectedArticleId);
+  }, [selectedCategory, selectedArticleId]);
+
+  const articleNav = useMemo(() => {
+    if (!selectedCategory || !selectedArticleId) {
+      return { previous: null, next: null };
+    }
+
+    const currentIndex = selectedCategory.articles.findIndex(a => a.id === selectedArticleId);
+    if (currentIndex === -1) {
+      return { previous: null, next: null };
+    }
+
+    return {
+      previous: selectedCategory.articles[currentIndex - 1] || null,
+      next: selectedCategory.articles[currentIndex + 1] || null
+    };
   }, [selectedCategory, selectedArticleId]);
 
   // TTS Logic - Redesigned for Interactive Selection
@@ -132,6 +148,13 @@ const App = () => {
     awesome: { ET: 'Sule aken', EN: 'Got it' },
     accessibility: { ET: 'Ligipääsetavus', EN: 'Accessibility' },
     darkMode: { ET: 'Tume režiim', EN: 'Dark Mode' }
+  };
+
+  const navStrings = {
+    previousArticle: { ET: 'Eelmine', EN: 'Previous' },
+    nextArticle: { ET: 'Järgmine', EN: 'Next' },
+    chapterDone: { ET: 'Peatükk valmis', EN: 'Chapter done' },
+    mainMenu: { ET: 'Peamenüü', EN: 'Main menu' }
   };
 
   const textColor = 'text-[var(--color-text-primary)]';
@@ -337,6 +360,44 @@ const App = () => {
                          <SectionImage url={selectedCategory?.imageUrl} videoUrl={selectedCategory?.videoUrl} />
                          <div className="py-12 md:py-20">
                             <Router page={selectedArticleId} onNav={setPage} language={language} isDarkMode={isDarkMode} />
+                            <nav className="mt-20 pt-10 border-t-2 border-[var(--color-border-subtle)] grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                              <button
+                                type="button"
+                                onClick={() => articleNav.previous && setPage(articleNav.previous.id)}
+                                disabled={!articleNav.previous}
+                                className="group min-h-[96px] p-5 md:p-6 rounded-[28px] border-2 border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] text-left flex items-center gap-5 shadow-sm transition-all hover:border-[var(--color-brand-gold)] hover:shadow-xl disabled:opacity-30 disabled:pointer-events-none"
+                              >
+                                <span className="w-12 h-12 rounded-2xl bg-[var(--color-bg-elevated)] text-[var(--color-brand-blue)] flex items-center justify-center shrink-0 group-hover:bg-[var(--color-brand-gold)] group-hover:text-black transition-all">
+                                  <ArrowLeft size={24} strokeWidth={3} />
+                                </span>
+                                <span className="min-w-0">
+                                  <span className="block text-[10px] font-black uppercase tracking-[0.25em] text-[var(--color-text-dim)] mb-1">
+                                    {navStrings.previousArticle[language]}
+                                  </span>
+                                  <span className="block text-xl md:text-2xl font-black uppercase italic tracking-tighter text-[var(--color-text-primary)] truncate">
+                                    {articleNav.previous?.title?.[language] || navStrings.previousArticle[language]}
+                                  </span>
+                                </span>
+                              </button>
+
+                              <button
+                                type="button"
+                                onClick={() => articleNav.next ? setPage(articleNav.next.id) : setPage('home')}
+                                className="group min-h-[96px] p-5 md:p-6 rounded-[28px] border-2 border-[var(--color-brand-blue)] bg-[var(--color-brand-blue)] text-left flex items-center justify-between gap-5 shadow-xl transition-all hover:bg-[var(--color-brand-gold)] hover:border-[var(--color-brand-gold)]"
+                              >
+                                <span className="min-w-0">
+                                  <span className="block text-[10px] font-black uppercase tracking-[0.25em] text-[var(--color-brand-gold)] group-hover:text-black/60 mb-1">
+                                    {articleNav.next ? navStrings.nextArticle[language] : navStrings.chapterDone[language]}
+                                  </span>
+                                  <span className="block text-xl md:text-2xl font-black uppercase italic tracking-tighter text-white group-hover:text-black truncate">
+                                    {articleNav.next?.title?.[language] || navStrings.mainMenu[language]}
+                                  </span>
+                                </span>
+                                <span className="w-12 h-12 rounded-2xl bg-white/10 text-[var(--color-brand-gold)] flex items-center justify-center shrink-0 group-hover:bg-black/10 group-hover:text-black transition-all">
+                                  {articleNav.next ? <ArrowRight size={24} strokeWidth={3} /> : <Home size={24} strokeWidth={3} />}
+                                </span>
+                              </button>
+                            </nav>
                          </div>
                       </div>
                    </div>

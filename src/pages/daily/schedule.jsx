@@ -316,7 +316,7 @@ function TimelineItem({ item }) {
         
       </Accordion>
        <h3 style={{
-         fontSize: "3rem",
+         fontSize: "2rem",
         fontWeight: 900,
         color: "#003B71",
         letterSpacing: "-0.025em",

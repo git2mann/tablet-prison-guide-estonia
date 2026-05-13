@@ -406,7 +406,7 @@ export default function ActLearn({ language = 'ET' }) {
       
   
       <h4 style={{
-        fontSize: "1.7rem",
+        fontSize: "1.9rem",
         fontWeight: 900,
         color: "#003B71",
         marginBottom: "0.8rem",
@@ -494,7 +494,7 @@ export default function ActLearn({ language = 'ET' }) {
       
   
       <h4 style={{
-        fontSize: "1.7rem",
+        fontSize: "1.9rem",
         fontWeight: 900,
         color: "#003B71",
         marginBottom: "0.8rem",

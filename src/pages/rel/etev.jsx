@@ -104,7 +104,7 @@ export default function RelETEV({ language = 'ET' }) {
         <p className="text-lg md:text-xl italic text-slate-500 text-balance">{copy.sub[2]}</p>
       </div>
 
-      <h3 className="text-xl md:text-2xl font-bold text-[#003B71] mt-12 mb-6">{copy.eligibilityTitle}</h3>
+      <h3 className="text-[2rem] md:text-[2rem] font-bold text-[#003B71] mt-12 mb-6">{copy.eligibilityTitle}</h3>
       <Table
         headers={copy.tableHeaders}
         rows={copy.tableRows}

@@ -31,7 +31,7 @@ export default function AdminPage({ onNav, language = 'ET' }) {
               <div className="bg-slate-50 rounded-[32px] p-6 md:p-8 space-y-8 shadow-inner">
                 <div className="flex justify-between items-center">
                   <Clock size={24} className="text-slate-400"/>
-                  <h3 className="font-black uppercase text-xs tracking-widest text-slate-400">Aktiivsus</h3>
+                  <h3 className="font-black uppercase text-[2rem] tracking-widest text-slate-400">Aktiivsus</h3>
                 </div>
                 <MiniAreaChart data={[12, 45, 67, 23, 89, 34]} color="#003B71" />
               </div>

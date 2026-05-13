@@ -51,7 +51,7 @@ function CharacterizationSteps({ copy }) {
             <div style={{ flex: 1 }}>
               <h3
                 style={{
-                  fontSize: "1.6rem",
+                  fontSize: "2rem",
                   fontWeight: 800,
                   color: green,
                   marginBottom: "0.5rem",

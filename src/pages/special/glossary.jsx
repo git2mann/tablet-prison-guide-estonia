@@ -72,7 +72,7 @@ export default function Glossary({ language = 'ET', onNav }) {
               <div className="w-12 h-12 rounded-2xl bg-[var(--color-bg-button-alt)] flex items-center justify-center text-[var(--color-text-primary)] group-hover:bg-[var(--color-brand-gold)] group-hover:rotate-12 transition-all duration-500 flex-shrink-0">
                 <Info size={24} strokeWidth={2.5} />
               </div>
-              <h3 className="text-2xl md:text-3xl font-black text-[var(--color-text-primary)] uppercase italic tracking-tight leading-none transition-colors group-hover:text-[var(--color-brand-blue)]  text-balance">
+              <h3 className="text-[2rem] md:text-[2rem] font-black text-[var(--color-text-primary)] uppercase italic tracking-tight leading-none transition-colors group-hover:text-[var(--color-brand-blue)]  text-balance">
                 {typeof data.label === 'string' ? data.label : (data.label?.[language] || id)}
               </h3>
             </div>

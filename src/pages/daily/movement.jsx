@@ -182,13 +182,13 @@ export default function DailyMovement({ language = 'ET' }) {
               display: "flex",
               alignItems: "center",
               gap: "0.75rem",
-              fontSize: "1.5rem",
+              fontSize: "2rem",
               fontWeight: "800",
               color: "#065F46",
               marginBottom: "1rem"
             }}
           >
-            <Unlock size={24} />
+            <Unlock size={39} />
             {copy.openTitle}
           </h3>
 
@@ -214,13 +214,13 @@ export default function DailyMovement({ language = 'ET' }) {
               display: "flex",
               alignItems: "center",
               gap: "0.75rem",
-              fontSize: "1.5rem",
+              fontSize: "2rem",
               fontWeight: "800",
               color: "#7F1D1D",
               marginBottom: "1rem"
             }}
           >
-            <Lock size={24} />
+            <Lock size={39} />
             {copy.closedTitle}
           </h3>
 

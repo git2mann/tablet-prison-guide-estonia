@@ -97,7 +97,7 @@ export default function FAQ({ language = 'ET', onNav }) {
             >
               <div className="flex items-center gap-8 ">
                 <span className="hidden sm:block font-black text-[var(--color-text-secondary)] opacity-10 italic text-6xl leading-none transition-colors group-hover:text-[var(--color-brand-gold)]/20 flex-shrink-0">{String(idx + 1).padStart(2, '0')}</span>
-                <h3 className="text-2xl md:text-3xl font-black text-[var(--color-text-primary)] uppercase italic tracking-tight leading-tight group-hover:text-[var(--color-brand-blue)] transition-colors  text-balance">{faq.q[language]}</h3>
+                <h3 className="text-[2rem] md:text-[2rem] font-black text-[var(--color-text-primary)] uppercase italic tracking-tight leading-tight group-hover:text-[var(--color-brand-blue)] transition-colors  text-balance">{faq.q[language]}</h3>
               </div>
               <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-500 flex-shrink-0 ${activeIdx === idx ? 'bg-[var(--color-brand-blue)] text-white rotate-180 shadow-xl' : 'bg-[var(--color-bg-button-alt)] text-[var(--color-text-secondary)] group-hover:bg-[var(--color-brand-gold)] group-hover:text-[var(--color-text-primary)]'}`}>
                 {activeIdx === idx ? <Minus size={28} strokeWidth={3} /> : <Plus size={28} strokeWidth={3} />}

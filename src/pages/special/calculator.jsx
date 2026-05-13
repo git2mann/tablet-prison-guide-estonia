@@ -110,7 +110,7 @@ export default function FundCalculator({ language = 'ET', onNav }) {
               <div className="w-1.5 h-10 bg-[var(--color-brand-gold)] rounded-full flex-shrink-0" />
               <div className="space-y-1">
                 <span className="text-[var(--color-brand-gold)] font-black text-xs uppercase tracking-widest italic opacity-60  text-balance">Prognoositav tulemus</span>
-                <h3 className="text-4xl md:text-6xl font-black uppercase italic tracking-tighter leading-none text-balance ">Hinnanguline <br />ülevaade</h3>
+                <h3 className="text-[2rem] md:text-[2rem] font-black uppercase italic tracking-tighter leading-none text-balance ">Hinnanguline <br />ülevaade</h3>
               </div>
             </div>
 

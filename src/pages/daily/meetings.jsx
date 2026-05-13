@@ -153,13 +153,13 @@ export default function DailyMeetings({ language = 'ET' }) {
             display: "flex",
             alignItems: "center",
             gap: "0.75rem",
-            fontSize: "1.4rem",
+            fontSize: "2rem",
             fontWeight: "800",
             color: "#1E3A8A",
             marginBottom: "1rem"
           }}
         >
-          <Clock size={22} />
+          <Clock size={39} />
           {copy.shortTitle}
         </h3>
 
@@ -186,13 +186,13 @@ export default function DailyMeetings({ language = 'ET' }) {
             display: "flex",
             alignItems: "center",
             gap: "0.75rem",
-            fontSize: "1.4rem",
+            fontSize: "2rem",
             fontWeight: "800",
             color: "#166534",
             marginBottom: "1rem"
           }}
         >
-          <Users size={22} />
+          <Users size={39} />
           {copy.longTitle}
         </h3>
 
@@ -219,13 +219,13 @@ export default function DailyMeetings({ language = 'ET' }) {
             display: "flex",
             alignItems: "center",
             gap: "0.75rem",
-            fontSize: "1.4rem",
+            fontSize: "2rem",
             fontWeight: "800",
             color: "#5B21B6",
             marginBottom: "1rem"
           }}
         >
-          <Video size={22} />
+          <Video size={39} />
           {copy.linkTitle}
         </h3>
 

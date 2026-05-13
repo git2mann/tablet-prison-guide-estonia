@@ -14,7 +14,7 @@ export default function Table({ headers, rows }) {
               {headers.map((header, i) => (
                 <th
                   key={i}
-                  className="text-lg md:text-xl py-5 px-6 font-black uppercase tracking-widest text-[var(--color-brand-blue)] border-r border-[var(--color-border-subtle)] last:border-r-0"
+                  className="text-[1.7rem] py-5 px-6 font-black uppercase tracking-widest text-[var(--color-brand-blue)] border-r border-[var(--color-border-subtle)] last:border-r-0"
                 >
                   {header}
                 </th>
@@ -31,7 +31,7 @@ export default function Table({ headers, rows }) {
                   {row.map((cell, j) => (
                     <td
                       key={j}
-                      className="text-base md:text-lg py-5 px-6 font-bold text-[var(--color-text-body)] border-r border-[var(--color-border-subtle)] last:border-r-0"
+                      className="text-[1.7rem] py-5 px-6 font-bold text-[var(--color-text-body)] border-r border-[var(--color-border-subtle)] last:border-r-0"
                     >
                       {cell}
                     </td>

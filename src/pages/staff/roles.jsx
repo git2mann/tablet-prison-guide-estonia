@@ -291,7 +291,7 @@ export default function StaffRoles({ language = "ET" }) {
           }
         >
           <div className={`pl-4 md:pl-8 transition-all duration-300 ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-70 -translate-y-1'}`}>
-            <p className="text-[clamp(1.125rem,3vw,1.5rem)] font-bold text-slate-700 mb-4">{role.intro}</p>
+            <p className="text-[clamp(1.7rem,3vw,1.5rem)] font-bold text-slate-700 mb-4">{role.intro}</p>
 
             <ul className="pl-6 md:pl-10 list-disc text-[clamp(1rem,2.5vw,1.35rem)] text-slate-600 space-y-2 mb-8">
               {role.duties.map((d) => (

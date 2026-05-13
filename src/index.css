@@ -111,13 +111,11 @@ body {
 
 /* Page Typography Overrides */
 .page-content-typography :is(p, li):not(.section-subtitle) {
-  font-size: 1.25rem !important;
+  font-size: 1.7rem !important;
   color: var(--color-text-body);
 }
 
-.accessibility-mode .page-content-typography :is(p, li) {
-  font-size: 1.75rem !important;
-}
+
 
 /* Smooth transitions for all elements */
 * {

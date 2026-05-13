@@ -29,7 +29,7 @@ export default function Accordion({
         className="w-full p-6 md:p-8 flex items-start md:items-center justify-between text-left active:scale-[0.98] transition-all gap-6 group relative z-10"
       >
         <span 
-          className={`text-xl md:text-2xl font-black uppercase italic tracking-tighter transition-all duration-500 flex-grow leading-none ${isOpen ? 'text-[var(--color-brand-blue)] translate-x-1' : 'text-[var(--color-text-body)] opacity-60 group-hover:opacity-100 group-hover:translate-x-1'}`}
+          className={`text-[1.7rem] font-black uppercase italic tracking-tighter transition-all duration-500 flex-grow leading-none ${isOpen ? 'text-[var(--color-brand-blue)] translate-x-1' : 'text-[var(--color-text-body)] opacity-60 group-hover:opacity-100 group-hover:translate-x-1'}`}
         >
           {title}
         </span>

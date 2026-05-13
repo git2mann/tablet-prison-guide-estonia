@@ -170,7 +170,7 @@ export default function Home({ onNav, language = 'ET' }) {
                 </div>
               </div>
               <div className="space-y-4 relative z-10">
-                <h3 className="text-3xl md:text-4xl font-black text-[var(--color-text-primary)] uppercase tracking-tighter italic leading-none group-hover:text-[var(--color-brand-blue)] transition-colors duration-500">
+                <h3 className="text-[2rem] md:text-[2rem] font-black text-[var(--color-text-primary)] uppercase tracking-tighter italic leading-none group-hover:text-[var(--color-brand-blue)] transition-colors duration-500">
                   {cat.title[language]}
                 </h3>
                 <p className="text-xs md:text-sm font-bold text-[var(--color-text-secondary)] uppercase tracking-[0.1em] leading-relaxed line-clamp-2 opacity-70 group-hover:opacity-100 transition-opacity">
