@@ -41,11 +41,19 @@ export default function CategoryPage({ categoryId, onNav, language = 'ET', handl
             muted
             playsInline
             className="absolute inset-0 w-full h-full object-cover opacity-55"
+            style={{
+              objectPosition: selectedCategory.videoPosition || '50% 50%',
+              transform: selectedCategory.videoTranslateY ? `translateY(${selectedCategory.videoTranslateY})` : undefined
+            }}
           />
         ) : (
           <img
             src={selectedCategory.imageUrl + "&w=1600&q=85"}
             className="absolute inset-0 w-full h-full object-cover opacity-55"
+            style={{
+              objectPosition: selectedCategory.videoPosition || '50% 50%',
+              transform: selectedCategory.videoTranslateY ? `translateY(${selectedCategory.videoTranslateY})` : undefined
+            }}
             alt=""
           />
         )}

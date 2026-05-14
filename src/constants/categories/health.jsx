@@ -1,15 +1,18 @@
 import React from 'react';
 import { HeartPulse } from 'lucide-react';
+import healthStill from '../../assets/categories/health/health_still.png';
+import healthLoop from '../../assets/categories/health/health_loop.mp4';
 
 export default {
   id: 'health',
   title: { ET: '4. Minu füüsiline ja vaimne tervis', EN: '4. My Physical and Mental Health' },
-  desc: { 
+  desc: {
     ET: 'Tervishoid ja arstiabi toimub selgete reeglite järgi, et saaksid vajalikku abi õigel ajal ja turvaliselt.',
     EN: 'Healthcare and medical aid follow clear rules so you receive necessary help timely and safely.'
   },
   icon: <HeartPulse className="w-10 h-10" />,
-  imageUrl: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=80',
+  imageUrl: healthStill,
+  videoUrl: healthLoop,
   color: 'green',
   articles: [
     { id: 'health.services', title: { ET: 'Arstiabi ja teenused', EN: 'Medical Services' } },
